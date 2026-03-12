@@ -1,0 +1,578 @@
+# Copyright (C) 2026 Poradnik.pro
+# This file is distributed under the same license as the peartree.pro Ads Marketplace plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: peartree.pro Ads Marketplace 1.0.0\n"
+"Report-Msgid-Bugs-To: https://poradnik.pro\n"
+"POT-Creation-Date: 2026-03-12T00:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Manually generated\n"
+"X-Domain: peartree-pro-ads-marketplace\n"
+
+# --- CampaignManager: slot labels ---
+#: core/CampaignManager.php
+msgid "Header Banner"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Sidebar Banner"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Banner w artykule"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Footer Banner"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Artykuł sponsorowany"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Link sponsorowany"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Promocja na stronie głównej"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Ranking sponsorowany: TOP routery"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Ranking sponsorowany: TOP hostingi"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Ranking sponsorowany: TOP laptopy"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Ranking sponsorowany: TOP narzędzia"
+msgstr ""
+
+# --- CampaignManager: status labels ---
+#: core/CampaignManager.php
+msgid "Oczekuje na płatność"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Oczekuje na akceptację"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Aktywna"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Wstrzymana"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Zakończona"
+msgstr ""
+
+#: core/CampaignManager.php
+msgid "Odrzucona"
+msgstr ""
+
+# --- Marketplace: post type label ---
+#: core/Marketplace.php
+msgid "Kampanie reklamowe"
+msgstr ""
+
+# --- EmailNotifier: email subjects & body ---
+#: core/EmailNotifier.php
+#, php-format
+msgid "[%s] Kampania zatwierdzona — emisja aktywna"
+msgstr ""
+
+#: core/EmailNotifier.php
+#, php-format
+msgid "[%s] Kampania odrzucona"
+msgstr ""
+
+#: core/EmailNotifier.php
+#, php-format
+msgid "[%s] Kampania wstrzymana"
+msgstr ""
+
+#: core/EmailNotifier.php
+#, php-format
+msgid "[%s] Kampania zakończona (data emisji minęła)"
+msgstr ""
+
+#: core/EmailNotifier.php
+#, php-format
+msgid "[%s] Kampania zakończona"
+msgstr ""
+
+# --- Admin: AdsInventory ---
+#: admin/AdsInventory.php
+msgid "Marketplace Reklam"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Marketplace Reklam – Sloty"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Ustawienia webhooków zapisane."
+msgstr ""
+
+#: admin/AdsInventory.php
+#, php-format
+msgid "Wygaszanie wykonane. Zakończono kampanii: %d."
+msgstr ""
+
+#: admin/AdsInventory.php
+#, php-format
+msgid "Webhook testowy (%1$s) zakończony sukcesem dla kampanii #%2$d."
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Webhook testowy nie powiódł się. Sprawdź token/secret i ID kampanii."
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Slot"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Nazwa"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Cena bazowa (PLN)"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Sloty są wykorzystywane przez formularz kampanii reklamodawcy."
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Webhooki płatności"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Skonfiguruj endpointy po stronie operatorów płatności i podaj sekrety."
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Stripe webhook URL"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "PayPal webhook URL"
+msgstr ""
+
+#: admin/AdsInventory.php
+#, php-format
+msgid "Wymagany nagłówek: %s"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Stripe signing secret"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "PayPal webhook token"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Zapisz webhooki"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Test webhooków"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Wyślij testowy webhook i automatycznie aktywuj wybraną kampanię."
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Kampania (lista)"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "— wybierz kampanię —"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Wybór z listy ma priorytet nad ręcznym polem ID."
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "ID kampanii"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Operator"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Wyślij webhook testowy"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Wygaszanie kampanii"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Ręczne uruchomienie procesu wygaszania kampanii, których data końcowa już minęła."
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Do wygaszenia teraz:"
+msgstr ""
+
+#: admin/AdsInventory.php
+msgid "Uruchom wygaszanie teraz"
+msgstr ""
+
+# --- Admin: Campaigns ---
+#: admin/Campaigns.php
+msgid "Kampanie"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Kampanie reklamowe"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "ID"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Status"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Budzet_PLN"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Impresje"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Klikniecia"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "CTR_%"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Start"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Koniec"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Metoda_platnosci"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Eksport CSV kampanii"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Kliknięcia"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "CTR"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Akcje"
+msgstr ""
+
+#: admin/Campaigns.php
+#, php-format
+msgid "Akcja „%1$s" wykonana dla kampanii #%2$d."
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Nie udało się wykonać akcji. Sprawdź aktualny status kampanii."
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Akceptuj"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Odrzuć"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Wstrzymaj"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Zakończ"
+msgstr ""
+
+#: admin/Campaigns.php
+msgid "Wznów"
+msgstr ""
+
+# --- Admin: Orders ---
+#: admin/Orders.php
+msgid "Zamówienia"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Zamówienia reklamowe"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Kampania"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Budżet"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Metoda płatności"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Status płatności"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Okres"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Do opłacenia"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Opłacone"
+msgstr ""
+
+#: admin/Orders.php
+msgid "Oczekuje"
+msgstr ""
+
+# --- Frontend: AdvertiserPanel ---
+#: frontend/AdvertiserPanel.php
+msgid "Panel reklamodawcy jest dostępny po zalogowaniu."
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Błąd bezpieczeństwa akcji kampanii."
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Akcja kampanii została zapisana."
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Nie udało się wykonać akcji dla kampanii."
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Dashboard"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Banery"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Statystyki"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Płatności"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Panel reklamodawcy"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Aktywne kampanie"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Wyświetlenia reklam"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "CTR"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Utwórz kampanię w sekcji Kampanie i opłać ją w sekcji Płatności."
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Banery dodajesz na poziomie kampanii: pole URL banera podczas tworzenia kampanii."
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Statystyki reklam"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Wyświetlenia"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Opłacona (oczekuje akceptacji)"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Opłacona"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Zarządzanie"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Czas trwania"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Baner"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Płatność"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+msgid "Podgląd"
+msgstr ""
+
+#: frontend/AdvertiserPanel.php
+#, php-format
+msgid "Opłać kampanie ze statusem „Oczekuje na płatność". Po płatności status przechodzi na „Oczekuje na akceptację", a aktywację uruchamia administrator."
+msgstr ""
+
+# --- Frontend: AdvertiserPanel plural ---
+#: frontend/AdvertiserPanel.php
+msgctxt "duration days"
+msgid "%d dzień"
+msgid_plural "%d dni"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+# --- Frontend: CampaignForm ---
+#: frontend/CampaignForm.php
+msgid "Zaloguj się, aby utworzyć kampanię reklamową."
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Nieprawidłowy token bezpieczeństwa."
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Kampania została utworzona. Wybierz metodę płatności."
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Nie udało się utworzyć kampanii. Sprawdź pola formularza."
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Utwórz kampanię reklamową"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Nazwa kampanii"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Miejsce reklamy"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Wybierz slot"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "URL docelowy"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "URL banera (opcjonalnie)"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Czas trwania (dni)"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Budżet (PLN, opcjonalnie)"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Automatycznie z cennika"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Utwórz kampanię"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Opłać Stripe"
+msgstr ""
+
+#: frontend/CampaignForm.php
+msgid "Opłać PayPal"
+msgstr ""
+
+# --- Frontend: SponsoredLanding ---
+#: frontend/SponsoredLanding.php
+msgid "Artykuły sponsorowane"
+msgstr ""
+
+#: frontend/SponsoredLanding.php
+msgid "Linki sponsorowane"
+msgstr ""
+
+#: frontend/SponsoredLanding.php
+msgid "Promocje sponsorowane"
+msgstr ""
+
+#: frontend/SponsoredLanding.php
+msgid "Rankingi sponsorowane: TOP routery"
+msgstr ""
+
+#: frontend/SponsoredLanding.php
+msgid "Rankingi sponsorowane: TOP hostingi"
+msgstr ""
+
+#: frontend/SponsoredLanding.php
+msgid "Rankingi sponsorowane: TOP laptopy"
+msgstr ""
+
+#: frontend/SponsoredLanding.php
+msgid "Rankingi sponsorowane: TOP narzędzia"
+msgstr ""
+
+#: frontend/SponsoredLanding.php
+msgid "Oferty sponsorowane"
+msgstr ""

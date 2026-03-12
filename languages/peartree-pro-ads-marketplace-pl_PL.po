@@ -1,0 +1,405 @@
+# Polish (pl_PL) translation for peartree.pro Ads Marketplace
+# Copyright (C) 2026 Poradnik.pro
+msgid ""
+msgstr ""
+"Project-Id-Version: peartree.pro Ads Marketplace 1.0.0\n"
+"POT-Creation-Date: 2026-03-12T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-03-12T00:00:00+00:00\n"
+"Last-Translator: Poradnik.pro <kontakt@poradnik.pro>\n"
+"Language-Team: Polish\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Manually generated\n"
+"X-Domain: peartree-pro-ads-marketplace\n"
+
+msgid "Header Banner"
+msgstr "Header Banner"
+
+msgid "Sidebar Banner"
+msgstr "Sidebar Banner"
+
+msgid "Banner w artykule"
+msgstr "Banner w artykule"
+
+msgid "Footer Banner"
+msgstr "Footer Banner"
+
+msgid "Artykuł sponsorowany"
+msgstr "Artykuł sponsorowany"
+
+msgid "Link sponsorowany"
+msgstr "Link sponsorowany"
+
+msgid "Promocja na stronie głównej"
+msgstr "Promocja na stronie głównej"
+
+msgid "Ranking sponsorowany: TOP routery"
+msgstr "Ranking sponsorowany: TOP routery"
+
+msgid "Ranking sponsorowany: TOP hostingi"
+msgstr "Ranking sponsorowany: TOP hostingi"
+
+msgid "Ranking sponsorowany: TOP laptopy"
+msgstr "Ranking sponsorowany: TOP laptopy"
+
+msgid "Ranking sponsorowany: TOP narzędzia"
+msgstr "Ranking sponsorowany: TOP narzędzia"
+
+msgid "Oczekuje na płatność"
+msgstr "Oczekuje na płatność"
+
+msgid "Oczekuje na akceptację"
+msgstr "Oczekuje na akceptację"
+
+msgid "Aktywna"
+msgstr "Aktywna"
+
+msgid "Wstrzymana"
+msgstr "Wstrzymana"
+
+msgid "Zakończona"
+msgstr "Zakończona"
+
+msgid "Odrzucona"
+msgstr "Odrzucona"
+
+msgid "Kampanie reklamowe"
+msgstr "Kampanie reklamowe"
+
+msgid "Marketplace Reklam"
+msgstr "Marketplace Reklam"
+
+msgid "Marketplace Reklam – Sloty"
+msgstr "Marketplace Reklam – Sloty"
+
+msgid "Ustawienia webhooków zapisane."
+msgstr "Ustawienia webhooków zapisane."
+
+#, php-format
+msgid "Wygaszanie wykonane. Zakończono kampanii: %d."
+msgstr "Wygaszanie wykonane. Zakończono kampanii: %d."
+
+#, php-format
+msgid "Webhook testowy (%1$s) zakończony sukcesem dla kampanii #%2$d."
+msgstr "Webhook testowy (%1$s) zakończony sukcesem dla kampanii #%2$d."
+
+msgid "Webhook testowy nie powiódł się. Sprawdź token/secret i ID kampanii."
+msgstr "Webhook testowy nie powiódł się. Sprawdź token/secret i ID kampanii."
+
+msgid "Slot"
+msgstr "Slot"
+
+msgid "Nazwa"
+msgstr "Nazwa"
+
+msgid "Cena bazowa (PLN)"
+msgstr "Cena bazowa (PLN)"
+
+msgid "Sloty są wykorzystywane przez formularz kampanii reklamodawcy."
+msgstr "Sloty są wykorzystywane przez formularz kampanii reklamodawcy."
+
+msgid "Webhooki płatności"
+msgstr "Webhooki płatności"
+
+msgid "Skonfiguruj endpointy po stronie operatorów płatności i podaj sekrety."
+msgstr "Skonfiguruj endpointy po stronie operatorów płatności i podaj sekrety."
+
+msgid "Stripe webhook URL"
+msgstr "Stripe webhook URL"
+
+msgid "PayPal webhook URL"
+msgstr "PayPal webhook URL"
+
+#, php-format
+msgid "Wymagany nagłówek: %s"
+msgstr "Wymagany nagłówek: %s"
+
+msgid "Stripe signing secret"
+msgstr "Stripe signing secret"
+
+msgid "PayPal webhook token"
+msgstr "PayPal webhook token"
+
+msgid "Zapisz webhooki"
+msgstr "Zapisz webhooki"
+
+msgid "Test webhooków"
+msgstr "Test webhooków"
+
+msgid "Wyślij testowy webhook i automatycznie aktywuj wybraną kampanię."
+msgstr "Wyślij testowy webhook i automatycznie aktywuj wybraną kampanię."
+
+msgid "Kampania (lista)"
+msgstr "Kampania (lista)"
+
+msgid "— wybierz kampanię —"
+msgstr "— wybierz kampanię —"
+
+msgid "Wybór z listy ma priorytet nad ręcznym polem ID."
+msgstr "Wybór z listy ma priorytet nad ręcznym polem ID."
+
+msgid "ID kampanii"
+msgstr "ID kampanii"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Wyślij webhook testowy"
+msgstr "Wyślij webhook testowy"
+
+msgid "Wygaszanie kampanii"
+msgstr "Wygaszanie kampanii"
+
+msgid "Ręczne uruchomienie procesu wygaszania kampanii, których data końcowa już minęła."
+msgstr "Ręczne uruchomienie procesu wygaszania kampanii, których data końcowa już minęła."
+
+msgid "Do wygaszenia teraz:"
+msgstr "Do wygaszenia teraz:"
+
+msgid "Uruchom wygaszanie teraz"
+msgstr "Uruchom wygaszanie teraz"
+
+msgid "Kampanie"
+msgstr "Kampanie"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Budzet_PLN"
+msgstr "Budzet_PLN"
+
+msgid "Impresje"
+msgstr "Impresje"
+
+msgid "Klikniecia"
+msgstr "Klikniecia"
+
+msgid "CTR_%"
+msgstr "CTR_%"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Koniec"
+msgstr "Koniec"
+
+msgid "Metoda_platnosci"
+msgstr "Metoda_platnosci"
+
+msgid "Eksport CSV kampanii"
+msgstr "Eksport CSV kampanii"
+
+msgid "Kliknięcia"
+msgstr "Kliknięcia"
+
+msgid "CTR"
+msgstr "CTR"
+
+msgid "Akcje"
+msgstr "Akcje"
+
+#, php-format
+msgid "Akcja „%1$s" wykonana dla kampanii #%2$d."
+msgstr "Akcja „%1$s" wykonana dla kampanii #%2$d."
+
+msgid "Nie udało się wykonać akcji. Sprawdź aktualny status kampanii."
+msgstr "Nie udało się wykonać akcji. Sprawdź aktualny status kampanii."
+
+msgid "Akceptuj"
+msgstr "Akceptuj"
+
+msgid "Odrzuć"
+msgstr "Odrzuć"
+
+msgid "Wstrzymaj"
+msgstr "Wstrzymaj"
+
+msgid "Zakończ"
+msgstr "Zakończ"
+
+msgid "Wznów"
+msgstr "Wznów"
+
+msgid "Zamówienia"
+msgstr "Zamówienia"
+
+msgid "Zamówienia reklamowe"
+msgstr "Zamówienia reklamowe"
+
+msgid "Kampania"
+msgstr "Kampania"
+
+msgid "Budżet"
+msgstr "Budżet"
+
+msgid "Metoda płatności"
+msgstr "Metoda płatności"
+
+msgid "Status płatności"
+msgstr "Status płatności"
+
+msgid "Okres"
+msgstr "Okres"
+
+msgid "Do opłacenia"
+msgstr "Do opłacenia"
+
+msgid "Opłacone"
+msgstr "Opłacone"
+
+msgid "Oczekuje"
+msgstr "Oczekuje"
+
+msgid "Panel reklamodawcy jest dostępny po zalogowaniu."
+msgstr "Panel reklamodawcy jest dostępny po zalogowaniu."
+
+msgid "Błąd bezpieczeństwa akcji kampanii."
+msgstr "Błąd bezpieczeństwa akcji kampanii."
+
+msgid "Akcja kampanii została zapisana."
+msgstr "Akcja kampanii została zapisana."
+
+msgid "Nie udało się wykonać akcji dla kampanii."
+msgstr "Nie udało się wykonać akcji dla kampanii."
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Banery"
+msgstr "Banery"
+
+msgid "Statystyki"
+msgstr "Statystyki"
+
+msgid "Płatności"
+msgstr "Płatności"
+
+msgid "Panel reklamodawcy"
+msgstr "Panel reklamodawcy"
+
+msgid "Aktywne kampanie"
+msgstr "Aktywne kampanie"
+
+msgid "Wyświetlenia reklam"
+msgstr "Wyświetlenia reklam"
+
+msgid "Utwórz kampanię w sekcji Kampanie i opłać ją w sekcji Płatności."
+msgstr "Utwórz kampanię w sekcji Kampanie i opłać ją w sekcji Płatności."
+
+msgid "Banery dodajesz na poziomie kampanii: pole URL banera podczas tworzenia kampanii."
+msgstr "Banery dodajesz na poziomie kampanii: pole URL banera podczas tworzenia kampanii."
+
+msgid "Statystyki reklam"
+msgstr "Statystyki reklam"
+
+msgid "Wyświetlenia"
+msgstr "Wyświetlenia"
+
+msgid "Opłacona (oczekuje akceptacji)"
+msgstr "Opłacona (oczekuje akceptacji)"
+
+msgid "Opłacona"
+msgstr "Opłacona"
+
+msgid "Zarządzanie"
+msgstr "Zarządzanie"
+
+msgid "Czas trwania"
+msgstr "Czas trwania"
+
+msgid "Baner"
+msgstr "Baner"
+
+msgid "Płatność"
+msgstr "Płatność"
+
+msgid "Podgląd"
+msgstr "Podgląd"
+
+msgid "Opłać kampanie ze statusem „Oczekuje na płatność". Po płatności status przechodzi na „Oczekuje na akceptację", a aktywację uruchamia administrator."
+msgstr "Opłać kampanie ze statusem „Oczekuje na płatność". Po płatności status przechodzi na „Oczekuje na akceptację", a aktywację uruchamia administrator."
+
+msgctxt "duration days"
+msgid "%d dzień"
+msgid_plural "%d dni"
+msgstr[0] "%d dzień"
+msgstr[1] "%d dni"
+msgstr[2] "%d dni"
+
+msgid "Zaloguj się, aby utworzyć kampanię reklamową."
+msgstr "Zaloguj się, aby utworzyć kampanię reklamową."
+
+msgid "Nieprawidłowy token bezpieczeństwa."
+msgstr "Nieprawidłowy token bezpieczeństwa."
+
+msgid "Kampania została utworzona. Wybierz metodę płatności."
+msgstr "Kampania została utworzona. Wybierz metodę płatności."
+
+msgid "Nie udało się utworzyć kampanii. Sprawdź pola formularza."
+msgstr "Nie udało się utworzyć kampanii. Sprawdź pola formularza."
+
+msgid "Utwórz kampanię reklamową"
+msgstr "Utwórz kampanię reklamową"
+
+msgid "Nazwa kampanii"
+msgstr "Nazwa kampanii"
+
+msgid "Miejsce reklamy"
+msgstr "Miejsce reklamy"
+
+msgid "Wybierz slot"
+msgstr "Wybierz slot"
+
+msgid "URL docelowy"
+msgstr "URL docelowy"
+
+msgid "URL banera (opcjonalnie)"
+msgstr "URL banera (opcjonalnie)"
+
+msgid "Czas trwania (dni)"
+msgstr "Czas trwania (dni)"
+
+msgid "Budżet (PLN, opcjonalnie)"
+msgstr "Budżet (PLN, opcjonalnie)"
+
+msgid "Automatycznie z cennika"
+msgstr "Automatycznie z cennika"
+
+msgid "Utwórz kampanię"
+msgstr "Utwórz kampanię"
+
+msgid "Opłać Stripe"
+msgstr "Opłać Stripe"
+
+msgid "Opłać PayPal"
+msgstr "Opłać PayPal"
+
+msgid "Artykuły sponsorowane"
+msgstr "Artykuły sponsorowane"
+
+msgid "Linki sponsorowane"
+msgstr "Linki sponsorowane"
+
+msgid "Promocje sponsorowane"
+msgstr "Promocje sponsorowane"
+
+msgid "Rankingi sponsorowane: TOP routery"
+msgstr "Rankingi sponsorowane: TOP routery"
+
+msgid "Rankingi sponsorowane: TOP hostingi"
+msgstr "Rankingi sponsorowane: TOP hostingi"
+
+msgid "Rankingi sponsorowane: TOP laptopy"
+msgstr "Rankingi sponsorowane: TOP laptopy"
+
+msgid "Rankingi sponsorowane: TOP narzędzia"
+msgstr "Rankingi sponsorowane: TOP narzędzia"
+
+msgid "Oferty sponsorowane"
+msgstr "Oferty sponsorowane"
