@@ -8,6 +8,9 @@ if (! defined('ABSPATH')) {
 
 final class SchemaService
 {
+    // BreadcrumbList schema is generated via BreadcrumbService::schema().
+    // It is appended to the schema data array in forCurrentPost().
+
     /**
      * @return array<int, array<string, mixed>>
      */
@@ -35,6 +38,11 @@ final class SchemaService
 
         if (in_array($post->post_type, ['ranking'], true)) {
             $data[] = self::rankingSchema($post);
+        }
+
+        $breadcrumbSchema = BreadcrumbService::schema();
+        if ($breadcrumbSchema !== []) {
+            $data[] = $breadcrumbSchema;
         }
 
         return $data;

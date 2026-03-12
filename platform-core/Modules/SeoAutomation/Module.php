@@ -2,6 +2,8 @@
 
 namespace Poradnik\Platform\Modules\SeoAutomation;
 
+use Poradnik\Platform\Domain\Seo\BreadcrumbService;
+use Poradnik\Platform\Domain\Seo\CanonicalService;
 use Poradnik\Platform\Domain\Seo\ContentEnhancer;
 use Poradnik\Platform\Domain\Seo\MetaService;
 use Poradnik\Platform\Domain\Seo\SchemaService;
@@ -16,8 +18,10 @@ final class Module
     {
         add_filter('document_title_parts', [self::class, 'filterDocumentTitle']);
         add_action('wp_head', [self::class, 'renderMetaAndSchema'], 5);
+        add_action('wp_head', [CanonicalService::class, 'renderHead'], 6);
 
         add_filter('the_content', [self::class, 'enhanceContent'], 25);
+        add_filter('the_content', [self::class, 'prependBreadcrumbs'], 15);
     }
 
     /**
@@ -44,6 +48,20 @@ final class Module
         foreach ($schemas as $schema) {
             echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
         }
+    }
+
+    public static function prependBreadcrumbs(string $content): string
+    {
+        if (! is_singular()) {
+            return $content;
+        }
+
+        $breadcrumbs = BreadcrumbService::renderHtml();
+        if ($breadcrumbs === '') {
+            return $content;
+        }
+
+        return $breadcrumbs . $content;
     }
 
     public static function enhanceContent(string $content): string

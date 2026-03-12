@@ -2,6 +2,8 @@
 
 namespace Poradnik\Platform\Domain\Seo;
 
+use Poradnik\Platform\Core\EventLogger;
+
 if (! defined('ABSPATH')) {
     exit;
 }
@@ -42,10 +44,23 @@ final class ProgrammaticGenerator
             update_post_meta($postId, '_poradnik_programmatic_template', $template);
             update_post_meta($postId, '_poradnik_programmatic_topic', $topic);
 
+            // Run QA immediately so failed posts are flagged before editorial review.
+            $qa = QaGuardrails::check($postId);
+            $qaStatus = 'draft';
+            if (is_wp_error($qa)) {
+                update_post_meta($postId, '_poradnik_qa_failed', $qa->get_error_message());
+                $qaStatus = 'qa_failed';
+
+                EventLogger::dispatch('poradnik_programmatic_qa_failed', [
+                    'post_id' => $postId,
+                    'issues'  => $qa->get_error_data()['issues'] ?? [],
+                ]);
+            }
+
             $items[] = [
-                'post_id' => $postId,
-                'title' => $title,
-                'status' => 'draft',
+                'post_id'   => $postId,
+                'title'     => $title,
+                'status'    => $qaStatus,
             ];
         }
 
