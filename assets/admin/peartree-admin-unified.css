@@ -1,0 +1,309 @@
+/* peartree.pro unified admin design */
+body[class*="page_ppp-"] .wrap,
+body[class*="page_peartree-pro-seo-engine"] .wrap,
+body[class*="page_ppam-"] .wrap,
+body[class*="page_paa-"] .wrap,
+body[class*="page_ppae-"] .wrap,
+body.toplevel_page_ppp-dashboard .wrap,
+body.toplevel_page_peartree-pro-seo-engine .wrap,
+body.toplevel_page_ppam-marketplace .wrap,
+body.toplevel_page_paa-monetization .wrap,
+body.toplevel_page_ppae-dashboard .wrap {
+    max-width: 1260px;
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-chrome,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-chrome,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-chrome,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-chrome,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-chrome,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-chrome,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-chrome,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-chrome,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-chrome,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-chrome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 14px 20px 6px 2px;
+    padding: 10px 14px;
+    background: #ffffff;
+    border: 1px solid #d7deea;
+    border-radius: 12px;
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-breadcrumb,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-breadcrumb,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-breadcrumb,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-breadcrumb,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-breadcrumb,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-breadcrumb,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-breadcrumb,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-breadcrumb,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-breadcrumb,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #344054;
+    font-size: 13px;
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-breadcrumb__root,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-breadcrumb__root,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-breadcrumb__root,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-breadcrumb__root,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-breadcrumb__root,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-breadcrumb__root,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-breadcrumb__root,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-breadcrumb__root,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-breadcrumb__root,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-breadcrumb__root {
+    font-weight: 700;
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-breadcrumb__sep,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-breadcrumb__sep,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-breadcrumb__sep,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-breadcrumb__sep,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-breadcrumb__sep,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-breadcrumb__sep,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-breadcrumb__sep,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-breadcrumb__sep,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-breadcrumb__sep,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-breadcrumb__sep {
+    color: #98a2b3;
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-actions,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-actions,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-actions,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-actions,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-actions,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-actions,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-actions,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-actions,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-actions,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-actions .button,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-actions .button,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-actions .button,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-actions .button,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-actions .button,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-actions .button,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-actions .button,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-actions .button,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-actions .button,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-actions .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-actions__icon,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-actions__icon,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-actions__icon,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-actions__icon,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-actions__icon,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-actions__icon,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-actions__icon,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-actions__icon,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-actions__icon,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-actions__icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+@media (max-width: 1100px) {
+    body[class*="page_ppp-"] #wpbody-content .ppp-admin-chrome,
+    body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-chrome,
+    body[class*="page_ppam-"] #wpbody-content .ppp-admin-chrome,
+    body[class*="page_paa-"] #wpbody-content .ppp-admin-chrome,
+    body[class*="page_ppae-"] #wpbody-content .ppp-admin-chrome,
+    body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-chrome,
+    body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-chrome,
+    body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-chrome,
+    body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-chrome,
+    body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-chrome {
+        flex-direction: column;
+        align-items: stretch;
+        margin-right: 12px;
+    }
+
+    body[class*="page_ppp-"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_ppam-"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_paa-"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_ppae-"] #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+    }
+
+    body[class*="page_ppp-"] #wpbody-content .ppp-admin-actions .button,
+    body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-actions .button,
+    body[class*="page_ppam-"] #wpbody-content .ppp-admin-actions .button,
+    body[class*="page_paa-"] #wpbody-content .ppp-admin-actions .button,
+    body[class*="page_ppae-"] #wpbody-content .ppp-admin-actions .button,
+    body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-actions .button,
+    body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-actions .button,
+    body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-actions .button,
+    body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-actions .button,
+    body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-actions .button {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 782px) {
+    body[class*="page_ppp-"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_ppam-"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_paa-"] #wpbody-content .ppp-admin-actions,
+    body[class*="page_ppae-"] #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-actions,
+    body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-actions {
+        grid-template-columns: 1fr;
+    }
+
+    body[class*="page_ppp-"] #wpbody-content .ppp-admin-breadcrumb,
+    body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-breadcrumb,
+    body[class*="page_ppam-"] #wpbody-content .ppp-admin-breadcrumb,
+    body[class*="page_paa-"] #wpbody-content .ppp-admin-breadcrumb,
+    body[class*="page_ppae-"] #wpbody-content .ppp-admin-breadcrumb,
+    body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-breadcrumb,
+    body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-breadcrumb,
+    body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-breadcrumb,
+    body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-breadcrumb,
+    body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-breadcrumb {
+        font-size: 12px;
+    }
+}
+
+body[class*="page_ppp-"] #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body[class*="page_peartree-pro-seo-engine"] #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body[class*="page_ppam-"] #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body[class*="page_paa-"] #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body[class*="page_ppae-"] #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body.toplevel_page_ppp-dashboard #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body.toplevel_page_peartree-pro-seo-engine #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body.toplevel_page_ppam-marketplace #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body.toplevel_page_paa-monetization #wpbody-content .ppp-admin-actions .ppp-admin-actions__active,
+body.toplevel_page_ppae-dashboard #wpbody-content .ppp-admin-actions .ppp-admin-actions__active {
+    box-shadow: 0 0 0 1px rgba(11, 91, 211, 0.2) inset;
+}
+
+body[class*="page_ppp-"] .wrap h1,
+body[class*="page_peartree-pro-seo-engine"] .wrap h1,
+body[class*="page_ppam-"] .wrap h1,
+body[class*="page_paa-"] .wrap h1,
+body[class*="page_ppae-"] .wrap h1,
+body.toplevel_page_ppp-dashboard .wrap h1,
+body.toplevel_page_peartree-pro-seo-engine .wrap h1,
+body.toplevel_page_ppam-marketplace .wrap h1,
+body.toplevel_page_paa-monetization .wrap h1,
+body.toplevel_page_ppae-dashboard .wrap h1 {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+body[class*="page_ppp-"] .wrap h2,
+body[class*="page_peartree-pro-seo-engine"] .wrap h2,
+body[class*="page_ppam-"] .wrap h2,
+body[class*="page_paa-"] .wrap h2,
+body[class*="page_ppae-"] .wrap h2,
+body.toplevel_page_ppp-dashboard .wrap h2,
+body.toplevel_page_peartree-pro-seo-engine .wrap h2,
+body.toplevel_page_ppam-marketplace .wrap h2,
+body.toplevel_page_paa-monetization .wrap h2,
+body.toplevel_page_ppae-dashboard .wrap h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+body[class*="page_ppp-"] .wrap .widefat,
+body[class*="page_peartree-pro-seo-engine"] .wrap .widefat,
+body[class*="page_ppam-"] .wrap .widefat,
+body[class*="page_paa-"] .wrap .widefat,
+body[class*="page_ppae-"] .wrap .widefat,
+body.toplevel_page_ppp-dashboard .wrap .widefat,
+body.toplevel_page_peartree-pro-seo-engine .wrap .widefat,
+body.toplevel_page_ppam-marketplace .wrap .widefat,
+body.toplevel_page_paa-monetization .wrap .widefat,
+body.toplevel_page_ppae-dashboard .wrap .widefat {
+    border-radius: 12px;
+    overflow: hidden;
+    border-color: #d7deea;
+}
+
+body[class*="page_ppp-"] .wrap .postbox,
+body[class*="page_peartree-pro-seo-engine"] .wrap .postbox,
+body[class*="page_ppam-"] .wrap .postbox,
+body[class*="page_paa-"] .wrap .postbox,
+body[class*="page_ppae-"] .wrap .postbox,
+body.toplevel_page_ppp-dashboard .wrap .postbox,
+body.toplevel_page_peartree-pro-seo-engine .wrap .postbox,
+body.toplevel_page_ppam-marketplace .wrap .postbox,
+body.toplevel_page_paa-monetization .wrap .postbox,
+body.toplevel_page_ppae-dashboard .wrap .postbox {
+    border: 1px solid #d7deea;
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+body[class*="page_ppp-"] .wrap .notice,
+body[class*="page_peartree-pro-seo-engine"] .wrap .notice,
+body[class*="page_ppam-"] .wrap .notice,
+body[class*="page_paa-"] .wrap .notice,
+body[class*="page_ppae-"] .wrap .notice,
+body.toplevel_page_ppp-dashboard .wrap .notice,
+body.toplevel_page_peartree-pro-seo-engine .wrap .notice,
+body.toplevel_page_ppam-marketplace .wrap .notice,
+body.toplevel_page_paa-monetization .wrap .notice,
+body.toplevel_page_ppae-dashboard .wrap .notice {
+    border-radius: 10px;
+}
+
+body[class*="page_ppp-"] .wrap .button,
+body[class*="page_peartree-pro-seo-engine"] .wrap .button,
+body[class*="page_ppam-"] .wrap .button,
+body[class*="page_paa-"] .wrap .button,
+body[class*="page_ppae-"] .wrap .button,
+body.toplevel_page_ppp-dashboard .wrap .button,
+body.toplevel_page_peartree-pro-seo-engine .wrap .button,
+body.toplevel_page_ppam-marketplace .wrap .button,
+body.toplevel_page_paa-monetization .wrap .button,
+body.toplevel_page_ppae-dashboard .wrap .button {
+    border-radius: 8px;
+}
+
+body[class*="page_ppp-"] .wrap .form-table th,
+body[class*="page_peartree-pro-seo-engine"] .wrap .form-table th,
+body[class*="page_ppam-"] .wrap .form-table th,
+body[class*="page_paa-"] .wrap .form-table th,
+body[class*="page_ppae-"] .wrap .form-table th,
+body.toplevel_page_ppp-dashboard .wrap .form-table th,
+body.toplevel_page_peartree-pro-seo-engine .wrap .form-table th,
+body.toplevel_page_ppam-marketplace .wrap .form-table th,
+body.toplevel_page_paa-monetization .wrap .form-table th,
+body.toplevel_page_ppae-dashboard .wrap .form-table th {
+    font-weight: 600;
+    color: #344054;
+}
