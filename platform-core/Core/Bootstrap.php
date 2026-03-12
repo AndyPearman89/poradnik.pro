@@ -25,6 +25,7 @@ final class Bootstrap
         }
 
         \Poradnik\Platform\Admin\ModuleFlagsPage::init();
+        \Poradnik\Platform\Admin\StripeSettingsPage::init();
     }
 
     private static function registerAutoloader(): void

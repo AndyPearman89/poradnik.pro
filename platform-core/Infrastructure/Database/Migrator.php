@@ -11,7 +11,7 @@ if (! defined('ABSPATH')) {
 final class Migrator
 {
     private const OPTION_KEY = 'poradnik_platform_db_version';
-    private const SCHEMA_VERSION = '1.2.0';
+    private const SCHEMA_VERSION = '1.3.0';
 
     public static function init(): void
     {
@@ -186,6 +186,18 @@ final class Migrator
                 KEY package_key (package_key),
                 KEY status (status),
                 KEY payment_status (payment_status)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('stripe_sessions') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                stripe_event_id varchar(191) NOT NULL,
+                event_type varchar(191) NOT NULL DEFAULT '',
+                processed_at datetime DEFAULT NULL,
+                created_at datetime NOT NULL,
+                updated_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                UNIQUE KEY stripe_event_id (stripe_event_id),
+                KEY event_type (event_type),
+                KEY processed_at (processed_at)
             ) {$charsetCollate};",
         ];
     }

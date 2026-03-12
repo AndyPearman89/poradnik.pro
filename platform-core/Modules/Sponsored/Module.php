@@ -3,6 +3,7 @@
 namespace Poradnik\Platform\Modules\Sponsored;
 
 use Poradnik\Platform\Admin\SponsoredOrdersPage;
+use Poradnik\Platform\Domain\Stripe\ReconciliationJob;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -15,6 +16,8 @@ final class Module
         if (is_admin()) {
             SponsoredOrdersPage::init();
         }
+
+        ReconciliationJob::init();
 
         add_filter('the_content', [self::class, 'decorateSponsoredContent'], 20);
     }

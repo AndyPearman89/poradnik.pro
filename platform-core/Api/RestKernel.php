@@ -13,6 +13,8 @@ use Poradnik\Platform\Api\Controllers\ProgrammaticBuildController;
 use Poradnik\Platform\Api\Controllers\RankingController;
 use Poradnik\Platform\Api\Controllers\ReviewController;
 use Poradnik\Platform\Api\Controllers\SponsoredOrderController;
+use Poradnik\Platform\Api\Controllers\StripeCheckoutController;
+use Poradnik\Platform\Api\Controllers\StripeWebhookController;
 use Poradnik\Platform\Core\EventLogger;
 
 if (! defined('ABSPATH')) {
@@ -46,6 +48,8 @@ final class RestKernel
         ProgrammaticBuildController::registerRoutes();
         RankingController::registerRoutes();
         ReviewController::registerRoutes();
+        StripeWebhookController::registerRoutes();
+        StripeCheckoutController::registerRoutes();
 
         EventLogger::dispatch('poradnik_platform_rest_routes_registered');
     }
