@@ -1,0 +1,31 @@
+# Dependencies
+vendor/
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.local.php
+wp-config.php
+
+# Build output
+dist/
+build/
+*.min.js
+*.min.css
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# Logs
+*.log
+logs/
+
+# PHP caches
+*.cache
