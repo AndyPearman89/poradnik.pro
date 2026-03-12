@@ -1,0 +1,1 @@
+(function(){var links=document.querySelectorAll('a[href*="/go/"]');if(!links.length){return;}for(var i=0;i<links.length;i++){links[i].setAttribute('data-ppae','1');}})();
