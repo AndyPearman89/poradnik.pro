@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruleset name="Poradnik Platform">
+    <description>PHP CodeSniffer configuration for Poradnik.PRO platform-core.</description>
+
+    <file>platform-core</file>
+    <file>poradnik-platform-loader.php</file>
+
+    <exclude-pattern>*/index.php</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <!-- Use WordPress coding standards as the base -->
+    <rule ref="WordPress-Core"/>
+    <rule ref="WordPress-Docs"/>
+    <rule ref="WordPress-Extra"/>
+
+    <!-- Enforce PHP 8.1+ compatible code -->
+    <config name="minimum_supported_wp_version" value="6.0"/>
+    <config name="testVersion" value="8.1-"/>
+
+    <!-- Allow PSR-4 class file names -->
+    <rule ref="WordPress.Files.FileName">
+        <properties>
+            <property name="strict_class_file_names" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- Namespace declarations are allowed for class files -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="poradnik"/>
+                <element value="Poradnik"/>
+                <element value="PORADNIK"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

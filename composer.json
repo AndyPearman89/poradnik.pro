@@ -1,0 +1,28 @@
+{
+    "name": "andypearman89/poradnik-pro",
+    "description": "Poradnik.PRO – scalable SEO knowledge portal and monetisation platform (WordPress MU-plugins)",
+    "type": "wordpress-muplugin",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.9",
+        "wp-coding-standards/wpcs": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Poradnik\\Platform\\": "platform-core/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "lint": "php -r \"echo 'PHP syntax check\\n';\" && find platform-core -name '*.php' -exec php -l {} \\;",
+        "cs": "phpcs",
+        "cs-fix": "phpcbf"
+    }
+}
