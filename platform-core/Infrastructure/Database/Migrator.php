@@ -11,7 +11,7 @@ if (! defined('ABSPATH')) {
 final class Migrator
 {
     private const OPTION_KEY = 'poradnik_platform_db_version';
-    private const SCHEMA_VERSION = '1.3.0';
+    private const SCHEMA_VERSION = '1.4.0';
 
     public static function init(): void
     {
@@ -198,6 +198,79 @@ final class Migrator
                 UNIQUE KEY stripe_event_id (stripe_event_id),
                 KEY event_type (event_type),
                 KEY processed_at (processed_at)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('user_favorites') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                user_id bigint(20) unsigned NOT NULL,
+                post_id bigint(20) unsigned NOT NULL,
+                created_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                UNIQUE KEY user_post (user_id, post_id),
+                KEY user_id (user_id),
+                KEY post_id (post_id),
+                KEY created_at (created_at)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('user_history') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                user_id bigint(20) unsigned NOT NULL,
+                post_id bigint(20) unsigned NOT NULL,
+                viewed_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                KEY user_id (user_id),
+                KEY post_id (post_id),
+                KEY viewed_at (viewed_at)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('user_subscriptions') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                user_id bigint(20) unsigned NOT NULL,
+                topic_slug varchar(191) NOT NULL,
+                created_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                UNIQUE KEY user_topic (user_id, topic_slug),
+                KEY user_id (user_id),
+                KEY topic_slug (topic_slug)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('specialist_profiles') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                user_id bigint(20) unsigned NOT NULL,
+                bio text,
+                specializations text,
+                socials text,
+                status varchar(50) NOT NULL DEFAULT 'pending',
+                created_at datetime NOT NULL,
+                updated_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                UNIQUE KEY user_id (user_id),
+                KEY status (status)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('specialist_earnings') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                user_id bigint(20) unsigned NOT NULL,
+                amount decimal(12,2) NOT NULL DEFAULT 0.00,
+                currency varchar(10) NOT NULL DEFAULT 'PLN',
+                source varchar(100) NOT NULL DEFAULT '',
+                period varchar(20) NOT NULL DEFAULT '',
+                status varchar(50) NOT NULL DEFAULT 'pending',
+                created_at datetime NOT NULL,
+                updated_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                KEY user_id (user_id),
+                KEY status (status),
+                KEY period (period)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('platform_notifications') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                user_id bigint(20) unsigned NOT NULL,
+                type varchar(100) NOT NULL DEFAULT '',
+                title varchar(255) NOT NULL DEFAULT '',
+                body text,
+                read_at datetime DEFAULT NULL,
+                created_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                KEY user_id (user_id),
+                KEY type (type),
+                KEY read_at (read_at),
+                KEY created_at (created_at)
             ) {$charsetCollate};",
         ];
     }
