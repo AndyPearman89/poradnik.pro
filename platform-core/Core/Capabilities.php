@@ -8,11 +8,14 @@ if (! defined('ABSPATH')) {
 
 final class Capabilities
 {
+    /** Custom capability granted to the poradnik_platform_admin role. */
+    public const CAP_MANAGE = 'manage_poradnik_platform';
+
     public static function manageCapability(): string
     {
-        $capability = apply_filters('poradnik_platform_manage_capability', 'manage_options');
+        $capability = apply_filters('poradnik_platform_manage_capability', self::CAP_MANAGE);
 
-        return is_string($capability) && $capability !== '' ? $capability : 'manage_options';
+        return is_string($capability) && $capability !== '' ? $capability : self::CAP_MANAGE;
     }
 
     public static function canManagePlatform(): bool

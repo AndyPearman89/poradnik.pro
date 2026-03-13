@@ -11,6 +11,8 @@ Status: Execution Checklist v1
 - [x] Potwierdzic panel `Tools -> Poradnik Platform Modules`
 - [x] Dodac centralny logger zdarzen platformy
 - [x] Dodac wspolny helper uprawnien/capabilities
+- [x] Zarejestrowac role platformy (`Core/UserRoles.php`): `poradnik_platform_admin`
+- [x] Dodac stala capability `manage_poradnik_platform` w `Core/Capabilities.php`
 
 ## 1) Content Model (CPT + Taxonomies + ACF)
 - [x] Zarejestrowac CPT: `guide`

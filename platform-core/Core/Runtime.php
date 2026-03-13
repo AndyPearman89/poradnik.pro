@@ -23,6 +23,7 @@ final class Runtime
 
         Migrator::init();
         RestKernel::init();
+        UserRoles::register();
         add_action('init', [self::class, 'onWordPressInit'], 1);
 
         EventLogger::dispatch('poradnik_platform_runtime_initialized');

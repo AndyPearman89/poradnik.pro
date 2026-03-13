@@ -338,14 +338,28 @@ KPI platformowe:
 - sponsored order volume
 - fill rate i eCPM slotów
 
-## 15) Security i compliance
+## 15) User Roles i zarządzanie użytkownikami
+
+### Role platformy
+| Rola | Slug WP | Capability | Opis |
+|---|---|---|---|
+| Platform Admin | `poradnik_platform_admin` | `manage_poradnik_platform` | Zarządza wszystkimi modułami platformy bez pełnego WP admin |
+| Advertiser | `advertiser` | `manage_advertiser_dashboard` | Dostęp do własnego panelu reklamodawcy |
+| WP Administrator | `administrator` | `manage_options` + `manage_poradnik_platform` | Pełny dostęp |
+
+### Rejestracja ról
+- `Core/UserRoles.php` – rejestruje role i capabilities na hooku `init`
+- Odporny na wielokrotną inicjalizację (idempotentny `add_role`)
+- Capability `manage_poradnik_platform` – używana przez wszystkie strony admin platformy
+
+## 16) Security i compliance
 - nonce verification
 - role/capability permissions
 - input sanitization + output escaping
 - audyt zmian statusów kampanii i płatności
 - webhook signature verification (Stripe)
 
-## 16) Design system
+## 17) Design system
 Styl:
 - clean
 - modern
@@ -359,7 +373,7 @@ Kolory bazowe:
 Układ:
 - mobile-first
 
-## 17) Feature flags (już wdrożone)
+## 18) Feature flags (już wdrożone)
 Źródła konfiguracji modułów:
 - opcja: `poradnik_platform_module_flags`
 - filtr: `poradnik_platform_module_flags`
@@ -373,7 +387,7 @@ Panel:
 - `WP Admin -> Tools -> Poradnik Platform Modules`
 - obsługa Save + Reset to Defaults
 
-## 18) Roadmap wdrożenia produkcyjnego
+## 19) Roadmap wdrożenia produkcyjnego
 ### Faza 1 – Foundation
 - pełne CPT + taksonomie + ACF fields
 - migration runner dla tabel
@@ -394,7 +408,7 @@ Panel:
 - multilingual rollout
 - optymalizacja pod miliony UU
 
-## 19) Definition of Done
+## 20) Definition of Done
 Moduł jest „production-ready”, jeśli:
 - ma jawny bootstrap i feature flag
 - ma walidowane endpointy REST/AJAX
