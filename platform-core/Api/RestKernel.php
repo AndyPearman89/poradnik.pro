@@ -10,6 +10,7 @@ use Poradnik\Platform\Api\Controllers\AffiliateClickController;
 use Poradnik\Platform\Api\Controllers\DashboardController;
 use Poradnik\Platform\Api\Controllers\GuideGenerateController;
 use Poradnik\Platform\Api\Controllers\HealthController;
+use Poradnik\Platform\Api\Controllers\PearTreeController;
 use Poradnik\Platform\Api\Controllers\ProgrammaticBuildController;
 use Poradnik\Platform\Api\Controllers\RankingController;
 use Poradnik\Platform\Api\Controllers\ReviewController;
@@ -45,6 +46,7 @@ final class RestKernel
         AdClickController::registerRoutes();
         SponsoredOrderController::registerRoutes();
         DashboardController::registerRoutes();
+        PearTreeController::registerRoutes();
         GuideGenerateController::registerRoutes();
         AiContentController::registerRoutes();
         AiImageController::registerRoutes();
