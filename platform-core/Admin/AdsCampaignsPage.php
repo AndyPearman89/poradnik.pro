@@ -23,7 +23,8 @@ final class AdsCampaignsPage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik Ad Campaigns', 'poradnik-platform'),
             __('Ad Campaigns', 'poradnik-platform'),
             Capabilities::manageCapability(),
@@ -61,7 +62,7 @@ final class AdsCampaignsPage
                 $savedId > 0 ? 'updated' : 'error' => '1',
                 'campaign_id' => $savedId > 0 ? $savedId : $campaignId,
             ],
-            admin_url('tools.php')
+            admin_url('admin.php')
         );
 
         wp_safe_redirect($redirect);
@@ -79,7 +80,7 @@ final class AdsCampaignsPage
         $campaignId = isset($_GET['campaign_id']) ? absint($_GET['campaign_id']) : 0;
         CampaignRepository::delete($campaignId);
 
-        $redirect = add_query_arg(['page' => self::PAGE_SLUG, 'deleted' => '1'], admin_url('tools.php'));
+        $redirect = add_query_arg(['page' => self::PAGE_SLUG, 'deleted' => '1'], admin_url('admin.php'));
 
         wp_safe_redirect($redirect);
         exit;
@@ -177,7 +178,7 @@ final class AdsCampaignsPage
 
         foreach ($campaigns as $campaign) {
             $campaignId = absint($campaign['id'] ?? 0);
-            $editUrl = add_query_arg(['page' => self::PAGE_SLUG, 'campaign_id' => $campaignId], admin_url('tools.php'));
+            $editUrl = add_query_arg(['page' => self::PAGE_SLUG, 'campaign_id' => $campaignId], admin_url('admin.php'));
             $deleteUrl = wp_nonce_url(
                 add_query_arg(['action' => 'poradnik_ads_delete_campaign', 'campaign_id' => $campaignId], admin_url('admin-post.php')),
                 'poradnik_ads_delete_campaign'

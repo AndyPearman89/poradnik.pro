@@ -23,7 +23,8 @@ final class SponsoredOrdersPage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik Sponsored Orders', 'poradnik-platform'),
             __('Sponsored Orders', 'poradnik-platform'),
             Capabilities::manageCapability(),
@@ -58,7 +59,7 @@ final class SponsoredOrdersPage
                 'page' => self::PAGE_SLUG,
                 $orderId > 0 ? 'updated' : 'error' => '1',
             ],
-            admin_url('tools.php')
+            admin_url('admin.php')
         );
 
         wp_safe_redirect($redirect);
@@ -90,7 +91,7 @@ final class SponsoredOrdersPage
                 'page' => self::PAGE_SLUG,
                 $ok ? 'updated' : 'error' => '1',
             ],
-            admin_url('tools.php')
+            admin_url('admin.php')
         );
 
         wp_safe_redirect($redirect);

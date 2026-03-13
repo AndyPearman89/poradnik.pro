@@ -23,9 +23,10 @@ final class ModuleFlagsPage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik Platform Modules', 'poradnik-platform'),
-            __('Poradnik Platform Modules', 'poradnik-platform'),
+            __('Module Flags', 'poradnik-platform'),
             'manage_options',
             self::PAGE_SLUG,
             [self::class, 'renderPage']
@@ -58,7 +59,7 @@ final class ModuleFlagsPage
                     'page' => self::PAGE_SLUG,
                     'reset' => '1',
                 ],
-                admin_url('tools.php')
+                admin_url('admin.php')
             );
 
             wp_safe_redirect($redirect);
@@ -87,7 +88,7 @@ final class ModuleFlagsPage
                 'page' => self::PAGE_SLUG,
                 'updated' => '1',
             ],
-            admin_url('tools.php')
+            admin_url('admin.php')
         );
 
         wp_safe_redirect($redirect);

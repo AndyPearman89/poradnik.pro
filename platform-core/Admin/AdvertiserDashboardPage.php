@@ -20,7 +20,8 @@ final class AdvertiserDashboardPage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik Advertiser Dashboard', 'poradnik-platform'),
             __('Advertiser Dashboard', 'poradnik-platform'),
             Capabilities::manageCapability(),
@@ -80,7 +81,7 @@ final class AdvertiserDashboardPage
 
         echo '<h2 class="nav-tab-wrapper" style="margin-bottom:16px;">';
         foreach ($tabs as $key => $label) {
-            $url = add_query_arg(['page' => self::PAGE_SLUG, 'tab' => $key, 'advertiser_id' => absint($_GET['advertiser_id'] ?? 0)], admin_url('tools.php'));
+            $url = add_query_arg(['page' => self::PAGE_SLUG, 'tab' => $key, 'advertiser_id' => absint($_GET['advertiser_id'] ?? 0)], admin_url('admin.php'));
             $class = $tab === $key ? ' nav-tab-active' : '';
             echo '<a href="' . esc_url($url) . '" class="nav-tab' . esc_attr($class) . '">' . esc_html($label) . '</a>';
         }
