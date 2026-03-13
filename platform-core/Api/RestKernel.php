@@ -15,6 +15,7 @@ use Poradnik\Platform\Api\Controllers\ReviewController;
 use Poradnik\Platform\Api\Controllers\SponsoredOrderController;
 use Poradnik\Platform\Api\Controllers\StripeCheckoutController;
 use Poradnik\Platform\Api\Controllers\StripeWebhookController;
+use Poradnik\Platform\Api\Controllers\PearTreeController;
 use Poradnik\Platform\Core\EventLogger;
 
 if (! defined('ABSPATH')) {
@@ -50,6 +51,7 @@ final class RestKernel
         ReviewController::registerRoutes();
         StripeWebhookController::registerRoutes();
         StripeCheckoutController::registerRoutes();
+        PearTreeController::registerRoutes();
 
         EventLogger::dispatch('poradnik_platform_rest_routes_registered');
     }
