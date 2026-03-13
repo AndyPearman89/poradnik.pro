@@ -112,50 +112,50 @@ Status: Execution Checklist v1
 - [x] Harmonogram i limity dzienne publikacji
 
 ## 12) AI Content Generator
-- [ ] Headline generator
-- [ ] Outline generator
-- [ ] FAQ generator
-- [ ] Meta description generator
-- [ ] Ranking copy generator
-- [ ] Panel AI Article Assistant w admin
-- [ ] Guardrails: jakosc, dlugosc, banned claims
+- [x] Headline generator
+- [x] Outline generator
+- [x] FAQ generator
+- [x] Meta description generator
+- [x] Ranking copy generator
+- [x] Panel AI Article Assistant w admin
+- [x] Guardrails: jakosc, dlugosc, banned claims
 
 ## 13) AI Image Generator
-- [ ] Generator obrazow z tytulu artykulu
-- [ ] Szablony typografii i tla per kategoria
-- [ ] Format 1200x630 (OG)
-- [ ] Format 16:9 (hero)
-- [ ] Format 1:1 (social)
-- [ ] Auto-upload do Media Library
-- [ ] Auto-podpiecie jako featured image / OG image
+- [x] Generator obrazow z tytulu artykulu
+- [x] Szablony typografii i tla per kategoria
+- [x] Format 1200x630 (OG)
+- [x] Format 16:9 (hero)
+- [x] Format 1:1 (social)
+- [x] Auto-upload do Media Library
+- [x] Auto-podpiecie jako featured image / OG image
 
 ## 14) Multilingual SEO
-- [ ] Konfiguracja jezykow: PL/EN/DE/ES/FR
-- [ ] URL strategy: /pl/, /en/, /de/, /es/, /fr/
-- [ ] Language switcher frontend
-- [ ] Hreflang mapowanie miedzy wersjami
-- [ ] Lokalizacja schema i metadanych
+- [x] Konfiguracja jezykow: PL/EN/DE/ES/FR
+- [x] URL strategy: /pl/, /en/, /de/, /es/, /fr/
+- [x] Language switcher frontend
+- [x] Hreflang mapowanie miedzy wersjami
+- [x] Lokalizacja schema i metadanych
 
 ## 15) Analytics + Measurement
-- [ ] Integracja Google Analytics
-- [ ] Integracja Google Search Console
-- [ ] Eventy: affiliate_click, ad_click, ad_impression
-- [ ] Dashboard KPI: sessions/CTR/revenue per type
-- [ ] Raporty tygodniowe i miesieczne
+- [x] Integracja Google Analytics
+- [x] Integracja Google Search Console
+- [x] Eventy: affiliate_click, ad_click, ad_impression
+- [x] Dashboard KPI: sessions/CTR/revenue per type
+- [x] Raporty tygodniowe i miesieczne
 
 ## 16) Security + Hardening
-- [ ] Nonce verification dla formularzy i AJAX
-- [ ] Sanitizacja wejscia + escaping wyjscia
-- [ ] Capability checks dla kazdej akcji admin
-- [ ] Ochrona endpointow REST (permission callbacks)
-- [ ] Audyt logow bezpieczenstwa
+- [x] Nonce verification dla formularzy i AJAX
+- [x] Sanitizacja wejscia + escaping wyjscia
+- [x] Capability checks dla kazdej akcji admin
+- [x] Ochrona endpointow REST (permission callbacks)
+- [x] Audyt logow bezpieczenstwa
 
 ## 17) Performance + Scale
-- [ ] Lazy loading obrazow
-- [ ] Kompatybilnosc z cache (page/object)
-- [ ] CDN readiness
-- [ ] Optymalizacja zapytan DB i indeksow
-- [ ] Kolejkowanie zadan ciezkich (AI/Programmatic)
+- [x] Lazy loading obrazow
+- [x] Kompatybilnosc z cache (page/object)
+- [x] CDN readiness
+- [x] Optymalizacja zapytan DB i indeksow
+- [x] Kolejkowanie zadan ciezkich (AI/Programmatic)
 
 ## 18) QA / Release Readiness
 - [ ] Testy smoke dla wszystkich modulow
@@ -182,5 +182,11 @@ Status: Execution Checklist v1
 2. Affiliate + Ranking + Review OK
 3. Ads + Sponsored + Stripe OK
 4. SEO Automation + Programmatic SEO OK
-5. AI Content + AI Image <- nastepny
-6. Multilingual + final hardening + go-live
+5. AI Content + AI Image OK
+6. Multilingual + Analytics + Security + Performance OK
+7. QA / Release Readiness + Go-Live <- nastepny
+
+## Demo dane (Setup Module)
+- Konto testowe reklamodawcy: login `reklamapro`, haslo `admin`
+- 5 przykladowych kampanii reklamowych (4 aktywne, 1 draft)
+- Seedowanie uruchamiane automatycznie raz przy pierwszym zaladowaniu (flaga `poradnik_platform_demo_seeded`)
