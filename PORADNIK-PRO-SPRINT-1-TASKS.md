@@ -196,4 +196,20 @@ Kryteria akceptacji:
 
 ---
 
+## Dziennik wykonania
+
+| Data | Obszar | Test / Zadanie | Wynik | Owner | Uwagi |
+|---|---|---|---|---|---|
+| 2026-03-13 | Runtime | Core bootstrap + eventy | PASS | platform-team | `poradnik_platform_bootstrapped` emitowany |
+| 2026-03-13 | Content Model | Rejestracja CPT + taxonomie | PASS | platform-team | Widoczne w admin i REST |
+| 2026-03-13 | Database | Migracje `dbDelta` i indeksy | PASS | platform-team | Migracje idempotentne |
+| 2026-03-13 | REST | Health + tracking endpointy | PASS | platform-team | Walidacja payloadu aktywna |
+| 2026-03-13 | Security | Nonce + capability + escaping | PASS | platform-team | Bez krytycznych regresji |
+| 2026-03-13 | QA | Lint `php -l` | PASS | platform-team | Brak błędów składni |
+
+### Szablon nowego wpisu
+`| YYYY-MM-DD | Obszar | Test / Zadanie | PASS/FAIL | Owner | Krótka notatka |`
+
+---
+
 Po Sprint 1 platforma ma stabilny fundament techniczny pod wdrożenie modułów monetyzacyjnych (Affiliate/Ads/Sponsored) w Sprint 2.

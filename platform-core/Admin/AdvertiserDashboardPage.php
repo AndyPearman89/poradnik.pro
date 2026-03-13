@@ -35,8 +35,8 @@ final class AdvertiserDashboardPage
             wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'poradnik-platform'));
         }
 
-        $advertiserId = isset($_GET['advertiser_id']) ? absint($_GET['advertiser_id']) : 0;
-        $tab = isset($_GET['tab']) ? sanitize_key((string) $_GET['tab']) : 'overview';
+        $advertiserId = isset($_GET['advertiser_id']) ? absint(wp_unslash($_GET['advertiser_id'])) : 0;
+        $tab = isset($_GET['tab']) ? sanitize_key((string) wp_unslash($_GET['tab'])) : 'overview';
 
         $overview = StatsService::overview($advertiserId);
         $campaigns = StatsService::campaigns($advertiserId);
@@ -47,7 +47,7 @@ final class AdvertiserDashboardPage
         echo '<h1>' . esc_html__('Advertiser Dashboard', 'poradnik-platform') . '</h1>';
 
         self::renderFilters($advertiserId, $tab);
-        self::renderTabs($tab, $overview, $campaigns, $statistics, $payments);
+        self::renderTabs($tab, $advertiserId, $overview, $campaigns, $statistics, $payments);
 
         echo '</div>';
     }
@@ -69,7 +69,7 @@ final class AdvertiserDashboardPage
      * @param array<string, mixed> $statistics
      * @param array<string, mixed> $payments
      */
-    private static function renderTabs(string $tab, array $overview, array $campaigns, array $statistics, array $payments): void
+    private static function renderTabs(string $tab, int $advertiserId, array $overview, array $campaigns, array $statistics, array $payments): void
     {
         $tabs = [
             'overview' => 'Overview',
@@ -80,7 +80,7 @@ final class AdvertiserDashboardPage
 
         echo '<h2 class="nav-tab-wrapper" style="margin-bottom:16px;">';
         foreach ($tabs as $key => $label) {
-            $url = add_query_arg(['page' => self::PAGE_SLUG, 'tab' => $key, 'advertiser_id' => absint($_GET['advertiser_id'] ?? 0)], admin_url('tools.php'));
+            $url = add_query_arg(['page' => self::PAGE_SLUG, 'tab' => $key, 'advertiser_id' => $advertiserId], admin_url('tools.php'));
             $class = $tab === $key ? ' nav-tab-active' : '';
             echo '<a href="' . esc_url($url) . '" class="nav-tab' . esc_attr($class) . '">' . esc_html($label) . '</a>';
         }

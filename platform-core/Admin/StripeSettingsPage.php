@@ -34,19 +34,25 @@ final class StripeSettingsPage
             return;
         }
 
-        if (empty($_POST['poradnik_stripe_save'])) {
+        if (! isset($_POST['poradnik_stripe_save'])) {
             return;
         }
 
         check_admin_referer('poradnik_stripe_settings_save');
 
-        $secretKey      = sanitize_text_field((string) ($_POST['stripe_secret_key'] ?? ''));
-        $publishableKey = sanitize_text_field((string) ($_POST['stripe_publishable_key'] ?? ''));
-        $webhookSecret  = sanitize_text_field((string) ($_POST['stripe_webhook_secret'] ?? ''));
+        $secretKey      = isset($_POST['stripe_secret_key']) ? sanitize_text_field((string) wp_unslash($_POST['stripe_secret_key'])) : '';
+        $publishableKey = isset($_POST['stripe_publishable_key']) ? sanitize_text_field((string) wp_unslash($_POST['stripe_publishable_key'])) : '';
+        $webhookSecret  = isset($_POST['stripe_webhook_secret']) ? sanitize_text_field((string) wp_unslash($_POST['stripe_webhook_secret'])) : '';
 
-        update_option('poradnik_stripe_secret_key', $secretKey);
-        update_option('poradnik_stripe_publishable_key', $publishableKey);
-        update_option('poradnik_stripe_webhook_secret', $webhookSecret);
+        if ($secretKey !== '') {
+            update_option('poradnik_stripe_secret_key', $secretKey);
+        }
+        if ($publishableKey !== '') {
+            update_option('poradnik_stripe_publishable_key', $publishableKey);
+        }
+        if ($webhookSecret !== '') {
+            update_option('poradnik_stripe_webhook_secret', $webhookSecret);
+        }
 
         $redirect = add_query_arg(
             ['page' => self::PAGE_SLUG, 'updated' => '1'],
@@ -72,7 +78,7 @@ final class StripeSettingsPage
         echo '<div class="wrap">';
         echo '<h1>' . esc_html__('Stripe Settings – Poradnik Platform', 'poradnik-platform') . '</h1>';
 
-        if (isset($_GET['updated']) && $_GET['updated'] === '1') {
+        if (isset($_GET['updated']) && (string) wp_unslash($_GET['updated']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>'
                 . esc_html__('Stripe settings saved.', 'poradnik-platform')
                 . '</p></div>';

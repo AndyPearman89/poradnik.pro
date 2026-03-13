@@ -16,9 +16,17 @@ final class ReviewController
     public static function registerRoutes(): void
     {
         register_rest_route('poradnik/v1', '/review/summary', [
-            'methods' => 'GET',
-            'callback' => [self::class, 'summary'],
+            'methods'             => 'GET',
+            'callback'            => [self::class, 'summary'],
             'permission_callback' => [self::class, 'canAccess'],
+            'args'                => [
+                'post_id' => [
+                    'required'          => true,
+                    'type'              => 'integer',
+                    'minimum'           => 1,
+                    'sanitize_callback' => 'absint',
+                ],
+            ],
         ]);
     }
 

@@ -31,24 +31,81 @@ final class ContentEnhancer
             return $content;
         }
 
-        preg_match_all('/<h2[^>]*>(.*?)<\/h2>/i', $content, $matches);
-        $headings = $matches[1] ?? [];
+        $headings = [];
+        $usedIds = [];
+        $contentWithAnchors = preg_replace_callback(
+            '/<h2([^>]*)>(.*?)<\/h2>/i',
+            static function (array $match) use (&$headings, &$usedIds): string {
+                $attrs = (string) ($match[1] ?? '');
+                $inner = (string) ($match[2] ?? '');
+                $label = trim(wp_strip_all_tags($inner));
 
-        if (! is_array($headings) || count($headings) < 2) {
+                if ($label === '') {
+                    return (string) ($match[0] ?? '');
+                }
+
+                $id = '';
+                if (preg_match('/\sid=("|\')(.*?)\1/i', $attrs, $idMatch)) {
+                    $id = sanitize_title((string) ($idMatch[2] ?? ''));
+                }
+
+                if ($id === '') {
+                    $id = sanitize_title($label);
+                }
+
+                if ($id === '') {
+                    $id = 'sekcja';
+                }
+
+                $baseId = $id;
+                $suffix = 2;
+                while (isset($usedIds[$id])) {
+                    $id = $baseId . '-' . $suffix;
+                    $suffix++;
+                }
+
+                $usedIds[$id] = true;
+                $headings[] = ['id' => $id, 'label' => $label];
+
+                if (! preg_match('/\sid=("|\')(.*?)\1/i', $attrs)) {
+                    $attrs .= ' id="' . esc_attr($id) . '"';
+                }
+
+                return '<h2' . $attrs . '>' . $inner . '</h2>';
+            },
+            $content
+        );
+
+        if (! is_string($contentWithAnchors)) {
+            return $content;
+        }
+
+        if (count($headings) < 2) {
             return $content;
         }
 
         $list = '<div class="poradnik-seo-toc"><strong>Spis tresci</strong><ol>';
         foreach ($headings as $heading) {
-            $label = trim(wp_strip_all_tags((string) $heading));
+            if (! is_array($heading)) {
+                continue;
+            }
+
+            $label = trim((string) ($heading['label'] ?? ''));
+            $id = trim((string) ($heading['id'] ?? ''));
             if ($label === '') {
                 continue;
             }
-            $list .= '<li>' . esc_html($label) . '</li>';
+
+            if ($id === '') {
+                $list .= '<li>' . esc_html($label) . '</li>';
+                continue;
+            }
+
+            $list .= '<li><a href="#' . esc_attr($id) . '">' . esc_html($label) . '</a></li>';
         }
         $list .= '</ol></div>';
 
-        return $list . $content;
+        return $list . $contentWithAnchors;
     }
 
     public static function appendInternalLinks(string $content): string

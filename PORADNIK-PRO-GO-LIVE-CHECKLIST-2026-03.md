@@ -1,0 +1,42 @@
+# PORADNIK.PRO — Go-Live Checklist (Marzec 2026)
+
+Data: 2026-03-13  
+Owner: DevOps / Platform Team
+
+## Artefakty powiązane
+- [Runbook + Rollback](PORADNIK-PRO-P1-RUNBOOK-ROLLBACK-2026-03-13.md)
+- [Matryca ryzyk go-live](PORADNIK-PRO-GOLIVE-RISK-MATRIX-2026-03.md) — progi alertów, sondy, eskalacja
+- [Sprint 12 Plan](PORADNIK-PRO-SPRINT-12-PLAN-2026-03-13.md)
+
+## A. Przed wdrożeniem
+- [ ] Backup DB wykonany i zweryfikowany (snapshot + test restore metadata).
+- [ ] Backup plików aplikacji wykonany (`mu-plugins`, `themes`, konfiguracje).
+- [ ] Potwierdzone PASS dla P1-01..P1-06.
+- [ ] Brak aktywnych blockerów P0/P1.
+- [ ] Kanał eskalacji i ownerzy dyżuru potwierdzeni.
+
+## B. Wdrożenie
+- [ ] Release artefakt wdrożony na target environment.
+- [ ] Migracje DB wykonane bez błędów krytycznych.
+- [ ] Rewrite/cache odświeżone (jeśli wymagane).
+- [ ] Smoke krytyczny po deployu zakończony PASS:
+  - [ ] Admin Tools
+  - [ ] Affiliate click endpoint
+  - [ ] Dashboard campaigns API
+  - [ ] Sponsored workflow (minimum)
+
+## C. Po wdrożeniu (24h)
+- [ ] Monitoring 5xx/4xx i błędów PHP aktywny.
+- [ ] Monitoring eventów monetyzacyjnych aktywny (`affiliate_click`, `ad_click`, `ad_impression`).
+- [ ] Brak anomalii krytycznych revenue/CTR.
+- [ ] Raport D+1 przygotowany i zatwierdzony.
+
+## D. Stabilizacja (7 dni)
+- [ ] Raporty D+2..D+7 dostępne.
+- [ ] Brak regresji krytycznych funkcji platformy.
+- [ ] Decyzja o zamknięciu okresu go-live podpisana przez ownerów.
+
+## E. Rollback readiness
+- [ ] Trigger rollback i SLA decyzji znane (`<=15 min`).
+- [ ] Procedura restore technicznie przetestowana.
+- [ ] Krytyczne testy po rollbacku zdefiniowane i gotowe do uruchomienia.

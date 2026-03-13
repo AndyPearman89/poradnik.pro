@@ -19,9 +19,47 @@ final class SponsoredOrderController
             'poradnik/v1',
             '/sponsored/orders',
             [
-                'methods' => 'POST',
-                'callback' => [self::class, 'handleCreate'],
+                'methods'             => 'POST',
+                'callback'            => [self::class, 'handleCreate'],
                 'permission_callback' => '__return_true',
+                'args'                => [
+                    'title' => [
+                        'required'          => true,
+                        'type'              => 'string',
+                        'minLength'         => 3,
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ],
+                    'advertiser_email' => [
+                        'required'          => true,
+                        'type'              => 'string',
+                        'format'            => 'email',
+                        'sanitize_callback' => 'sanitize_email',
+                    ],
+                    'package_key' => [
+                        'type'    => 'string',
+                        'enum'    => ['basic', 'featured', 'homepage'],
+                        'default' => 'basic',
+                    ],
+                    'amount' => [
+                        'type'    => 'number',
+                        'minimum' => 0,
+                        'default' => 0,
+                    ],
+                    'currency' => [
+                        'type'              => 'string',
+                        'default'           => 'PLN',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ],
+                    'content' => [
+                        'type'    => 'string',
+                        'default' => '',
+                    ],
+                    'desired_publish_at' => [
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ],
+                ],
             ]
         );
     }

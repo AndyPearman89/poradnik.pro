@@ -32,6 +32,10 @@ final class Module
         'intent' => 'intencja',
         'stage' => 'etap',
         'industry' => 'branza',
+        'difficulty' => 'trudnosc',
+        'device' => 'urzadzenie',
+        'software' => 'oprogramowanie-tax',
+        'product_category' => 'kategoria-produktu',
     ];
 
     public static function init(): void
@@ -175,6 +179,10 @@ final class Module
             'intent' => 'Intencja',
             'stage' => 'Etap',
             'industry' => 'Branza',
+            'difficulty' => 'Trudnosc',
+            'device' => 'Urzadzenie',
+            'software' => 'Oprogramowanie',
+            'product_category' => 'Kategoria produktu',
             default => ucfirst($taxonomy),
         };
     }
@@ -186,6 +194,10 @@ final class Module
             'intent' => 'Intencje',
             'stage' => 'Etapy',
             'industry' => 'Branze',
+            'difficulty' => 'Poziomy trudnosci',
+            'device' => 'Urzadzenia',
+            'software' => 'Oprogramowanie',
+            'product_category' => 'Kategorie produktow',
             default => ucfirst($taxonomy),
         };
     }

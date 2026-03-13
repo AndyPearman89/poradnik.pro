@@ -175,4 +175,154 @@ final class StatsService
             'currency' => (string) ($row['currency'] ?: 'PLN'),
         ];
     }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public static function paymentItems(int $advertiserId = 0, int $limit = 20): array
+    {
+        global $wpdb;
+
+        $sponsoredTable = Migrator::tableName('sponsored_articles');
+        $limit = max(1, min(100, $limit));
+
+        $where = '';
+        $params = [];
+
+        if ($advertiserId > 0) {
+            $where = 'WHERE advertiser_id = %d';
+            $params[] = $advertiserId;
+        }
+
+        $sql = "SELECT id, title, amount, currency, status, payment_status, package_key, created_at
+                FROM {$sponsoredTable}
+                {$where}
+                ORDER BY id DESC
+                LIMIT %d";
+
+        $params[] = $limit;
+        $query = $wpdb->prepare($sql, $params);
+        $rows = $wpdb->get_results($query, ARRAY_A);
+
+        if (! is_array($rows)) {
+            return [];
+        }
+
+        $items = [];
+        foreach ($rows as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+
+            $items[] = [
+                'id' => absint($row['id'] ?? 0),
+                'date' => (string) ($row['created_at'] ?? ''),
+                'campaign' => (string) ($row['title'] ?? 'Kampania sponsorowana'),
+                'amount' => (float) ($row['amount'] ?? 0),
+                'currency' => (string) ($row['currency'] ?? 'PLN'),
+                'status' => (string) ($row['payment_status'] ?? $row['status'] ?? 'pending'),
+                'payment_method' => ((string) ($row['package_key'] ?? '') === 'stripe' || ! empty($row['payment_status'])) ? 'stripe' : 'przelewy24',
+            ];
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public static function series(int $advertiserId = 0, string $period = 'daily'): array
+    {
+        global $wpdb;
+
+        $campaignsTable = Migrator::tableName('ad_campaigns');
+        $clicksTable = Migrator::tableName('ad_clicks');
+        $impressionsTable = Migrator::tableName('ad_impressions');
+
+        $period = sanitize_key($period);
+        $groupExpr = "DATE_FORMAT(created_at, '%Y-%m-%d')";
+        $limit = 30;
+
+        if ($period === 'weekly') {
+            $groupExpr = "DATE_FORMAT(created_at, '%x-W%v')";
+            $limit = 12;
+        } elseif ($period === 'monthly') {
+            $groupExpr = "DATE_FORMAT(created_at, '%Y-%m')";
+            $limit = 12;
+        }
+
+        $impressions = self::seriesByTable($impressionsTable, $campaignsTable, $advertiserId, $groupExpr, $limit);
+        $clicks = self::seriesByTable($clicksTable, $campaignsTable, $advertiserId, $groupExpr, $limit);
+
+        $labels = array_values(array_unique(array_merge(array_keys($impressions), array_keys($clicks))));
+        sort($labels);
+
+        $output = [];
+        foreach ($labels as $label) {
+            $views = (int) ($impressions[$label] ?? 0);
+            $clickCount = (int) ($clicks[$label] ?? 0);
+            $ctr = $views > 0 ? round(($clickCount / $views) * 100, 2) : 0.0;
+
+            $output[] = [
+                'label' => $label,
+                'views' => $views,
+                'clicks' => $clickCount,
+                'ctr' => $ctr,
+            ];
+        }
+
+        return $output;
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    private static function seriesByTable(string $eventsTable, string $campaignsTable, int $advertiserId, string $groupExpr, int $limit): array
+    {
+        global $wpdb;
+
+        if ($advertiserId > 0) {
+            $sql = $wpdb->prepare(
+                "SELECT {$groupExpr} AS period_label, COUNT(*) AS total
+                 FROM {$eventsTable} e
+                 INNER JOIN {$campaignsTable} c ON c.id = e.campaign_id
+                 WHERE c.advertiser_id = %d
+                 GROUP BY period_label
+                 ORDER BY period_label DESC
+                 LIMIT %d",
+                $advertiserId,
+                $limit
+            );
+        } else {
+            $sql = $wpdb->prepare(
+                "SELECT {$groupExpr} AS period_label, COUNT(*) AS total
+                 FROM {$eventsTable}
+                 GROUP BY period_label
+                 ORDER BY period_label DESC
+                 LIMIT %d",
+                $limit
+            );
+        }
+
+        $rows = $wpdb->get_results($sql, ARRAY_A);
+        if (! is_array($rows)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($rows as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+
+            $label = (string) ($row['period_label'] ?? '');
+            if ($label === '') {
+                continue;
+            }
+
+            $result[$label] = (int) ($row['total'] ?? 0);
+        }
+
+        return $result;
+    }
 }

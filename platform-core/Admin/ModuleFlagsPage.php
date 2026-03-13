@@ -46,7 +46,7 @@ final class ModuleFlagsPage
             return;
         }
 
-        $action = sanitize_key((string) $_POST['poradnik_platform_action']);
+        $action = sanitize_key((string) wp_unslash($_POST['poradnik_platform_action']));
 
         if ($action === self::ACTION_RESET) {
             check_admin_referer('poradnik_platform_reset_module_flags');
@@ -72,7 +72,9 @@ final class ModuleFlagsPage
         check_admin_referer('poradnik_platform_save_module_flags');
 
         $modules = ModuleRegistry::discoverModules();
-        $submitted = isset($_POST['module_flags']) && is_array($_POST['module_flags']) ? $_POST['module_flags'] : [];
+        $submitted = (isset($_POST['module_flags']) && is_array($_POST['module_flags']))
+            ? wp_unslash($_POST['module_flags'])
+            : [];
 
         $flags = [];
 
@@ -106,11 +108,11 @@ final class ModuleFlagsPage
         echo '<div class="wrap">';
         echo '<h1>' . esc_html__('Poradnik Platform Modules', 'poradnik-platform') . '</h1>';
 
-        if (isset($_GET['updated']) && $_GET['updated'] === '1') {
+        if (isset($_GET['updated']) && (string) wp_unslash($_GET['updated']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Module flags saved.', 'poradnik-platform') . '</p></div>';
         }
 
-        if (isset($_GET['reset']) && $_GET['reset'] === '1') {
+        if (isset($_GET['reset']) && (string) wp_unslash($_GET['reset']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Module flags reset to defaults.', 'poradnik-platform') . '</p></div>';
         }
 

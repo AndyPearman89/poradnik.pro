@@ -36,7 +36,7 @@ final class AiContentPage
         }
 
         $tool = isset($_POST['tool']) ? sanitize_key((string) wp_unslash($_POST['tool'])) : 'outline';
-        $input = isset($_POST['input']) ? (string) wp_unslash($_POST['input']) : '';
+        $input = isset($_POST['input']) ? sanitize_textarea_field((string) wp_unslash($_POST['input'])) : '';
 
         $output = '';
 
