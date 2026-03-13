@@ -112,22 +112,22 @@ Status: Execution Checklist v1
 - [x] Harmonogram i limity dzienne publikacji
 
 ## 12) AI Content Generator
-- [ ] Headline generator
-- [ ] Outline generator
-- [ ] FAQ generator
-- [ ] Meta description generator
-- [ ] Ranking copy generator
-- [ ] Panel AI Article Assistant w admin
-- [ ] Guardrails: jakosc, dlugosc, banned claims
+- [x] Headline generator
+- [x] Outline generator
+- [x] FAQ generator
+- [x] Meta description generator
+- [x] Ranking copy generator
+- [x] Panel AI Article Assistant w admin
+- [x] Guardrails: jakosc, dlugosc, banned claims
 
 ## 13) AI Image Generator
-- [ ] Generator obrazow z tytulu artykulu
-- [ ] Szablony typografii i tla per kategoria
-- [ ] Format 1200x630 (OG)
-- [ ] Format 16:9 (hero)
-- [ ] Format 1:1 (social)
-- [ ] Auto-upload do Media Library
-- [ ] Auto-podpiecie jako featured image / OG image
+- [x] Generator obrazow z tytulu artykulu
+- [x] Szablony typografii i tla per kategoria
+- [x] Format 1200x630 (OG)
+- [x] Format 16:9 (hero)
+- [x] Format 1:1 (social)
+- [x] Auto-upload do Media Library
+- [x] Auto-podpiecie jako featured image / OG image
 
 ## 14) Multilingual SEO
 - [ ] Konfiguracja jezykow: PL/EN/DE/ES/FR
@@ -182,5 +182,6 @@ Status: Execution Checklist v1
 2. Affiliate + Ranking + Review OK
 3. Ads + Sponsored + Stripe OK
 4. SEO Automation + Programmatic SEO OK
-5. AI Content + AI Image <- nastepny
-6. Multilingual + final hardening + go-live
+5. AI Content + AI Image OK
+6. Multilingual + Analytics + Security + Performance + QA <- nastepny
+7. Go-Live final hardening
