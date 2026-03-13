@@ -22,7 +22,8 @@ final class AffiliateProductsPage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik Affiliate Products', 'poradnik-platform'),
             __('Affiliate Products', 'poradnik-platform'),
             Capabilities::manageCapability(),
@@ -57,7 +58,7 @@ final class AffiliateProductsPage
                     'error' => '1',
                     'product_id' => $productId,
                 ],
-                admin_url('tools.php')
+                admin_url('admin.php')
             );
 
             wp_safe_redirect($redirect);
@@ -70,7 +71,7 @@ final class AffiliateProductsPage
                 'updated' => '1',
                 'product_id' => $savedId,
             ],
-            admin_url('tools.php')
+            admin_url('admin.php')
         );
 
         wp_safe_redirect($redirect);
@@ -93,7 +94,7 @@ final class AffiliateProductsPage
                 'page' => self::PAGE_SLUG,
                 'deleted' => '1',
             ],
-            admin_url('tools.php')
+            admin_url('admin.php')
         );
 
         wp_safe_redirect($redirect);
@@ -179,7 +180,7 @@ final class AffiliateProductsPage
                     'page' => self::PAGE_SLUG,
                     'product_id' => $productId,
                 ],
-                admin_url('tools.php')
+                admin_url('admin.php')
             );
             $deleteUrl = wp_nonce_url(
                 add_query_arg(

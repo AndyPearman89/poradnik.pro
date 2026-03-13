@@ -24,6 +24,7 @@ final class Bootstrap
             return;
         }
 
+        \Poradnik\Platform\Admin\PlatformAdminPanel::init();
         \Poradnik\Platform\Admin\ModuleFlagsPage::init();
         \Poradnik\Platform\Admin\StripeSettingsPage::init();
     }

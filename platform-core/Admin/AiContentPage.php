@@ -20,7 +20,8 @@ final class AiContentPage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik AI Article Assistant', 'poradnik-platform'),
             __('AI Article Assistant', 'poradnik-platform'),
             Capabilities::manageCapability(),

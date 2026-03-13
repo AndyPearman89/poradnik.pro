@@ -20,7 +20,8 @@ final class AiImagePage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik AI Image Generator', 'poradnik-platform'),
             __('AI Image Generator', 'poradnik-platform'),
             Capabilities::manageCapability(),

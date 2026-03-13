@@ -20,7 +20,8 @@ final class ProgrammaticSeoPage
 
     public static function registerPage(): void
     {
-        add_management_page(
+        add_submenu_page(
+            PlatformAdminPanel::MENU_SLUG,
             __('Poradnik Programmatic SEO', 'poradnik-platform'),
             __('Programmatic SEO', 'poradnik-platform'),
             Capabilities::manageCapability(),
