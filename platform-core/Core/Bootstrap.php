@@ -12,6 +12,7 @@ final class Bootstrap
     {
         self::registerAutoloader();
         Runtime::init();
+        RoleManager::init();
         self::bootAdmin();
         self::loadModuleBootstraps();
 
