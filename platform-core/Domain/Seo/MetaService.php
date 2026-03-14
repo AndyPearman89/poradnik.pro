@@ -44,6 +44,11 @@ final class MetaService
             return '';
         }
 
+        $introSummary = trim(wp_strip_all_tags((string) get_post_meta($post->ID, 'intro_summary', true)));
+        if ($introSummary !== '') {
+            return mb_substr($introSummary, 0, 155);
+        }
+
         $excerpt = trim(wp_strip_all_tags((string) $post->post_excerpt));
         if ($excerpt === '') {
             $excerpt = trim(wp_strip_all_tags((string) $post->post_content));

@@ -40,15 +40,17 @@ final class SponsoredOrdersPage
 
         check_admin_referer('poradnik_sponsored_save_order');
 
+        $allowedPackages = ['basic', 'featured', 'homepage'];
+        $rawPackage = isset($_POST['package_key']) ? sanitize_key((string) wp_unslash($_POST['package_key'])) : 'basic';
         $payload = [
-            'advertiser_id' => isset($_POST['advertiser_id']) ? absint($_POST['advertiser_id']) : 0,
-            'advertiser_email' => isset($_POST['advertiser_email']) ? wp_unslash($_POST['advertiser_email']) : '',
-            'title' => isset($_POST['title']) ? wp_unslash($_POST['title']) : '',
-            'content' => isset($_POST['content']) ? wp_unslash($_POST['content']) : '',
-            'package_key' => isset($_POST['package_key']) ? wp_unslash($_POST['package_key']) : 'basic',
-            'amount' => isset($_POST['amount']) ? wp_unslash($_POST['amount']) : '0',
-            'currency' => isset($_POST['currency']) ? wp_unslash($_POST['currency']) : 'PLN',
-            'desired_publish_at' => isset($_POST['desired_publish_at']) ? wp_unslash($_POST['desired_publish_at']) : '',
+            'advertiser_id' => isset($_POST['advertiser_id']) ? absint(wp_unslash($_POST['advertiser_id'])) : 0,
+            'advertiser_email' => isset($_POST['advertiser_email']) ? sanitize_email((string) wp_unslash($_POST['advertiser_email'])) : '',
+            'title' => isset($_POST['title']) ? sanitize_text_field((string) wp_unslash($_POST['title'])) : '',
+            'content' => isset($_POST['content']) ? wp_kses_post((string) wp_unslash($_POST['content'])) : '',
+            'package_key' => in_array($rawPackage, $allowedPackages, true) ? $rawPackage : 'basic',
+            'amount' => isset($_POST['amount']) ? (string) abs((float) wp_unslash($_POST['amount'])) : '0',
+            'currency' => isset($_POST['currency']) ? sanitize_text_field((string) wp_unslash($_POST['currency'])) : 'PLN',
+            'desired_publish_at' => isset($_POST['desired_publish_at']) ? sanitize_text_field((string) wp_unslash($_POST['desired_publish_at'])) : '',
         ];
 
         $orderId = Workflow::submit($payload);
@@ -73,8 +75,8 @@ final class SponsoredOrdersPage
 
         check_admin_referer('poradnik_sponsored_transition');
 
-        $orderId = isset($_GET['order_id']) ? absint($_GET['order_id']) : 0;
-        $action = isset($_GET['workflow']) ? sanitize_key((string) $_GET['workflow']) : '';
+        $orderId = isset($_GET['order_id']) ? absint(wp_unslash($_GET['order_id'])) : 0;
+        $action = isset($_GET['workflow']) ? sanitize_key((string) wp_unslash($_GET['workflow'])) : '';
 
         $ok = false;
         if ($action === 'review') {
@@ -108,10 +110,10 @@ final class SponsoredOrdersPage
         echo '<div class="wrap">';
         echo '<h1>' . esc_html__('Sponsored Orders', 'poradnik-platform') . '</h1>';
 
-        if (isset($_GET['updated']) && $_GET['updated'] === '1') {
+        if (isset($_GET['updated']) && (string) wp_unslash($_GET['updated']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Operation completed.', 'poradnik-platform') . '</p></div>';
         }
-        if (isset($_GET['error']) && $_GET['error'] === '1') {
+        if (isset($_GET['error']) && (string) wp_unslash($_GET['error']) === '1') {
             echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__('Operation failed.', 'poradnik-platform') . '</p></div>';
         }
 

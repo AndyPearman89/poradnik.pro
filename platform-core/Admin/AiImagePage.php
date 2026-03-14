@@ -3,7 +3,7 @@
 namespace Poradnik\Platform\Admin;
 
 use Poradnik\Platform\Core\Capabilities;
-use Poradnik\Platform\Domain\Ai\ImageGenerator;
+use Poradnik\Platform\Modules\AiImageGenerator\AiImageGeneratorService;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -35,14 +35,15 @@ final class AiImagePage
             wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'poradnik-platform'));
         }
 
-        $title = isset($_POST['title']) ? (string) wp_unslash($_POST['title']) : '';
-        $category = isset($_POST['category']) ? sanitize_key((string) wp_unslash($_POST['category'])) : 'general';
+        $title = isset($_POST['title']) ? sanitize_text_field((string) wp_unslash($_POST['title'])) : '';
+        $category = isset($_POST['category']) ? sanitize_key((string) wp_unslash($_POST['category'])) : 'guide';
 
         $generated = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             check_admin_referer('poradnik_ai_image_generate');
-            $generated = ImageGenerator::generateFromTitle($title, $category);
+            $generatedResult = AiImageGeneratorService::generateFromTitle($title, $category, false, 0);
+            $generated = isset($generatedResult['items']) && is_array($generatedResult['items']) ? $generatedResult['items'] : [];
         }
 
         echo '<div class="wrap">';
@@ -51,7 +52,13 @@ final class AiImagePage
         wp_nonce_field('poradnik_ai_image_generate');
         echo '<table class="form-table" role="presentation">';
         echo '<tr><th scope="row"><label for="poradnik-ai-image-title">Article Title</label></th><td><input id="poradnik-ai-image-title" name="title" type="text" class="large-text" value="' . esc_attr($title) . '" required /></td></tr>';
-        echo '<tr><th scope="row"><label for="poradnik-ai-image-category">Category style</label></th><td><select id="poradnik-ai-image-category" name="category"><option value="general" ' . selected($category, 'general', false) . '>general</option><option value="hosting" ' . selected($category, 'hosting', false) . '>hosting</option><option value="seo" ' . selected($category, 'seo', false) . '>seo</option><option value="finance" ' . selected($category, 'finance', false) . '>finance</option></select></td></tr>';
+        echo '<tr><th scope="row"><label for="poradnik-ai-image-category">Article Type</label></th><td><select id="poradnik-ai-image-category" name="category">';
+        echo '<option value="guide" ' . selected($category, 'guide', false) . '>guide</option>';
+        echo '<option value="ranking" ' . selected($category, 'ranking', false) . '>ranking</option>';
+        echo '<option value="review" ' . selected($category, 'review', false) . '>review</option>';
+        echo '<option value="comparison" ' . selected($category, 'comparison', false) . '>comparison</option>';
+        echo '<option value="news" ' . selected($category, 'news', false) . '>news</option>';
+        echo '</select></td></tr>';
         echo '</table>';
         submit_button(__('Generate Images', 'poradnik-platform'));
         echo '</form>';

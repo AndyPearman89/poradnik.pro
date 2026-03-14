@@ -8,13 +8,16 @@ use Poradnik\Platform\Api\Controllers\AiContentController;
 use Poradnik\Platform\Api\Controllers\AiImageController;
 use Poradnik\Platform\Api\Controllers\AffiliateClickController;
 use Poradnik\Platform\Api\Controllers\DashboardController;
+use Poradnik\Platform\Api\Controllers\GuideGenerateController;
 use Poradnik\Platform\Api\Controllers\HealthController;
+use Poradnik\Platform\Api\Controllers\PearTreeController;
 use Poradnik\Platform\Api\Controllers\ProgrammaticBuildController;
 use Poradnik\Platform\Api\Controllers\RankingController;
 use Poradnik\Platform\Api\Controllers\ReviewController;
 use Poradnik\Platform\Api\Controllers\SponsoredOrderController;
 use Poradnik\Platform\Api\Controllers\StripeCheckoutController;
 use Poradnik\Platform\Api\Controllers\StripeWebhookController;
+use Poradnik\Platform\Api\Controllers\TimelineController;
 use Poradnik\Platform\Core\EventLogger;
 
 if (! defined('ABSPATH')) {
@@ -43,11 +46,14 @@ final class RestKernel
         AdClickController::registerRoutes();
         SponsoredOrderController::registerRoutes();
         DashboardController::registerRoutes();
+        PearTreeController::registerRoutes();
+        GuideGenerateController::registerRoutes();
         AiContentController::registerRoutes();
         AiImageController::registerRoutes();
         ProgrammaticBuildController::registerRoutes();
         RankingController::registerRoutes();
         ReviewController::registerRoutes();
+        TimelineController::registerRoutes();
         StripeWebhookController::registerRoutes();
         StripeCheckoutController::registerRoutes();
 

@@ -17,7 +17,7 @@ final class Tracker
      */
     public static function trackImpression(int $campaignId, int $slotId = 0, string $source = '', string $userIp = '')
     {
-        return self::track('ad_impressions', 'poradnik_platform_ad_impression_tracked', $campaignId, $slotId, $source, $userIp);
+        return self::track('ad_impressions', 'poradnik_platform_ad_impression_tracked', $campaignId, $slotId, $source, $userIp, false);
     }
 
     /**
@@ -31,7 +31,7 @@ final class Tracker
     /**
      * @return int|WP_Error
      */
-    private static function track(string $tableSuffix, string $eventHook, int $campaignId, int $slotId, string $source, string $userIp)
+    private static function track(string $tableSuffix, string $eventHook, int $campaignId, int $slotId, string $source, string $userIp, bool $trackIp = true)
     {
         global $wpdb;
 
@@ -42,18 +42,21 @@ final class Tracker
         $table = Migrator::tableName($tableSuffix);
         $now = current_time('mysql', true);
 
-        $inserted = $wpdb->insert(
-            $table,
-            [
-                'campaign_id' => $campaignId,
-                'slot_id' => $slotId > 0 ? $slotId : 0,
-                'source' => sanitize_text_field($source),
-                'user_ip' => sanitize_text_field($userIp),
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            ['%d', '%d', '%s', '%s', '%s', '%s']
-        );
+        $data = [
+            'campaign_id' => $campaignId,
+            'slot_id'     => $slotId > 0 ? $slotId : 0,
+            'source'      => sanitize_text_field($source),
+            'created_at'  => $now,
+            'updated_at'  => $now,
+        ];
+        $format = ['%d', '%d', '%s', '%s', '%s'];
+
+        if ($trackIp) {
+            $data['user_ip'] = sanitize_text_field($userIp);
+            $format[]        = '%s';
+        }
+
+        $inserted = $wpdb->insert($table, $data, $format);
 
         if ($inserted !== 1) {
             return new WP_Error('poradnik_ad_tracking_insert_failed', 'Could not store ad tracking event.', ['status' => 500]);

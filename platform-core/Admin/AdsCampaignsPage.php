@@ -40,17 +40,19 @@ final class AdsCampaignsPage
 
         check_admin_referer('poradnik_ads_save_campaign');
 
-        $campaignId = isset($_POST['campaign_id']) ? absint($_POST['campaign_id']) : 0;
+        $campaignId = isset($_POST['campaign_id']) ? absint(wp_unslash($_POST['campaign_id'])) : 0;
+        $allowedCampaignStatuses = ['active', 'paused', 'draft'];
+        $rawStatus = isset($_POST['status']) ? sanitize_key((string) wp_unslash($_POST['status'])) : 'draft';
         $data = [
-            'name' => isset($_POST['name']) ? wp_unslash($_POST['name']) : '',
-            'advertiser_id' => isset($_POST['advertiser_id']) ? absint($_POST['advertiser_id']) : 0,
-            'slot_id' => isset($_POST['slot_id']) ? absint($_POST['slot_id']) : 0,
-            'status' => isset($_POST['status']) ? wp_unslash($_POST['status']) : 'draft',
-            'start_date' => isset($_POST['start_date']) ? wp_unslash($_POST['start_date']) : '',
-            'end_date' => isset($_POST['end_date']) ? wp_unslash($_POST['end_date']) : '',
-            'budget' => isset($_POST['budget']) ? wp_unslash($_POST['budget']) : '0',
-            'destination_url' => isset($_POST['destination_url']) ? wp_unslash($_POST['destination_url']) : '',
-            'creative_text' => isset($_POST['creative_text']) ? wp_unslash($_POST['creative_text']) : '',
+            'name' => isset($_POST['name']) ? sanitize_text_field((string) wp_unslash($_POST['name'])) : '',
+            'advertiser_id' => isset($_POST['advertiser_id']) ? absint(wp_unslash($_POST['advertiser_id'])) : 0,
+            'slot_id' => isset($_POST['slot_id']) ? absint(wp_unslash($_POST['slot_id'])) : 0,
+            'status' => in_array($rawStatus, $allowedCampaignStatuses, true) ? $rawStatus : 'draft',
+            'start_date' => isset($_POST['start_date']) ? sanitize_text_field((string) wp_unslash($_POST['start_date'])) : '',
+            'end_date' => isset($_POST['end_date']) ? sanitize_text_field((string) wp_unslash($_POST['end_date'])) : '',
+            'budget' => isset($_POST['budget']) ? (string) abs((float) wp_unslash($_POST['budget'])) : '0',
+            'destination_url' => isset($_POST['destination_url']) ? esc_url_raw((string) wp_unslash($_POST['destination_url'])) : '',
+            'creative_text' => isset($_POST['creative_text']) ? sanitize_text_field((string) wp_unslash($_POST['creative_text'])) : '',
         ];
 
         $savedId = CampaignRepository::save($data, $campaignId);
@@ -76,7 +78,7 @@ final class AdsCampaignsPage
 
         check_admin_referer('poradnik_ads_delete_campaign');
 
-        $campaignId = isset($_GET['campaign_id']) ? absint($_GET['campaign_id']) : 0;
+        $campaignId = isset($_GET['campaign_id']) ? absint(wp_unslash($_GET['campaign_id'])) : 0;
         CampaignRepository::delete($campaignId);
 
         $redirect = add_query_arg(['page' => self::PAGE_SLUG, 'deleted' => '1'], admin_url('tools.php'));
@@ -91,7 +93,7 @@ final class AdsCampaignsPage
             wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'poradnik-platform'));
         }
 
-        $editingId = isset($_GET['campaign_id']) ? absint($_GET['campaign_id']) : 0;
+        $editingId = isset($_GET['campaign_id']) ? absint(wp_unslash($_GET['campaign_id'])) : 0;
         $editingCampaign = $editingId > 0 ? CampaignRepository::findById($editingId) : null;
         $campaigns = CampaignRepository::findAll();
         $slots = SlotRepository::findAll();
@@ -99,13 +101,13 @@ final class AdsCampaignsPage
         echo '<div class="wrap">';
         echo '<h1>' . esc_html__('Ad Campaigns', 'poradnik-platform') . '</h1>';
 
-        if (isset($_GET['updated']) && $_GET['updated'] === '1') {
+        if (isset($_GET['updated']) && (string) wp_unslash($_GET['updated']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Ad campaign saved.', 'poradnik-platform') . '</p></div>';
         }
-        if (isset($_GET['deleted']) && $_GET['deleted'] === '1') {
+        if (isset($_GET['deleted']) && (string) wp_unslash($_GET['deleted']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Ad campaign deleted.', 'poradnik-platform') . '</p></div>';
         }
-        if (isset($_GET['error']) && $_GET['error'] === '1') {
+        if (isset($_GET['error']) && (string) wp_unslash($_GET['error']) === '1') {
             echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__('Ad campaign could not be saved.', 'poradnik-platform') . '</p></div>';
         }
 

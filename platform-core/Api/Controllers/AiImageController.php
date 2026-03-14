@@ -3,7 +3,7 @@
 namespace Poradnik\Platform\Api\Controllers;
 
 use Poradnik\Platform\Core\Capabilities;
-use Poradnik\Platform\Domain\Ai\ImageGenerator;
+use Poradnik\Platform\Modules\AiImageGenerator\AiImageGeneratorService;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -16,9 +16,22 @@ final class AiImageController
     public static function registerRoutes(): void
     {
         register_rest_route('poradnik/v1', '/ai/image/generate', [
-            'methods' => 'POST',
-            'callback' => [self::class, 'generate'],
+            'methods'             => 'POST',
+            'callback'            => [self::class, 'generate'],
             'permission_callback' => [self::class, 'canAccess'],
+            'args'                => [
+                'title' => [
+                    'required'          => true,
+                    'type'              => 'string',
+                    'minLength'         => 3,
+                    'sanitize_callback' => 'sanitize_text_field',
+                ],
+                'category' => [
+                    'type'    => 'string',
+                    'enum'    => ['guide', 'ranking', 'review', 'comparison', 'news'],
+                    'default' => 'guide',
+                ],
+            ],
         ]);
     }
 
@@ -32,8 +45,9 @@ final class AiImageController
         $title = sanitize_text_field((string) $request->get_param('title'));
         $category = sanitize_key((string) $request->get_param('category'));
 
-        $result = ImageGenerator::generateFromTitle($title, $category === '' ? 'general' : $category);
+        $result = AiImageGeneratorService::generateFromTitle($title, $category === '' ? 'guide' : $category, false, 0);
+        $items = isset($result['items']) && is_array($result['items']) ? $result['items'] : [];
 
-        return new WP_REST_Response(['items' => $result], 200);
+        return new WP_REST_Response(['items' => $items], 200);
     }
 }

@@ -1,0 +1,34 @@
+{
+  "post_id": 123,
+  "post_type": "guide",
+  "timeline": {
+    "type": "guide_steps",
+    "theme": "default",
+    "layout": "vertical",
+    "steps": [
+      {
+        "title": "Przygotowanie stanowiska",
+        "description": "Zbierz narzędzia i wykonaj podstawowy checklist przed startem.",
+        "image_id": 0,
+        "image_url": "",
+        "icon": "tools",
+        "tip": "Pracuj na kopii zapasowej ustawień.",
+        "warning": "Nie pomijaj weryfikacji kompatybilności.",
+        "link": "https://poradnik.pro/przyklad-kroku",
+        "order": 1
+      },
+      {
+        "title": "Wdrożenie konfiguracji",
+        "description": "Wprowadź ustawienia zgodnie z instrukcją i zapisz zmiany.",
+        "image_id": 0,
+        "image_url": "",
+        "icon": "settings",
+        "tip": "Po każdej zmianie wykonaj test funkcjonalny.",
+        "warning": "Błędna kolejność kroków może powodować konflikty.",
+        "link": "",
+        "order": 2
+      }
+    ]
+  },
+  "steps_count": 2
+}

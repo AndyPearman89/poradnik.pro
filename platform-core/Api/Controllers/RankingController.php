@@ -16,9 +16,15 @@ final class RankingController
     public static function registerRoutes(): void
     {
         register_rest_route('poradnik/v1', '/ranking/score', [
-            'methods' => 'POST',
-            'callback' => [self::class, 'score'],
+            'methods'             => 'POST',
+            'callback'            => [self::class, 'score'],
             'permission_callback' => [self::class, 'canAccess'],
+            'args'                => [
+                'quality'  => ['type' => 'number', 'minimum' => 0, 'maximum' => 10, 'default' => 5],
+                'price'    => ['type' => 'number', 'minimum' => 0, 'maximum' => 10, 'default' => 5],
+                'features' => ['type' => 'number', 'minimum' => 0, 'maximum' => 10, 'default' => 5],
+                'support'  => ['type' => 'number', 'minimum' => 0, 'maximum' => 10, 'default' => 5],
+            ],
         ]);
     }
 

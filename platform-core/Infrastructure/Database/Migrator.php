@@ -11,7 +11,7 @@ if (! defined('ABSPATH')) {
 final class Migrator
 {
     private const OPTION_KEY = 'poradnik_platform_db_version';
-    private const SCHEMA_VERSION = '1.3.0';
+    private const SCHEMA_VERSION = '1.4.0';
 
     public static function init(): void
     {
@@ -198,6 +198,20 @@ final class Migrator
                 UNIQUE KEY stripe_event_id (stripe_event_id),
                 KEY event_type (event_type),
                 KEY processed_at (processed_at)
+            ) {$charsetCollate};",
+            "CREATE TABLE " . self::tableName('image_generation_queue') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                post_id bigint(20) unsigned NOT NULL,
+                status varchar(32) NOT NULL DEFAULT 'pending',
+                attempts int(11) NOT NULL DEFAULT 0,
+                force_regenerate tinyint(1) NOT NULL DEFAULT 0,
+                last_error text DEFAULT NULL,
+                created_at datetime NOT NULL,
+                updated_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                KEY post_id (post_id),
+                KEY status (status),
+                KEY created_at (created_at)
             ) {$charsetCollate};",
         ];
     }

@@ -19,9 +19,33 @@ final class AffiliateClickController
             'poradnik/v1',
             '/affiliate/click',
             [
-                'methods' => 'POST',
-                'callback' => [self::class, 'handle'],
+                'methods'             => 'POST',
+                'callback'            => [self::class, 'handle'],
                 'permission_callback' => '__return_true',
+                'args'                => [
+                    'product_id' => [
+                        'required'          => true,
+                        'type'              => 'integer',
+                        'minimum'           => 1,
+                        'sanitize_callback' => 'absint',
+                    ],
+                    'post_id' => [
+                        'type'              => 'integer',
+                        'minimum'           => 0,
+                        'default'           => 0,
+                        'sanitize_callback' => 'absint',
+                    ],
+                    'source' => [
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ],
+                    'referrer' => [
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'esc_url_raw',
+                    ],
+                ],
             ]
         );
     }

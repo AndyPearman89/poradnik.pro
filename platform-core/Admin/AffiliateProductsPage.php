@@ -39,13 +39,15 @@ final class AffiliateProductsPage
 
         check_admin_referer('poradnik_affiliate_save_product');
 
-        $productId = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+        $productId = isset($_POST['product_id']) ? absint(wp_unslash($_POST['product_id'])) : 0;
+        $allowedStatuses = ['publish', 'draft'];
+        $rawStatus = isset($_POST['status']) ? sanitize_key((string) wp_unslash($_POST['status'])) : 'draft';
         $data = [
-            'name' => isset($_POST['name']) ? wp_unslash($_POST['name']) : '',
-            'slug' => isset($_POST['slug']) ? wp_unslash($_POST['slug']) : '',
-            'affiliate_url' => isset($_POST['affiliate_url']) ? wp_unslash($_POST['affiliate_url']) : '',
-            'category_id' => isset($_POST['category_id']) ? absint($_POST['category_id']) : 0,
-            'status' => isset($_POST['status']) ? wp_unslash($_POST['status']) : 'draft',
+            'name' => isset($_POST['name']) ? sanitize_text_field((string) wp_unslash($_POST['name'])) : '',
+            'slug' => isset($_POST['slug']) ? sanitize_title((string) wp_unslash($_POST['slug'])) : '',
+            'affiliate_url' => isset($_POST['affiliate_url']) ? esc_url_raw((string) wp_unslash($_POST['affiliate_url'])) : '',
+            'category_id' => isset($_POST['category_id']) ? absint(wp_unslash($_POST['category_id'])) : 0,
+            'status' => in_array($rawStatus, $allowedStatuses, true) ? $rawStatus : 'draft',
         ];
 
         $savedId = ProductRepository::save($data, $productId);
@@ -85,7 +87,7 @@ final class AffiliateProductsPage
 
         check_admin_referer('poradnik_affiliate_delete_product');
 
-        $productId = isset($_GET['product_id']) ? absint($_GET['product_id']) : 0;
+        $productId = isset($_GET['product_id']) ? absint(wp_unslash($_GET['product_id'])) : 0;
         ProductRepository::delete($productId);
 
         $redirect = add_query_arg(
@@ -106,22 +108,22 @@ final class AffiliateProductsPage
             wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'poradnik-platform'));
         }
 
-        $editingId = isset($_GET['product_id']) ? absint($_GET['product_id']) : 0;
+        $editingId = isset($_GET['product_id']) ? absint(wp_unslash($_GET['product_id'])) : 0;
         $editingProduct = $editingId > 0 ? ProductRepository::findById($editingId) : null;
         $products = ProductRepository::findAll();
 
         echo '<div class="wrap">';
         echo '<h1>' . esc_html__('Affiliate Products', 'poradnik-platform') . '</h1>';
 
-        if (isset($_GET['updated']) && $_GET['updated'] === '1') {
+        if (isset($_GET['updated']) && (string) wp_unslash($_GET['updated']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Affiliate product saved.', 'poradnik-platform') . '</p></div>';
         }
 
-        if (isset($_GET['deleted']) && $_GET['deleted'] === '1') {
+        if (isset($_GET['deleted']) && (string) wp_unslash($_GET['deleted']) === '1') {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Affiliate product deleted.', 'poradnik-platform') . '</p></div>';
         }
 
-        if (isset($_GET['error']) && $_GET['error'] === '1') {
+        if (isset($_GET['error']) && (string) wp_unslash($_GET['error']) === '1') {
             echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__('Affiliate product could not be saved.', 'poradnik-platform') . '</p></div>';
         }
 

@@ -19,9 +19,28 @@ final class AdImpressionController
             'poradnik/v1',
             '/ads/impression',
             [
-                'methods' => 'POST',
-                'callback' => [self::class, 'handle'],
+                'methods'             => 'POST',
+                'callback'            => [self::class, 'handle'],
                 'permission_callback' => '__return_true',
+                'args'                => [
+                    'campaign_id' => [
+                        'required'          => true,
+                        'type'              => 'integer',
+                        'minimum'           => 1,
+                        'sanitize_callback' => 'absint',
+                    ],
+                    'slot_id' => [
+                        'required'          => true,
+                        'type'              => 'integer',
+                        'minimum'           => 1,
+                        'sanitize_callback' => 'absint',
+                    ],
+                    'source' => [
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ],
+                ],
             ]
         );
     }
