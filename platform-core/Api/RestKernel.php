@@ -17,6 +17,7 @@ use Poradnik\Platform\Api\Controllers\ReviewController;
 use Poradnik\Platform\Api\Controllers\SponsoredOrderController;
 use Poradnik\Platform\Api\Controllers\StripeCheckoutController;
 use Poradnik\Platform\Api\Controllers\StripeWebhookController;
+use Poradnik\Platform\Api\Controllers\TenantController;
 use Poradnik\Platform\Api\Controllers\TimelineController;
 use Poradnik\Platform\Core\EventLogger;
 
@@ -56,6 +57,7 @@ final class RestKernel
         TimelineController::registerRoutes();
         StripeWebhookController::registerRoutes();
         StripeCheckoutController::registerRoutes();
+        TenantController::registerRoutes();
 
         EventLogger::dispatch('poradnik_platform_rest_routes_registered');
     }

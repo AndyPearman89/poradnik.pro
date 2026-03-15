@@ -11,7 +11,7 @@ if (! defined('ABSPATH')) {
 final class Migrator
 {
     private const OPTION_KEY = 'poradnik_platform_db_version';
-    private const SCHEMA_VERSION = '1.4.0';
+    private const SCHEMA_VERSION = '2.0.0';
 
     public static function init(): void
     {
@@ -212,6 +212,43 @@ final class Migrator
                 KEY post_id (post_id),
                 KEY status (status),
                 KEY created_at (created_at)
+            ) {$charsetCollate};",
+
+            // ------------------------------------------------------------------
+            // Multi-tenancy: marketplace portals (v2.0.0)
+            // ------------------------------------------------------------------
+            "CREATE TABLE " . self::tableName('tenants') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                slug varchar(191) NOT NULL,
+                name varchar(255) NOT NULL,
+                domain varchar(255) NOT NULL DEFAULT '',
+                status varchar(50) NOT NULL DEFAULT 'pending',
+                plan varchar(100) NOT NULL DEFAULT 'free',
+                owner_id bigint(20) unsigned NOT NULL DEFAULT 0,
+                created_at datetime NOT NULL,
+                updated_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                UNIQUE KEY slug (slug),
+                KEY status (status),
+                KEY plan (plan),
+                KEY owner_id (owner_id),
+                KEY created_at (created_at)
+            ) {$charsetCollate};",
+
+            "CREATE TABLE " . self::tableName('tenant_vendors') . " (
+                id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                tenant_id bigint(20) unsigned NOT NULL,
+                user_id bigint(20) unsigned NOT NULL,
+                role varchar(100) NOT NULL DEFAULT 'vendor',
+                status varchar(50) NOT NULL DEFAULT 'active',
+                created_at datetime NOT NULL,
+                updated_at datetime NOT NULL,
+                PRIMARY KEY  (id),
+                UNIQUE KEY tenant_user (tenant_id, user_id),
+                KEY tenant_id (tenant_id),
+                KEY user_id (user_id),
+                KEY role (role),
+                KEY status (status)
             ) {$charsetCollate};",
         ];
     }

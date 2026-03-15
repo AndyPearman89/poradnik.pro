@@ -26,6 +26,7 @@ final class Bootstrap
 
         \Poradnik\Platform\Admin\ModuleFlagsPage::init();
         \Poradnik\Platform\Admin\StripeSettingsPage::init();
+        \Poradnik\Platform\Admin\TenantManagementPage::init();
     }
 
     private static function registerAutoloader(): void
