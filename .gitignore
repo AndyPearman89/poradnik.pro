@@ -29,3 +29,8 @@ logs/
 
 # PHP caches
 *.cache
+
+# Admin panel
+admin-panel/.env
+admin-panel/node_modules/
+admin-panel/dist/

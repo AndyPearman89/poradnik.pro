@@ -14,10 +14,13 @@ use Poradnik\Platform\Api\Controllers\PearTreeController;
 use Poradnik\Platform\Api\Controllers\ProgrammaticBuildController;
 use Poradnik\Platform\Api\Controllers\RankingController;
 use Poradnik\Platform\Api\Controllers\ReviewController;
+use Poradnik\Platform\Api\Controllers\SiteConfigController;
 use Poradnik\Platform\Api\Controllers\SponsoredOrderController;
 use Poradnik\Platform\Api\Controllers\StripeCheckoutController;
 use Poradnik\Platform\Api\Controllers\StripeWebhookController;
+use Poradnik\Platform\Api\Controllers\TenantController;
 use Poradnik\Platform\Api\Controllers\TimelineController;
+use Poradnik\Platform\Api\Controllers\VendorController;
 use Poradnik\Platform\Core\EventLogger;
 
 if (! defined('ABSPATH')) {
@@ -56,6 +59,9 @@ final class RestKernel
         TimelineController::registerRoutes();
         StripeWebhookController::registerRoutes();
         StripeCheckoutController::registerRoutes();
+        TenantController::registerRoutes();
+        VendorController::registerRoutes();
+        SiteConfigController::registerRoutes();
 
         EventLogger::dispatch('poradnik_platform_rest_routes_registered');
     }
