@@ -1,0 +1,85 @@
+name: CI – PHP Lint & Quality
+
+on:
+  push:
+    branches: ["main", "copilot/**", "feature/**", "fix/**"]
+  pull_request:
+    branches: ["main"]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-lint:
+    name: PHP Syntax Check
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ["8.1", "8.2", "8.3"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: none
+          coverage: none
+
+      - name: Run PHP syntax check (php -l)
+        run: bash tools/qa-lint.sh
+
+  php-codesniffer:
+    name: PHP CodeSniffer (PSR-12)
+    runs-on: ubuntu-latest
+    continue-on-error: true  # advisory only – does not block merge
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: phpcs
+          coverage: none
+
+      - name: Run PHPCS against platform-core
+        run: |
+          phpcs \
+            --standard=PSR12 \
+            --extensions=php \
+            --ignore=*/index.php \
+            --report=summary \
+            platform-core/ || true
+
+  check-blueprint-docs:
+    name: Check Blueprint Docs Present
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify required blueprint documents exist
+        run: |
+          files=(
+            "PORADNIK-PRO-PLATFORM-BLUEPRINT.md"
+            "PORADNIK-PRO-IMPLEMENTATION-CHECKLIST.md"
+            "DASHBOARD-PRO-BLUEPRINT.md"
+          )
+          missing=0
+          for f in "${files[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "MISSING: $f"
+              missing=$((missing + 1))
+            else
+              echo "OK: $f"
+            fi
+          done
+          [ $missing -eq 0 ] && exit 0 || exit 1
