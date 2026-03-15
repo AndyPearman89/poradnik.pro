@@ -1,0 +1,1 @@
+<section class="container section"><article><?php the_title('<h1>','</h1>'); get_template_part('template-parts/product/product', 'comparison'); the_content(); ?></article></section>

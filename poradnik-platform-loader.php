@@ -10,7 +10,7 @@ if (! defined('ABSPATH')) {
 }
 
 if (! defined('PORADNIK_PLATFORM_MU_PATH')) {
-    define('PORADNIK_PLATFORM_MU_PATH', __DIR__ . '/platform-core');
+    define('PORADNIK_PLATFORM_MU_PATH', __DIR__ . '/backend');
 }
 
 $bootstrap_file = PORADNIK_PLATFORM_MU_PATH . '/Core/Bootstrap.php';

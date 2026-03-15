@@ -1,0 +1,1 @@
+<div class="card">AJAX filter results</div>

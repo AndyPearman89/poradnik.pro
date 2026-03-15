@@ -1,0 +1,1 @@
+<article class="card"><h3><?php the_title(); ?></h3><a class="btn btn-accent" href="<?php the_permalink(); ?>">profil</a></article>

@@ -1,0 +1,12 @@
+@media (max-width: 991px){
+  .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .header-right{display:none}
+}
+@media (max-width: 767px){
+  .grid-4,.grid-3,.grid-2{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .cta-form{grid-template-columns:1fr}
+  .search-sticky{top:56px}
+  .btn{min-height:44px}
+}

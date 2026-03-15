@@ -1,0 +1,1 @@
+<section class="container section"><article><?php the_title('<h1>','</h1>'); get_template_part('template-parts/review/review', 'summary'); the_content(); get_template_part('template-parts/sidebar/sidebar', 'recenzja'); ?></article></section>

@@ -1,0 +1,6 @@
+.menu-main,.menu-mobile,.menu-footer{list-style:none;padding:0;margin:0;display:flex;gap:14px}
+.menu-main a,.menu-mobile a,.menu-footer a{text-decoration:none;color:var(--text)}
+.rating{color:#f59e0b;font-weight:700}
+.meta{font-size:14px;color:var(--muted)}
+.section-subtitle{color:var(--muted);margin-bottom:16px}
+.search-sticky{position:sticky;top:62px;background:#fff;padding:10px;border-radius:12px;box-shadow:var(--shadow-soft);z-index:40}

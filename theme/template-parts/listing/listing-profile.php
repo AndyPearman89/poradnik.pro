@@ -1,0 +1,1 @@
+<div class="card"><h3><?php the_title(); ?></h3><p class="meta">Profil specjalisty</p><a class="btn" href="#">wyślij zapytanie</a></div>

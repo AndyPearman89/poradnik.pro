@@ -1,0 +1,1 @@
+<section class="card"><h3>Specyfikacja</h3><p>Najważniejsze parametry produktu.</p></section>

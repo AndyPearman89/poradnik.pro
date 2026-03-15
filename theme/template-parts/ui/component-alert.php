@@ -1,0 +1,1 @@
+<div class="card" role="alert"><?php echo esc_html($args['message'] ?? 'Alert'); ?></div>

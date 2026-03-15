@@ -1,0 +1,1 @@
+<form class="card"><h3>Formularz leada</h3><input type="text" placeholder="Problem"><button class="btn btn-accent" type="submit">Wyślij</button></form>

@@ -1,0 +1,1 @@
+<section class="card"><h3>Podsumowanie recenzji</h3><p>Ocena, plusy i minusy produktu.</p></section>

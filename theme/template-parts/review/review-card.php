@@ -1,0 +1,1 @@
+<article class="card"><h3><?php the_title(); ?></h3><div class="rating">★ 4.7</div><a class="btn" href="#">sprawdź cenę</a></article>

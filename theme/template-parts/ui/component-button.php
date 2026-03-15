@@ -1,0 +1,1 @@
+<button class="btn" type="button"><?php echo esc_html($args['label'] ?? 'Button'); ?></button>
