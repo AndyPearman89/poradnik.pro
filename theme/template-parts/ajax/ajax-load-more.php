@@ -1,0 +1,1 @@
+<div class="card">AJAX load more</div>

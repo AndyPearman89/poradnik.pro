@@ -1,0 +1,1 @@
+<article class="card"><h3>Produkt</h3><div class="rating">★ 4.9</div></article>

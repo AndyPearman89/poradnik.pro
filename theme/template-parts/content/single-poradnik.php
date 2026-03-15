@@ -1,0 +1,1 @@
+<section class="container section"><article><?php the_title('<h1>','</h1>'); the_content(); get_template_part('template-parts/sidebar/sidebar', 'poradnik'); ?></article></section>

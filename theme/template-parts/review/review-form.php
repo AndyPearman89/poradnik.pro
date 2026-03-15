@@ -1,0 +1,1 @@
+<form class="card"><h3>Dodaj recenzję</h3><textarea placeholder="Twoja recenzja"></textarea><button class="btn" type="submit">Wyślij</button></form>

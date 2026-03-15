@@ -1,0 +1,49 @@
+﻿# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+
+# Composer
+vendor/
+composer.lock
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnp/
+.pnp.js
+
+# Build output
+dist/
+build/
+*.min.css
+*.min.js
+
+# Sass cache
+.sass-cache/
+*.css.map
+*.scss.map
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.idea/
+.vscode/settings.json
+*.sublime-project
+*.sublime-workspace
+nbproject/
+
+# Logs
+*.log
+error_log
+debug.log
+
+# Env / secrets
+.env
+.env.local
+.env.*.local

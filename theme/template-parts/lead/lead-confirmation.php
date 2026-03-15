@@ -1,0 +1,1 @@
+<div class="card"><h3>Dziękujemy</h3><p>Zapytanie zostało wysłane.</p></div>

@@ -1,0 +1,1 @@
+<article class="card"><h3>Ranking card</h3><a class="btn" href="#">zobacz ranking</a></article>

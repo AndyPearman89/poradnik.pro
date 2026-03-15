@@ -1,0 +1,20 @@
+/*
+Theme Name: GeneratePress Child Poradnik
+Theme URI: https://poradnik.pro
+Description: Child theme dla Poradnik.pro na platformie PearTree Core.
+Author: PearTree Team
+Version: 1.0.0
+Template: generatepress
+Text Domain: generatepress-child-poradnik
+*/
+
+:root {
+  --primary: #1a73e8;
+  --accent: #22c55e;
+  --bg: #f9fafb;
+  --text: #111827;
+  --muted: #6b7280;
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.08);
+}

@@ -1,0 +1,1 @@
+<div class="card">AJAX search results</div>

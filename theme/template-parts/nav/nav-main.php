@@ -1,0 +1,9 @@
+<nav aria-label="Main navigation">
+  <ul class="menu-main">
+    <li><a href="<?php echo esc_url(home_url('/poradniki/')); ?>">Poradniki</a></li>
+    <li><a href="<?php echo esc_url(home_url('/rankingi/')); ?>">Rankingi</a></li>
+    <li><a href="<?php echo esc_url(home_url('/recenzje/')); ?>">Recenzje</a></li>
+    <li><a href="<?php echo esc_url(home_url('/specjalisci/')); ?>">Specjaliści</a></li>
+    <li><a href="<?php echo esc_url(home_url('/pytania/')); ?>">Pytania</a></li>
+  </ul>
+</nav>

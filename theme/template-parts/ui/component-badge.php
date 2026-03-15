@@ -1,0 +1,1 @@
+<span class="tag"><?php echo esc_html($args['label'] ?? 'Badge'); ?></span>

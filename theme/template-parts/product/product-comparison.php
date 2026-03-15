@@ -1,0 +1,1 @@
+<section class="card"><h3>Porównanie produktów</h3><p>Zestawienie cech i cen.</p></section>
