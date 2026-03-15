@@ -9,14 +9,12 @@ export async function login({ username, password }) {
   const { data } = await apiClient.post('/jwt-auth/v1/token', { username, password });
   const token = data?.token;
   if (token) {
-    localStorage.setItem('wp_token', token);
     sessionStorage.setItem('wp_token', token);
   }
   return data;
 }
 
 export async function logout() {
-  localStorage.removeItem('wp_token');
   sessionStorage.removeItem('wp_token');
   sessionStorage.removeItem('wp_nonce');
 }

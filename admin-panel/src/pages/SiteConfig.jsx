@@ -4,6 +4,7 @@ import { siteConfigApi } from '../api/siteConfig.js';
 import Card from '../components/common/Card.jsx';
 import Button from '../components/common/Button.jsx';
 import Input from '../components/common/Input.jsx';
+import Modal from '../components/common/Modal.jsx';
 import Spinner from '../components/common/Spinner.jsx';
 import toast from 'react-hot-toast';
 
@@ -55,10 +56,13 @@ export default function SiteConfigPage() {
   const resetMutation = useMutation(siteConfigApi.reset, {
     onSuccess: () => {
       setConfig(DEFAULT_CONFIG);
+      setResetConfirmOpen(false);
       toast.success('Reset to defaults.');
     },
     onError: () => toast.error('Failed to reset configuration.'),
   });
+
+  const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
 
   function set(path, value) {
     const keys = path.split('.');
@@ -390,11 +394,7 @@ export default function SiteConfigPage() {
                 <Button
                   variant="secondary"
                   loading={resetMutation.isLoading}
-                  onClick={() => {
-                    if (window.confirm('Reset all settings to defaults?')) {
-                      resetMutation.mutate();
-                    }
-                  }}
+                  onClick={() => setResetConfirmOpen(true)}
                 >
                   Reset to Defaults
                 </Button>
@@ -495,6 +495,30 @@ export default function SiteConfigPage() {
           </Card>
         )}
       </div>
+
+      {/* Reset Confirm Modal */}
+      <Modal
+        isOpen={resetConfirmOpen}
+        title="Reset Configuration"
+        onClose={() => setResetConfirmOpen(false)}
+        width={400}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setResetConfirmOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="danger"
+              loading={resetMutation.isLoading}
+              onClick={() => resetMutation.mutate()}
+            >
+              Reset to Defaults
+            </Button>
+          </>
+        }
+      >
+        <p>Are you sure you want to reset all settings to defaults? This cannot be undone.</p>
+      </Modal>
     </div>
   );
 }

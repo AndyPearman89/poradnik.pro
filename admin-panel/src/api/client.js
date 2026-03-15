@@ -12,7 +12,7 @@ const apiClient = axios.create({
 
 // Attach WP nonce or JWT token on every request
 apiClient.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem('wp_token') || localStorage.getItem('wp_token');
+  const token = sessionStorage.getItem('wp_token');
   const nonce = import.meta.env.VITE_WP_NONCE || sessionStorage.getItem('wp_nonce');
 
   if (token) {
@@ -30,7 +30,6 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       sessionStorage.removeItem('wp_token');
-      localStorage.removeItem('wp_token');
       window.dispatchEvent(new Event('auth:logout'));
     }
     return Promise.reject(error);

@@ -19,6 +19,9 @@ final class VendorController
     private const NAMESPACE = 'peartree/v1';
     private const OPTION_KEY = 'poradnik_platform_vendors';
 
+    /** @var list<string> */
+    private const VALID_STATUSES = ['pending', 'active', 'approved', 'suspended', 'inactive'];
+
     public static function registerRoutes(): void
     {
         register_rest_route(self::NAMESPACE, '/vendors', [
@@ -311,7 +314,7 @@ final class VendorController
             'category'        => sanitize_text_field((string) $request->get_param('category')),
             'description'     => sanitize_textarea_field((string) $request->get_param('description')),
             'commission_rate' => $commissionRate !== null ? (float) $commissionRate : null,
-            'status'          => in_array($request->get_param('status'), ['pending', 'active', 'approved', 'suspended', 'inactive'], true)
+            'status'          => in_array($request->get_param('status'), self::VALID_STATUSES, true)
                                  ? (string) $request->get_param('status') : 'pending',
         ];
     }

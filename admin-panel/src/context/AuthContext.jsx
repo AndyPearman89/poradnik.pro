@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
 
   // Bootstrap: check if a valid token exists
   useEffect(() => {
-    const token = localStorage.getItem('wp_token') || sessionStorage.getItem('wp_token');
+    const token = sessionStorage.getItem('wp_token');
     if (!token) {
       setLoading(false);
       return;
@@ -18,7 +18,6 @@ export function AuthProvider({ children }) {
     getCurrentUser()
       .then(setUser)
       .catch(() => {
-        localStorage.removeItem('wp_token');
         sessionStorage.removeItem('wp_token');
       })
       .finally(() => setLoading(false));
