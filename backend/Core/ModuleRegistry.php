@@ -81,6 +81,6 @@ final class ModuleRegistry
             return false;
         }
 
-        return $flags[$module] === true;
+        return (bool) $flags[$module];
     }
 }

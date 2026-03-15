@@ -87,15 +87,7 @@ final class DashboardController
 
     public static function canAccess(): bool
     {
-        if (Capabilities::canManagePlatform()) {
-            return true;
-        }
-
-        if (! is_user_logged_in()) {
-            return false;
-        }
-
-        return current_user_can('reklamodawca') || current_user_can('advertiser') || current_user_can('edit_posts') || current_user_can('publish_posts');
+        return Capabilities::canAccessAsAdvertiser();
     }
 
     public static function overview(WP_REST_Request $request): WP_REST_Response

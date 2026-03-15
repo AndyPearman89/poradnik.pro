@@ -26,8 +26,6 @@ final class HealthController
 
     public static function handle(WP_REST_Request $request): WP_REST_Response
     {
-        unset($request);
-
         return new WP_REST_Response(
             [
                 'status' => 'ok',
