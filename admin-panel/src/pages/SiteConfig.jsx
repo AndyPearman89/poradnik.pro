@@ -64,18 +64,31 @@ export default function SiteConfigPage() {
 
   const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
 
+  const ALLOWED_PATHS = new Set([
+    'site_name', 'site_tagline', 'site_url', 'admin_email',
+    'language', 'timezone', 'theme', 'logo_url', 'primary_color',
+    'modules.affiliate', 'modules.ads_marketplace', 'modules.ai_content',
+    'modules.ai_image', 'modules.rankings', 'modules.reviews',
+    'modules.sponsored', 'modules.programmatic_seo', 'modules.seo_automation',
+    'multisite.enabled', 'multisite.subdomain_install', 'multisite.max_sites',
+  ]);
+
   function set(path, value) {
-    const keys = path.split('.');
-    setConfig((prev) => {
-      const next = { ...prev };
-      let cur = next;
-      for (let i = 0; i < keys.length - 1; i++) {
-        cur[keys[i]] = { ...cur[keys[i]] };
-        cur = cur[keys[i]];
-      }
-      cur[keys[keys.length - 1]] = value;
-      return next;
-    });
+    if (!ALLOWED_PATHS.has(path)) {
+      return;
+    }
+    const dotIndex = path.indexOf('.');
+    if (dotIndex === -1) {
+      // Top-level key
+      setConfig((prev) => ({ ...prev, [path]: value }));
+    } else {
+      const parentKey = path.slice(0, dotIndex);
+      const childKey = path.slice(dotIndex + 1);
+      setConfig((prev) => ({
+        ...prev,
+        [parentKey]: { ...prev[parentKey], [childKey]: value },
+      }));
+    }
   }
 
   const tabs = [
