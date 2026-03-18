@@ -5,7 +5,7 @@ Zakres: `P1-06`
 Owner: QA Automation
 
 ## Status ogólny
-- Stan raportu: **IN PROGRESS**
+- Stan raportu: **DONE**
 - Środowisko: local
 - Cel: potwierdzić krytyczne scenariusze E2E przed go-live.
 - Playbook komend: `PORADNIK-PRO-P1-TEST-COMMANDS-2026-03-13.md`
