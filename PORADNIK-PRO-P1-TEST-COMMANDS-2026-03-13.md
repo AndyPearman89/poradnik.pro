@@ -3,11 +3,24 @@
 Data: 2026-03-13  
 Zakres: P1-04, P1-05, P1-06
 
+## Gate operacyjny (pre-deploy / deploy / rollback)
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict
+```
+
+Warunek PASS: `SMOKE_FAILED=0`.
+
+Uwaga: skrypt automatycznie wykrywa aktywny namespace (`poradnik/v1` lub `peartree/v1`) i dobiera profil endpointów.
+
 ## Ustawienia wspólne
 
 ```powershell
-$BaseUrl = "http://poradnikpro.local"
-$ApiBase = "$BaseUrl/wp-json/poradnik/v1"
+$BaseUrl = "https://poradnik.pro"   # produkcja
+# $BaseUrl = "http://poradnikpro.local"  # lokalnie
+
+# Namespace NIE powinien być hardcodowany.
+# Do gate'ów używaj: .\tools\rest-smoke.ps1 (auto-detect namespace).
 ```
 
 Dla endpointów wymagających logowania użyj sesji/cookies WordPress lub tokena zgodnie z konfiguracją środowiska.
@@ -17,8 +30,9 @@ Dla endpointów wymagających logowania użyj sesji/cookies WordPress lub tokena
 ## P1-04 — Endpointy prywatne: brak autoryzacji => 401/403
 
 ```powershell
-# Przykład endpointu prywatnego (podmień na właściwy)
-$PrivateEndpoint = "$ApiBase/dashboard"
+# Przykład endpointu prywatnego (podmień namespace na aktywny: poradnik/v1 lub peartree/v1)
+$ApiBase = "$BaseUrl/wp-json/<namespace>"
+$PrivateEndpoint = "$ApiBase/dashboard/statistics"
 
 try {
     Invoke-RestMethod -Uri $PrivateEndpoint -Method GET -ErrorAction Stop
@@ -38,6 +52,7 @@ Oczekiwane: status `401` lub `403`.
 
 ```powershell
 # Przykład endpointu publicznego (podmień na właściwy)
+$ApiBase = "$BaseUrl/wp-json/<namespace>"
 $PublicEndpoint = "$ApiBase/affiliate/click"
 
 # Payload niepoprawny: błędne typy / brak pól
@@ -58,6 +73,8 @@ try {
 ```
 
 Oczekiwane: status `400` i komunikat walidacji.
+
+Jeżeli aktywny jest namespace `peartree/v1`, użyj zamiast tego endpointu publicznego z aktualnego profilu modułu (np. listing publiczny) i zachowaj to samo kryterium walidacji statusu.
 
 ---
 
