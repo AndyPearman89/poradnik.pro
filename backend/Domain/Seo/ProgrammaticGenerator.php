@@ -75,6 +75,13 @@ final class ProgrammaticGenerator
             ], true);
 
             if (is_wp_error($postId) || ! is_int($postId) || $postId < 1) {
+                EventLogger::dispatch('poradnik_programmatic_insert_failed', [
+                    'post_type' => $postType,
+                    'template'  => $template,
+                    'topic'     => $topic,
+                    'index'     => $index,
+                    'error'     => is_wp_error($postId) ? $postId->get_error_message() : 'invalid_post_id',
+                ]);
                 continue;
             }
 

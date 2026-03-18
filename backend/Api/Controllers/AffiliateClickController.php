@@ -82,6 +82,8 @@ final class AffiliateClickController
             return '';
         }
 
-        return sanitize_text_field((string) $_SERVER['REMOTE_ADDR']);
+        $ip = (string) $_SERVER['REMOTE_ADDR'];
+
+        return filter_var($ip, FILTER_VALIDATE_IP) !== false ? $ip : '';
     }
 }

@@ -98,7 +98,16 @@ final class PublicationScheduler
             }
 
             if ($autoPublish) {
-                wp_update_post(['ID' => $post->ID, 'post_status' => 'publish']);
+                $updated = wp_update_post(['ID' => $post->ID, 'post_status' => 'publish'], true);
+
+                if (is_wp_error($updated) || $updated === 0) {
+                    EventLogger::dispatch('poradnik_programmatic_publish_failed', [
+                        'post_id' => $post->ID,
+                        'error'   => is_wp_error($updated) ? $updated->get_error_message() : 'wp_update_post_returned_0',
+                    ]);
+                    $failed++;
+                    continue;
+                }
 
                 update_post_meta($post->ID, '_poradnik_published_at', current_time('mysql', true));
                 delete_post_meta($post->ID, '_poradnik_qa_failed');
@@ -107,7 +116,16 @@ final class PublicationScheduler
                 $published++;
             } else {
                 // Move to 'pending' for editorial review.
-                wp_update_post(['ID' => $post->ID, 'post_status' => 'pending']);
+                $updated = wp_update_post(['ID' => $post->ID, 'post_status' => 'pending'], true);
+
+                if (is_wp_error($updated) || $updated === 0) {
+                    EventLogger::dispatch('poradnik_programmatic_pending_failed', [
+                        'post_id' => $post->ID,
+                        'error'   => is_wp_error($updated) ? $updated->get_error_message() : 'wp_update_post_returned_0',
+                    ]);
+                    $failed++;
+                    continue;
+                }
 
                 EventLogger::dispatch('poradnik_programmatic_pending_review', ['post_id' => $post->ID]);
                 $published++;
