@@ -96,8 +96,10 @@ Base namespace: `/wp-json/poradnik/v1/`
 Quick REST smoke (PowerShell):
 
 ```powershell
-pwsh ./tools/rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict
+.\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict
 ```
+
+Script auto-detects active namespace (`poradnik/v1` or `peartree/v1`).
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
