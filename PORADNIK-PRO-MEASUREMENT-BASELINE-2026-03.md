@@ -20,6 +20,8 @@ Status: **PRODUKCYJNA**
 
 Skrypt: `themes/poradnik-theme/scripts/p1-measurement-events-e2e.ps1`
 
+Uwaga: skrypty pomiarowe są uruchamiane w środowisku WordPress deploy; referencyjne komendy operacyjne znajdują się w `PORADNIK-PRO-P1-TEST-COMMANDS-2026-03-13.md`.
+
 | Event | API status | DB verify | Cleanup | Wynik |
 |-------|-----------|-----------|---------|-------|
 | `affiliate_click` | HTTP 200, `click_id=3` | `MEAS_AFF_DB_PASS` | OK | **PASS** |
@@ -156,8 +158,7 @@ Automatyzacja:
 
 ## 7. Linki do artefaktów
 
-- [Skrypt walidacji](../themes/poradnik-theme/scripts/p1-measurement-events-e2e.ps1)
-- [Skrypt raportu dziennego](../themes/poradnik-theme/scripts/p1-measurement-daily-report.ps1)
+- [Playbook komend testowych](PORADNIK-PRO-P1-TEST-COMMANDS-2026-03-13.md)
 - [Matryca ryzyk](PORADNIK-PRO-GOLIVE-RISK-MATRIX-2026-03.md)
 - [Go-Live Checklist](PORADNIK-PRO-GO-LIVE-CHECKLIST-2026-03.md)
 - [Sprint 12 Plan](PORADNIK-PRO-SPRINT-12-PLAN-2026-03-13.md)

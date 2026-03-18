@@ -85,14 +85,15 @@ SLA restore: **≤ 60 min od decyzji**
 
 ## 6. Baseline (punkt odniesienia dla anomalii)
 
-> Uzupełnić z wyników `PORADNIK-PRO-PERFORMANCE-BASELINE-2026-03.md` po zadaniu C.
+Baseline techniczny TTFB został zebrany w `PORADNIK-PRO-PERFORMANCE-BASELINE-2026-03.md`.
+Baseline wolumenowy eventów (`/h`) pozostaje `TBD` do raportu D+1 po produkcyjnym launchu.
 
 | Metryka | Baseline (pre-go-live) | Źródło |
 |---------|------------------------|--------|
-| Wolumen `affiliate_click` / godz. | TBD | Performance Baseline C |
-| Wolumen `ad_click` / godz. | TBD | Performance Baseline C |
-| TTFB `/dashboard/*` p95 | TBD | Performance Baseline C |
-| DB slow queries / min | TBD | Performance Baseline C |
+| Wolumen `affiliate_click` / godz. | TBD (D+1) | Measurement Baseline + raport D+1 |
+| Wolumen `ad_click` / godz. | TBD (D+1) | Measurement Baseline + raport D+1 |
+| TTFB `/dashboard/*` p95 | 89.63 ms (local baseline) | Performance Baseline |
+| DB slow queries / min | TBD (wymaga monitoringu prod) | Performance Baseline + monitoring DB |
 
 ---
 
@@ -101,4 +102,4 @@ SLA restore: **≤ 60 min od decyzji**
 - [Runbook + Rollback](PORADNIK-PRO-P1-RUNBOOK-ROLLBACK-2026-03-13.md)
 - [Go-Live Checklist](PORADNIK-PRO-GO-LIVE-CHECKLIST-2026-03.md)
 - [Sprint 12 Plan](PORADNIK-PRO-SPRINT-12-PLAN-2026-03-13.md)
-- [Performance Baseline](PORADNIK-PRO-PERFORMANCE-BASELINE-2026-03.md) *(do utworzenia — zadanie C)*
+- [Performance Baseline](PORADNIK-PRO-PERFORMANCE-BASELINE-2026-03.md)

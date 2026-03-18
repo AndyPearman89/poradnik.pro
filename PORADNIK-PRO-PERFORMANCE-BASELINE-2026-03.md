@@ -18,7 +18,7 @@ Metodologia:
 - Narzędzie: `curl` (`time_starttransfer`)
 - Próba: **20 requestów / endpoint**
 - Środowisko: local (`poradnikpro.local`)
-- Skrypt: `themes/poradnik-theme/scripts/p1-performance-baseline.ps1`
+- Skrypt: `p1-performance-baseline.ps1` (uruchamiany w środowisku WordPress deploy; komenda referencyjna w `PORADNIK-PRO-P1-TEST-COMMANDS-2026-03-13.md`)
 - Cleanup danych testowych: wbudowany (`PERF_CLEANUP_PASS`)
 
 ---
@@ -147,7 +147,7 @@ Dlaczego średni:
 
 ## 7) Linki
 
-- [Skrypt baseline](../themes/poradnik-theme/scripts/p1-performance-baseline.ps1)
+- [Playbook komend testowych](PORADNIK-PRO-P1-TEST-COMMANDS-2026-03-13.md)
 - [Sprint 12 Plan](PORADNIK-PRO-SPRINT-12-PLAN-2026-03-13.md)
 - [Measurement Baseline](PORADNIK-PRO-MEASUREMENT-BASELINE-2026-03.md)
 - [Risk Matrix](PORADNIK-PRO-GOLIVE-RISK-MATRIX-2026-03.md)
