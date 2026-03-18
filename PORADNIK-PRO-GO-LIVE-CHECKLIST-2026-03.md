@@ -12,6 +12,9 @@ Owner: DevOps / Platform Team
 - [ ] Backup DB wykonany i zweryfikowany (snapshot + test restore metadata).
 - [ ] Backup plików aplikacji wykonany (`mu-plugins`, `themes`, konfiguracje).
 - [ ] Potwierdzone PASS dla P1-01..P1-06.
+- [ ] Uruchomiony smoke gate pre-deploy:
+  - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
+  - [ ] Wynik: `SMOKE_FAILED=0`
 - [ ] Brak aktywnych blockerów P0/P1.
 - [ ] Kanał eskalacji i ownerzy dyżuru potwierdzeni.
 
@@ -20,10 +23,11 @@ Owner: DevOps / Platform Team
 - [ ] Migracje DB wykonane bez błędów krytycznych.
 - [ ] Rewrite/cache odświeżone (jeśli wymagane).
 - [ ] Smoke krytyczny po deployu zakończony PASS:
+  - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
+  - [ ] Wynik: `SMOKE_FAILED=0`
   - [ ] Admin Tools
-  - [ ] Affiliate click endpoint
-  - [ ] Dashboard campaigns API
   - [ ] Sponsored workflow (minimum)
+  - [ ] Potwierdzono statusy endpointów wg aktywnego namespace (`poradnik/v1` lub `peartree/v1`)
 
 ## C. Po wdrożeniu (24h)
 - [ ] Monitoring 5xx/4xx i błędów PHP aktywny.
@@ -40,3 +44,6 @@ Owner: DevOps / Platform Team
 - [ ] Trigger rollback i SLA decyzji znane (`<=15 min`).
 - [ ] Procedura restore technicznie przetestowana.
 - [ ] Krytyczne testy po rollbacku zdefiniowane i gotowe do uruchomienia.
+- [ ] Komenda re-test po rollbacku gotowa:
+  - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
+  - [ ] Kryterium akceptacji: `SMOKE_FAILED=0`
