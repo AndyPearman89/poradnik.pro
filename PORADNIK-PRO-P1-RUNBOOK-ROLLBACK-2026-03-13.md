@@ -18,6 +18,10 @@ Owner: DevOps
 - Zamrożenie okna wdrożeniowego (`change freeze`) i potwierdzenie ownerów dyżuru.
 - Backup DB + plików aplikacji z timestampem i identyfikatorem release.
 - Potwierdzenie PASS dla P1-01..P1-06 (raporty smoke/E2E) oraz brak blockerów P0/P1.
+- Uruchomienie bramki smoke przed deployem (repo `poradnik.pro_repo`):
+	- `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
+	- Wymagane: `SMOKE_FAILED=0`.
+	- Uwaga: skrypt automatycznie wykrywa aktywny namespace (`poradnik/v1` lub `peartree/v1`) — nie hardcodować endpointów w checkliście operacyjnej.
 - Weryfikacja dostępu operacyjnego: WP Admin, DB, logi HTTP/PHP, możliwość szybkiego rollbacku.
 - Przygotowanie notatki release: zakres zmian, ryzyka, kryteria Go/No-Go.
 
@@ -26,10 +30,9 @@ Owner: DevOps
 - Uruchomienie migracji DB i potwierdzenie braku błędów krytycznych.
 - Flush rewrite/cache (jeśli wymagane) oraz kontrola integralności endpointów REST.
 - Smoke po wdrożeniu:
-	- `GET /wp-admin/tools.php` (dostęp admin),
-	- `POST /wp-json/poradnik/v1/affiliate/click` (walidacja zapisu),
-	- dashboard kampanii (`/wp-json/poradnik/v1/api/campaigns`) dla konta reklamodawcy,
-	- sponsored workflow na poziomie minimalnym (submit + transition).
+	- `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
+	- Wymagane: `SMOKE_FAILED=0` i statusy zgodne z profilem endpointów (public/private).
+	- Dodatkowo ręcznie: `GET /wp-admin/tools.php` (dostęp admin) + minimalny sponsored workflow (submit + transition).
 
 ### 3) Post-deploy
 - Monitoring 24h: błędy HTTP 5xx, błędy PHP, metryki klików i eventów monetyzacyjnych.
@@ -53,8 +56,8 @@ Owner: DevOps
 4. Odtworzenie bazy danych do snapshotu sprzed release (jeśli dotyczy zmian DB).
 5. Flush cache/rewrite i restart usług zależnych (jeśli wymagane środowiskowo).
 6. Re-test krytyczny po rollbacku:
+	 - `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict` (wymagane `SMOKE_FAILED=0`),
 	 - logowanie admin + Tools,
-	 - endpointy prywatne/publiczne REST,
 	 - sponsored + affiliate tracking ścieżki krytyczne.
 7. Potwierdzenie stabilizacji i zamknięcie incydentu z raportem RCA.
 
