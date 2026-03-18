@@ -93,6 +93,12 @@ wp eval 'Poradnik\Platform\Infrastructure\Database\Migrator::maybeMigrate();' --
 
 Base namespace: `/wp-json/poradnik/v1/`
 
+Quick REST smoke (PowerShell):
+
+```powershell
+pwsh ./tools/rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict
+```
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/health` | Platform health check |
