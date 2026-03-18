@@ -10,7 +10,16 @@ if (! defined('ABSPATH')) {
 }
 
 if (! defined('PORADNIK_PLATFORM_MU_PATH')) {
-    define('PORADNIK_PLATFORM_MU_PATH', __DIR__ . '/backend');
+    $defaultPath = __DIR__ . '/backend';
+    $legacyPath = __DIR__ . '/platform-core';
+
+    if (is_dir($defaultPath)) {
+        define('PORADNIK_PLATFORM_MU_PATH', $defaultPath);
+    } elseif (is_dir($legacyPath)) {
+        define('PORADNIK_PLATFORM_MU_PATH', $legacyPath);
+    } else {
+        define('PORADNIK_PLATFORM_MU_PATH', $defaultPath);
+    }
 }
 
 $bootstrap_file = PORADNIK_PLATFORM_MU_PATH . '/Core/Bootstrap.php';

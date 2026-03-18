@@ -63,7 +63,9 @@ git clone https://github.com/AndyPearman89/poradnik.pro.git poradnik-pro
 
 # 2. Symlink or copy the loader and backend
 cp poradnik-pro/poradnik-platform-loader.php .
-ln -s poradnik-pro/backend platform-core
+ln -s poradnik-pro/backend backend
+# alternative (legacy path also supported by loader):
+# ln -s poradnik-pro/backend platform-core
 
 # 3. Install the theme
 ln -s poradnik-pro/theme ../themes/generatepress-child-poradnik
