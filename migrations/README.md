@@ -1,5 +1,9 @@
 # Migrations
 
+## Agenty Copilot (workspace)
+
+Przewodnik agentów multi-repo: `../.github/agents/README.md`.
+
 Database schema migrations for the Poradnik.pro platform.
 
 ## How It Works

@@ -1,5 +1,9 @@
 # poradnik.pro
 
+## Agenty Copilot (workspace)
+
+Przewodnik agentów multi-repo: `../.github/agents/README.md`.
+
 Consolidated repository for the **Poradnik.pro** portal – a scalable knowledge and monetisation platform built on WordPress.
 
 ## Repository Structure

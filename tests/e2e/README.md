@@ -1,5 +1,9 @@
 # End-to-End Tests
 
+## Agenty Copilot (workspace)
+
+Przewodnik agentów multi-repo: `../.github/agents/README.md`.
+
 Smoke and integration tests for the consolidated **poradnik.pro** repository.
 
 ## Running Tests

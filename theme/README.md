@@ -1,5 +1,9 @@
 ﻿# generatepress-child-poradnik
 
+## Agenty Copilot (workspace)
+
+Przewodnik agentów multi-repo: `../.github/agents/README.md`.
+
 WordPress child theme dla **poradnik.pro**  platforma poradnikowa oparta na PearTree Core.
 
 ## Stack

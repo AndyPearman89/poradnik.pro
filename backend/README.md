@@ -1,5 +1,9 @@
 # platform-core (MU Plugin)
 
+## Agenty Copilot (workspace)
+
+Przewodnik agentów multi-repo: `../.github/agents/README.md`.
+
 ## Status zmian (2026-03-13)
 
 ### API / Security
