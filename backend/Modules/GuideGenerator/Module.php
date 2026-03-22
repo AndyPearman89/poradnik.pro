@@ -2,6 +2,7 @@
 
 namespace Poradnik\Platform\Modules\GuideGenerator;
 
+use Poradnik\Platform\Admin\GuideGeneratorPage;
 use Poradnik\Platform\Core\EventLogger;
 use Poradnik\Platform\Domain\Guide\GuideGenerator;
 
@@ -13,6 +14,10 @@ final class Module
 {
     public static function init(): void
     {
+        if (is_admin()) {
+            GuideGeneratorPage::init();
+        }
+
         add_action('init', [self::class, 'register'], 20);
     }
 
