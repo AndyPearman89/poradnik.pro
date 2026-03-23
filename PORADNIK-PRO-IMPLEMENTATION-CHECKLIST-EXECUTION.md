@@ -3,12 +3,22 @@
 Data: 13 marca 2026  
 Źródło: `PORADNIK-PRO-IMPLEMENTATION-CHECKLIST.md`
 
+Zakres referencyjny produktu: `../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md`
+
+Terminologia 3.0:
+- `guide` -> `poradnik`
+- `review` -> `recenzja`
+- `comparison` -> `porownanie`
+
+Model wdrozenia:
+- Poradnik.pro jest wdrazany jako niezalezna platforma WordPress, z wlasnym frontendem, backendem i namespace API.
+
 ## Cel
 Uproszczona lista zadań do dowiezienia produkcyjnego uruchomienia, bez sekcji strategicznych i bez duplikatów.
 
 ## Snapshot
 - Foundation / Content Model / DB / Affiliate / Ads / Stripe / SEO automation: **zrobione**
-- Największe luki: **QA/E2E/Go-Live**, **Analytics**, **Performance**, **AI**, **Multilingual**
+- Największe luki: **QA/E2E/Go-Live**, **Analytics**, **Performance**, **AI Content Engine 3.0**, **Multilingual**
 
 ## Sprint bieżący (tydzień 11 / marzec 2026)
 Właściciel: zespół platformy  
@@ -38,7 +48,7 @@ Cel sprintu: zamknąć krytyczne elementy P1 przed go-live.
 - [x] Smoke test: CRUD ad campaign
 - [x] Smoke test: sponsored workflow (submit -> review -> paid -> publish)
 - [ ] Smoke test: AI Assistant + AI Image (bez 500)
-- [ ] Smoke test: Programmatic SEO builder (draft generation)
+- [ ] Smoke test: Content Engine 3.0 builder (draft generation dla poradnik / Q&A / affiliate)
 - [x] REST test: endpointy prywatne odrzucają brak autoryzacji
 - [x] REST test: endpointy publiczne odrzucają niepoprawny payload
 - [x] Lint: `php -l` dla `mu-plugins/platform-core/**` bez błędów
@@ -90,18 +100,18 @@ Cel sprintu: zamknąć krytyczne elementy P1 przed go-live.
 
 ## P3 — Skalowanie treści
 
-### 8) Guide Generator
-- [ ] Struktura guide + brakujące pola ACF + repeater steps
+### 8) Content Engine 3.0 Generator
+- [ ] Struktura poradnik + brakujące pola ACF + repeater steps
 - [ ] Frontend generator: `/generator-poradnikow`
 - [ ] Prompt template + wersjonowanie promptów
-- [ ] Programmatic generator dla fraz `Jak [czynność] [X]`
-- [ ] Batch generation (100/1000/10000) z limitami i kolejką
-- [ ] Template guide + schema HowTo + interactive elements
-- [ ] CTA i internal linking (`guide -> ranking/review/tools`)
+- [ ] Programmatic generator dla fraz `Jak [czynność] [X]` oraz pytań problemowych / zakupowych
+- [ ] Batch generation (100/1000/10000) dla poradnikow, recenzji, porownan, pytan i odpowiedzi
+- [ ] Template poradnik + schema HowTo + interactive elements
+- [ ] CTA i internal linking (`poradnik -> ranking -> recenzja -> pytanie/specjalista`)
 - [ ] Mechanizm skalowania pod tysiące słów kluczowych
 
 ### 9) AI Content + AI Image
-- [ ] Headline / Outline / FAQ / Meta description / Ranking copy
+- [ ] Headline / Outline / FAQ / Meta description / ranking copy / review copy / comparison copy / Q&A
 - [ ] Panel AI Article Assistant (admin)
 - [ ] Guardrails jakości (jakość, długość, banned claims)
 - [ ] Generator obrazów + formaty OG/hero/social
@@ -117,7 +127,7 @@ Cel sprintu: zamknąć krytyczne elementy P1 przed go-live.
 ### 11) Category Map i klastery (po stabilizacji)
 - [ ] Walidacja mapy kategorii (unikalność slugów, brak pustych podkategorii)
 - [ ] Programmatic SEO patterns (`jak zrobić`, `jak ustawić`, itd.)
-- [ ] Klastrowanie: `guide -> ranking -> review -> comparison`
+- [ ] Klastrowanie: `poradnik -> ranking -> recenzja -> porownanie -> pytanie -> specjalista`
 - [ ] SEO site map i skala publikacji (etapowo)
 
 ---
@@ -132,6 +142,48 @@ Cel sprintu: zamknąć krytyczne elementy P1 przed go-live.
 1. P1 (blokery go-live)  
 2. P2 (pomiar + wydajność + bezpieczeństwo operacyjne)  
 3. P3 (AI + multilingual + skala programmatic)
+
+## Kolejność wdrożenia fixu namespace (po kolei)
+1. Wdróż zmienione kontrolery API na środowisko produkcyjne:
+	- `backend/Api/Controllers/AiContentController.php`
+	- `backend/Api/Controllers/AiImageController.php`
+	- `backend/Api/Controllers/ProgrammaticBuildController.php`
+2. Wdróż mapowanie typów treści i generator:
+	- `backend/Core/ContentTypeMapper.php`
+	- `backend/Domain/Seo/ProgrammaticGenerator.php`
+3. Wdróż/odśwież skrypty operacyjne:
+	- `tools/p1-ai-content-engine-smoke.ps1`
+	- `tools/production-gate.ps1`
+4. Uruchom gate po deployu:
+	- `PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro -RequireAiRoutes`
+5. Kryterium sukcesu:
+	- `PRODUCTION_GATE=PASS`
+	- `GATE_AI_SKIPPED_ROUTES=0`
+6. Po PASS oznacz zadania P1 AI/Content Engine jako done i dopisz wpis do dziennika wykonania.
+
+## Production autonomy — stan bieżący
+- [x] Kod fixu dual-namespace przygotowany lokalnie (`poradnik/v1` + `peartree/v1`).
+- [x] Gate lokalny gotowy (`tools/production-gate.ps1`).
+- [ ] Fix wdrożony na serwer produkcyjny.
+- [ ] Gate produkcyjny `-RequireAiRoutes` przechodzi (`PRODUCTION_GATE=PASS`).
+
+Aktualny blocker:
+- Produkcja nadal działa na wersji sprzed fixu tras AI/SEO (wynik: `GATE_AI_SKIPPED_ROUTES>0`).
+
+Następny krok autonomiczny (single action):
+- Uruchom po deployu:
+	- `PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro -RequireAiRoutes`
+
+Deploy packet (gotowy artefakt):
+- Budowanie pakietu:
+	- `PowerShell -ExecutionPolicy Bypass -File .\tools\build-production-packet.ps1`
+- Ostatni wygenerowany artefakt:
+	- `artifacts/poradnik-production-namespace-fix-20260323-213539.zip`
+	- `artifacts/poradnik-production-namespace-fix-20260323-213539.manifest.txt`
+
+Kryterium odblokowania:
+- `PRODUCTION_GATE=PASS`
+- `GATE_AI_SKIPPED_ROUTES=0`
 
 ---
 
@@ -161,6 +213,10 @@ Playbook komend testowych: `PORADNIK-PRO-P1-TEST-COMMANDS-2026-03-13.md`
 | 2026-03-13 | P2 | Measurement | Walidacja eventów monetyzacyjnych (affiliate_click, ad_click, ad_impression) | PASS | QA Automation | `p1-measurement-events-e2e.ps1`: `MEAS_AFF_DB_PASS`, `MEAS_ADCLICK_DB_PASS`, `MEAS_ADIMPR_DB_PASS`, `MEAS_SCRIPT_EXIT=0`; baseline doc utworzony |
 | 2026-03-13 | P2 | Performance | Baseline TTFB + top zapytania DB + quick wins | PASS | DevOps | `p1-performance-baseline.ps1`: 4 endpointy (20 prób), `PERF_SCRIPT_EXIT=0`; utworzono `PORADNIK-PRO-PERFORMANCE-BASELINE-2026-03.md` |
 | 2026-03-13 | P2 | Measurement | Raport kontrolny dzienny: wolumen eventów + błędy zapisu | PASS | QA Automation | `p1-measurement-daily-report.ps1`: wygenerowano `PORADNIK-PRO-MEASUREMENT-DAILY-REPORT-2026-03-13.md`, `MEAS_DAILY_REPORT_PASS` |
+| 2026-03-23 | P1 | QA/Automation | Smoke harness: AI Assistant + AI Image + Content Engine 3.0 (`tools/p1-ai-content-engine-smoke.ps1`) | PASS | platform-team | Skrypt uruchomiony; `AI_CONTENT_ENGINE_SMOKE=PASS`; w środowisku z `peartree/v1` endpointy AI/SEO oznaczone jako `SKIPPED_ROUTE_NOT_FOUND` (do pełnej walidacji wymagany aktywny routing `poradnik/v1`). |
+| 2026-03-23 | P1 | DevOps/Release | Production gate task (`tools/production-gate.ps1`) + VS Code tasks | PASS | platform-team | Agreguje `rest-smoke` + `p1-ai-content-engine-smoke`; wynik `PRODUCTION_GATE=PASS`; tryb `-RequireAiRoutes` poprawnie blokuje release (`PRODUCTION_GATE=FAIL`) gdy AI routes są nieaktywne. |
+| 2026-03-23 | P1 | Backend/API | Dual-namespace compatibility dla AI + SEO routes (`poradnik/v1` i `peartree/v1`) | PASS | platform-team | Zmieniono rejestrację w `AiContentController`, `AiImageController`, `ProgrammaticBuildController`; lokalny lint PASS. `-RequireAiRoutes` na produkcji pozostaje FAIL do czasu deployu nowych kontrolerów. |
+| 2026-03-23 | P1 | DevOps/Release | Build deploy packet dla fixu namespace (`tools/build-production-packet.ps1`) | PASS | platform-team | Utworzono `artifacts/poradnik-production-namespace-fix-20260323-213539.zip` + manifest; gotowe do rollout i walidacji `production-gate -RequireAiRoutes`. |
 
 ### Szablon nowego wpisu
 `| YYYY-MM-DD | P1/P2/P3 | Obszar | Zadanie / Test | PASS/FAIL | Owner | Krótka notatka |`

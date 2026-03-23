@@ -3,6 +3,11 @@
 Data: 12 marca 2026  
 Cel sprintu: uruchomić stabilny fundament platformy MU (runtime + content model + baza danych).
 
+Terminologia referencyjna po aktualizacji produktu do Content Engine 3.0:
+- kanoniczny zakres: `../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md`
+- mapowanie legacy -> platforma: `guide` -> `poradnik`, `review` -> `recenzja`, `comparison` -> `porownanie`
+- dalsze rozszerzenia 3.0 ponad fundament Sprint 1: `pytanie`, `odpowiedz`, `specjalista`
+
 ## Zakres Sprint 1
 - Foundation runtime w `mu-plugins/platform-core`
 - Rejestracja CPT + taksonomii
@@ -60,6 +65,7 @@ Priorytet: P0
 Zakres:
 - Utworzyć moduł `Modules/ContentModel/` z `bootstrap.php` i klasą `Module`
 - Zarejestrować CPT: `guide`, `ranking`, `review`, `comparison`, `news`, `tool`, `sponsored`
+- W aktualnej nomenklaturze platformy 3.0 odpowiada to: `poradnik`, `ranking`, `recenzja`, `porownanie`, `news`, `tool`, `sponsored`
 - Dodać spójne labels, `show_in_rest`, rewrite slugi PL
 - Dodać wsparcie: title, editor, excerpt, thumbnail, author, revisions
 

@@ -1,0 +1,20 @@
+﻿PORADNIK.PRO PRODUCTION DEPLOY PACKET
+GeneratedAt=2026-03-23T21:35:39+01:00
+PacketName=poradnik-production-namespace-fix-20260323-213539
+Purpose=Namespace fix + production gate routes for AI/SEO
+
+Files:
+backend/Api/Controllers/AiContentController.php
+backend/Api/Controllers/AiImageController.php
+backend/Api/Controllers/ProgrammaticBuildController.php
+backend/Core/ContentTypeMapper.php
+backend/Domain/Seo/ProgrammaticGenerator.php
+tools/p1-ai-content-engine-smoke.ps1
+tools/production-gate.ps1
+
+Verification command:
+PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro -RequireAiRoutes
+
+Expected markers:
+PRODUCTION_GATE=PASS
+GATE_AI_SKIPPED_ROUTES=0

@@ -2,6 +2,7 @@
 
 namespace Poradnik\Platform\Domain\Seo;
 
+use Poradnik\Platform\Core\ContentTypeMapper;
 use Poradnik\Platform\Core\EventLogger;
 use Poradnik\Platform\Domain\Seo\CategoryMap;
 use Poradnik\Platform\Modules\AiImageGenerator\AiImageGeneratorService;
@@ -23,7 +24,7 @@ final class ProgrammaticGenerator
     {
         $template = sanitize_key($template);
         $topic = trim(wp_strip_all_tags($topic));
-        $postType = sanitize_key($postType);
+        $postType = ContentTypeMapper::normalizePostType($postType, 'guide');
 
         $availableTemplates = array_keys(CategoryMap::templates());
         $availablePostTypes = array_keys(CategoryMap::postTypes());

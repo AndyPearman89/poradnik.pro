@@ -27,6 +27,10 @@ final class ContentGenerator
             'faq' => ['tool' => $tool, 'output' => self::faq($input)],
             'meta' => ['tool' => $tool, 'output' => self::meta($input)],
             'ranking' => ['tool' => $tool, 'output' => self::ranking($input, $options)],
+            'review' => ['tool' => $tool, 'output' => self::review($input)],
+            'comparison' => ['tool' => $tool, 'output' => self::comparison($input, $options)],
+            'qa' => ['tool' => $tool, 'output' => self::qa($input)],
+            'affiliate' => ['tool' => $tool, 'output' => self::affiliate($input, $options)],
             default => ['tool' => $tool, 'output' => self::outline($input)],
         };
     }
@@ -36,7 +40,7 @@ final class ContentGenerator
      */
     public static function tools(): array
     {
-        return ['headline', 'outline', 'faq', 'meta', 'ranking'];
+        return ['headline', 'outline', 'faq', 'meta', 'ranking', 'review', 'comparison', 'qa', 'affiliate'];
     }
 
     private static function headline(string $topic): string
@@ -104,6 +108,85 @@ final class ContentGenerator
             $lines[] = $position . '. ' . $name . ' - mocna opcja przy dobrym stosunku ceny do funkcji.';
             $position++;
         }
+
+        return implode("\n", $lines);
+    }
+
+    private static function review(string $topic): string
+    {
+        return implode("\n", [
+            'Recenzja: ' . $topic,
+            'Ocena ogolna: 8.4/10',
+            'Najwieksze plusy: szybkie wdrozenie, sensowna cena, stabilnosc.',
+            'Najwieksze minusy: ograniczenia raportowania w planie podstawowym.',
+            'Dla kogo: firmy i tworczy, ktorzy potrzebuja przewidywalnego efektu.',
+            'Werdykt: warto rozwazyc przy budzecie srednim i nacisku na automatyzacje.',
+        ]);
+    }
+
+    /**
+     * @param array<string, mixed> $options
+     */
+    private static function comparison(string $topic, array $options): string
+    {
+        $items = isset($options['items']) && is_array($options['items']) ? $options['items'] : [];
+
+        if ($items === []) {
+            $items = ['Opcja A', 'Opcja B'];
+        }
+
+        $lines = ['Porownanie dla: ' . $topic, 'Kryteria: cena, funkcje, latwosc wdrozenia, wsparcie.'];
+        foreach ($items as $item) {
+            $name = wp_strip_all_tags((string) $item);
+            if ($name === '') {
+                continue;
+            }
+
+            $lines[] = '- ' . $name . ': mocny balans ceny do funkcji, dobre wsparcie i szybki start.';
+        }
+
+        $lines[] = 'Werdykt: wybierz rozwiazanie, ktore najlepiej pasuje do skali i kompetencji zespolu.';
+
+        return implode("\n", $lines);
+    }
+
+    private static function qa(string $topic): string
+    {
+        return implode("\n\n", [
+            'P: Jak szybko wdrozyc ' . $topic . '?\nO: Najczesciej podstawowy setup zajmuje od 1 do 3 dni.',
+            'P: Jaki budzet startowy jest potrzebny?\nO: Wersja MVP zwykle miesci sie w niskim lub srednim progu kosztowym.',
+            'P: Co daje najwiekszy zwrot?\nO: Powtarzalny proces, pomiar KPI i regularna optymalizacja.',
+        ]);
+    }
+
+    /**
+     * @param array<string, mixed> $options
+     */
+    private static function affiliate(string $topic, array $options): string
+    {
+        $items = isset($options['items']) && is_array($options['items']) ? $options['items'] : [];
+
+        if ($items === []) {
+            $items = ['Produkt 1', 'Produkt 2', 'Produkt 3'];
+        }
+
+        $lines = [
+            'Sekcja afiliacyjna: ' . $topic,
+            'Kryteria doboru: cena, prowizja, konwersja, wiarygodnosc sprzedawcy.',
+        ];
+
+        $position = 1;
+        foreach ($items as $item) {
+            $name = wp_strip_all_tags((string) $item);
+            if ($name === '') {
+                continue;
+            }
+
+            $lines[] = $position . '. ' . $name . ' - rekomendacja afiliacyjna z CTA i zastrzezeniem redakcyjnym.';
+            $position++;
+        }
+
+        $lines[] = 'Disclosure: linki mogą zawierac prowizje partnerskie.';
 
         return implode("\n", $lines);
     }

@@ -11,7 +11,46 @@ PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https:/
 
 Warunek PASS: `SMOKE_FAILED=0`.
 
+## Production gate (single command)
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro
+```
+
+Wymagane markery:
+- `PRODUCTION_GATE=PASS`
+- `GATE_REST_FAILED=0`
+- `GATE_AI_FAILED=0`
+
+Tryb pełnej zgodności AI route policy (na środowisku docelowym `poradnik/v1`):
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro -RequireAiRoutes
+```
+
 Uwaga: skrypt automatycznie wykrywa aktywny namespace (`poradnik/v1` lub `peartree/v1`) i dobiera profil endpointów.
+
+## P1-08 — Smoke: AI Assistant + AI Image + Content Engine 3.0 builder
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File .\tools\p1-ai-content-engine-smoke.ps1 -BaseUrl https://poradnik.pro
+```
+
+Oczekiwane markery:
+- `AI_ASSISTANT_PASS=...`
+- `AI_IMAGE_PASS=...`
+- `CONTENT_ENGINE_PORADNIK_PASS=...`
+- `CONTENT_ENGINE_QA_PASS=...`
+- `CONTENT_ENGINE_AFFILIATE_PASS=...`
+- `AI_CONTENT_ENGINE_SMOKE=PASS`
+
+W trybie gate:
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File .\tools\p1-ai-content-engine-smoke.ps1 -BaseUrl https://poradnik.pro -Strict
+```
+
+Warunek PASS: `AI_SMOKE_FAILED=0`.
 
 ## Ustawienia wspólne
 

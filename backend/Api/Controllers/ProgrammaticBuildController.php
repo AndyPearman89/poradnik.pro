@@ -3,6 +3,7 @@
 namespace Poradnik\Platform\Api\Controllers;
 
 use Poradnik\Platform\Core\Capabilities;
+use Poradnik\Platform\Core\ContentTypeMapper;
 use Poradnik\Platform\Domain\Seo\ProgrammaticGenerator;
 use WP_Error;
 use WP_REST_Request;
@@ -16,51 +17,53 @@ final class ProgrammaticBuildController
 {
     public static function registerRoutes(): void
     {
-        register_rest_route('poradnik/v1', '/seo/programmatic/build', [
-            'methods'             => 'POST',
-            'callback'            => [self::class, 'build'],
-            'permission_callback' => [self::class, 'canAccess'],
-            'args'                => [
-                'generation_mode' => [
-                    'type'    => 'string',
-                    'enum'    => ['single', 'batch', 'cluster', 'cluster-batch'],
-                    'default' => 'single',
+        foreach (['poradnik/v1', 'peartree/v1'] as $namespace) {
+            register_rest_route($namespace, '/seo/programmatic/build', [
+                'methods'             => 'POST',
+                'callback'            => [self::class, 'build'],
+                'permission_callback' => [self::class, 'canAccess'],
+                'args'                => [
+                    'generation_mode' => [
+                        'type'    => 'string',
+                        'enum'    => ['single', 'batch', 'cluster', 'cluster-batch'],
+                        'default' => 'single',
+                    ],
+                    'template' => [
+                        'type'    => 'string',
+                        'enum'    => ['jak-zrobic', 'jak-ustawic', 'jak-naprawic', 'jak-wymienic', 'jak-zainstalowac', 'jak-wyczyscic', 'jak-skonfigurowac', 'jak-dziala', 'best', 'ranking'],
+                        'default' => 'jak-zrobic',
+                    ],
+                    'topic' => [
+                        'type'              => 'string',
+                        'minLength'         => 2,
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ],
+                    'count' => [
+                        'type'    => 'integer',
+                        'minimum' => 1,
+                        'maximum' => 50,
+                        'default' => 1,
+                    ],
+                    'post_type' => [
+                        'type'    => 'string',
+                        'enum'    => ContentTypeMapper::apiAllowedAliases(),
+                        'default' => 'guide',
+                    ],
+                    'hub' => [
+                        'type'              => 'string',
+                        'default'           => 'all',
+                        'sanitize_callback' => 'sanitize_key',
+                    ],
+                    'max_topics' => [
+                        'type'    => 'integer',
+                        'minimum' => 1,
+                        'maximum' => 250,
+                        'default' => 25,
+                    ],
                 ],
-                'template' => [
-                    'type'    => 'string',
-                    'enum'    => ['jak-zrobic', 'jak-ustawic', 'jak-naprawic', 'jak-wymienic', 'jak-zainstalowac', 'jak-wyczyscic', 'jak-skonfigurowac', 'jak-dziala', 'best', 'ranking'],
-                    'default' => 'jak-zrobic',
-                ],
-                'topic' => [
-                    'type'              => 'string',
-                    'minLength'         => 2,
-                    'default'           => '',
-                    'sanitize_callback' => 'sanitize_text_field',
-                ],
-                'count' => [
-                    'type'    => 'integer',
-                    'minimum' => 1,
-                    'maximum' => 50,
-                    'default' => 1,
-                ],
-                'post_type' => [
-                    'type'    => 'string',
-                    'enum'    => ['guide', 'ranking', 'review', 'comparison', 'tool', 'news'],
-                    'default' => 'guide',
-                ],
-                'hub' => [
-                    'type'              => 'string',
-                    'default'           => 'all',
-                    'sanitize_callback' => 'sanitize_key',
-                ],
-                'max_topics' => [
-                    'type'    => 'integer',
-                    'minimum' => 1,
-                    'maximum' => 250,
-                    'default' => 25,
-                ],
-            ],
-        ]);
+            ]);
+        }
     }
 
     public static function canAccess(): bool
@@ -74,7 +77,7 @@ final class ProgrammaticBuildController
         $template = sanitize_key((string) $request->get_param('template'));
         $topic = sanitize_text_field((string) $request->get_param('topic'));
         $count = absint($request->get_param('count'));
-        $postType = sanitize_key((string) $request->get_param('post_type'));
+        $postType = ContentTypeMapper::normalizePostType((string) $request->get_param('post_type'), 'guide');
         $hub = sanitize_key((string) $request->get_param('hub'));
         $maxTopics = absint($request->get_param('max_topics'));
 
@@ -102,7 +105,7 @@ final class ProgrammaticBuildController
             $result = ProgrammaticGenerator::buildBatch(
                 $template === '' ? 'jak-zrobic' : $template,
                 $count > 0 ? $count : 1,
-                $postType === '' ? 'guide' : $postType,
+                $postType,
                 $hub === '' ? 'all' : $hub,
                 $maxTopics > 0 ? $maxTopics : 25
             );
@@ -111,7 +114,7 @@ final class ProgrammaticBuildController
                 $template === '' ? 'jak-zrobic' : $template,
                 $topic,
                 $count > 0 ? $count : 1,
-                $postType === '' ? 'guide' : $postType
+                $postType
             );
         }
 

@@ -1,19 +1,23 @@
 # PORADNIK.PRO – PLATFORM GENERATOR BLUEPRINT (MU-PLUGINS)
 
 Data: 12 marca 2026  
-Status: Production Blueprint v2 (MU-first)
+Status: Production Blueprint v3 (Content Engine 3.0 / Independent Platform)
+
+Reference master prompt: `../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md`
 
 ## 1) Cel platformy
-PORADNIK.PRO to skalowalny portal wiedzy SEO + platforma monetyzacji, łącząca:
-- portal poradnikowy
+PORADNIK.PRO to niezalezna platforma zorientowana na content engine, marketplace specjalistow i monetyzacje. Platforma laczy:
+- portal poradnikowy SEO
+- Q&A (pytania + odpowiedzi)
 - affiliate marketing
-- rankingi i recenzje
-- marketplace reklamowy
-- system artykułów sponsorowanych
-- generator treści AI
-- generator obrazów AI
+- rankingi, recenzje i porownania
+- marketplace specjalistow
+- lead generation
+- AdSense i reklamy premium
+- generator tresci AI
+- generator obrazow AI
 - multilingual SEO
-- dashboard SaaS dla reklamodawców
+- dashboard SaaS dla reklamodawcow
 
 Wzorzec produktowy: Wirecutter / NerdWallet / Tooltester / Zapier Blog.
 
@@ -58,13 +62,21 @@ Przykładowe URL:
 
 ## 5) Content model (CPT)
 Wymagane CPT:
-- `guide`
+- `poradnik`
+- `recenzja`
+- `porownanie`
 - `ranking`
-- `review`
-- `comparison`
+- `pytanie`
+- `odpowiedz`
+- `specjalista`
 - `news`
 - `tool`
 - `sponsored`
+
+Mapowanie legacy -> platforma:
+- `guide` -> `poradnik`
+- `review` -> `recenzja`
+- `comparison` -> `porownanie`
 
 Wymagania wspólne dla każdego typu:
 - featured image
@@ -89,6 +101,8 @@ Funkcje:
 - product cards
 - price boxes
 - comparison tables
+- review blocks
+- ranking product slots
 
 Shortcodes:
 - `[affiliate_product]`
@@ -113,6 +127,8 @@ Funkcje:
 - spec tables
 - affiliate CTA buttons
 - sorting, filters, dynamic scoring
+- ranking specjalistow
+- premium visibility boosts
 
 ### 6.3 Review Engine
 Każda recenzja zawiera:
@@ -188,6 +204,9 @@ Narzędzia:
 - FAQ generator
 - meta description generator
 - ranking generator
+- Q&A generator
+- review generator
+- comparison generator
 
 Panel admin:
 - AI Article Assistant

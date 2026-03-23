@@ -4,7 +4,7 @@
 
 Przewodnik agentów multi-repo: `../.github/agents/README.md`.
 
-Consolidated repository for the **Poradnik.pro** portal – a scalable knowledge and monetisation platform built on WordPress.
+Consolidated repository for the **Poradnik.pro** portal – a standalone knowledge, Q&A, affiliate and lead monetisation platform built on WordPress.
 
 ## Repository Structure
 
@@ -21,13 +21,16 @@ poradnik.pro/
 WordPress child theme (`generatepress-child-poradnik`) previously maintained in the
 [poradnik.pro-theme](https://github.com/AndyPearman89/poradnik.pro-theme) repository.
 
+Zakres produktu i terminologia platformy 3.0 są opisane w
+[PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md](../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md).
+
 Deploy to: `wp-content/themes/generatepress-child-poradnik/`
 
 Key files:
 - `functions.php` – Theme setup, CPT registration, REST API localization
 - `assets/css/` – Compiled CSS (main, layout, components, responsive)
 - `assets/js/` – Frontend JS (main, search, ajax, filters)
-- `template-parts/` – Modular PHP templates (front-page, content, ranking, review, …)
+- `template-parts/` – Modular PHP templates (front-page, poradnik, ranking, recenzja, porownanie, Q&A, specialist, …)
 
 ### `backend/`
 
@@ -41,7 +44,7 @@ Subsystems:
 - `Api/` – REST API kernel and controllers
 - `Domain/` – Business logic (Affiliate, Ads, AI, SEO, Stripe, …)
 - `Infrastructure/` – Database migrator, integrations
-- `Modules/` – Feature modules (Rankings, Reviews, AiContent, Sponsored, …)
+- `Modules/` – Feature modules (Rankings, Recenzje, Q&A, AiContent, Sponsored, Specialists, …)
 
 ### `migrations/`
 
@@ -115,7 +118,7 @@ Script auto-detects active namespace (`poradnik/v1` or `peartree/v1`).
 | GET | `/dashboard/statistics` | Advertiser dashboard stats |
 | POST | `/ai/content/generate` | Generate AI content |
 | POST | `/ai/image/generate` | Generate AI image |
-| POST | `/seo/programmatic/build` | Build programmatic SEO pages |
+| POST | `/seo/programmatic/build` | Build Content Engine 3.0 pages (poradniki / rankingi / affiliate / Q&A) |
 
 ---
 
@@ -130,5 +133,6 @@ Each module can be toggled without code changes.
 
 - [Cloud Deployment Guide](docs/cloud-deployment.md)
 - [Platform Blueprint](PORADNIK-PRO-PLATFORM-BLUEPRINT.md)
+- [Master Prompt Content Engine 3.0](../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md)
 - [Sprint 1 Tasks](PORADNIK-PRO-SPRINT-1-TASKS.md)
 - [Migrations Runbook](migrations/README.md)

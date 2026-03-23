@@ -15,6 +15,8 @@ Owner: DevOps / Platform Team
 - [ ] Uruchomiony smoke gate pre-deploy:
   - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
   - [ ] Wynik: `SMOKE_FAILED=0`
+  - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro`
+  - [ ] Wynik: `PRODUCTION_GATE=PASS`
 - [ ] Brak aktywnych blockerów P0/P1.
 - [ ] Kanał eskalacji i ownerzy dyżuru potwierdzeni.
 
@@ -25,6 +27,8 @@ Owner: DevOps / Platform Team
 - [ ] Smoke krytyczny po deployu zakończony PASS:
   - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
   - [ ] Wynik: `SMOKE_FAILED=0`
+  - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro`
+  - [ ] Wynik: `PRODUCTION_GATE=PASS`
   - [ ] Admin Tools
   - [ ] Sponsored workflow (minimum)
   - [ ] Potwierdzono statusy endpointów wg aktywnego namespace (`poradnik/v1` lub `peartree/v1`)
@@ -47,3 +51,5 @@ Owner: DevOps / Platform Team
 - [ ] Komenda re-test po rollbacku gotowa:
   - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
   - [ ] Kryterium akceptacji: `SMOKE_FAILED=0`
+  - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\production-gate.ps1 -BaseUrl https://poradnik.pro`
+  - [ ] Kryterium akceptacji: `PRODUCTION_GATE=PASS`

@@ -3,6 +3,16 @@
 ## Overview
 
 This guide covers deploying the consolidated **poradnik.pro** repository to cloud environments.
+Canonical product scope: `../../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md`
+
+Poradnik.pro should be deployed as an **independent WordPress platform** with the following active product areas:
+- poradniki SEO
+- recenzje i porownania afiliacyjne
+- Q&A
+- marketplace specjalistow
+- lead generation
+- premium visibility / ads
+
 The repository bundles:
 
 - `theme/` – GeneratePress child theme (WordPress frontend)
@@ -22,12 +32,12 @@ poradnik.pro/
 │   ├── assets/
 │   │   ├── css/                    # Compiled CSS (main, layout, components, responsive)
 │   │   └── js/                     # Frontend JS (main, search, ajax, filters)
-│   └── template-parts/             # Modular PHP templates
+│   └── template-parts/             # Modular PHP templates (poradnik, recenzja, porownanie, ranking, Q&A, specialist)
 ├── backend/                        # MU-plugin platform core
 │   ├── Core/                       # Bootstrap, ModuleRegistry, runtime
 │   ├── Admin/                      # Admin pages and flags UI
 │   ├── Api/                        # REST API kernel and controllers
-│   ├── Domain/                     # Business logic (Affiliate, Ads, AI, SEO, …)
+│   ├── Domain/                     # Business logic (Affiliate, Ads, AI, SEO, Leads, Specialists, …)
 │   ├── Infrastructure/             # Database migrator, integrations
 │   └── Modules/                    # Feature modules with feature-flag bootstraps
 ├── migrations/
@@ -49,6 +59,12 @@ poradnik.pro/
 | MySQL / MariaDB | 8.0 / 10.6 |
 | GeneratePress (parent theme) | 3.x |
 | ACF Pro | 6.x |
+
+Recommended runtime integrations:
+- Redis object cache
+- WP-CLI
+- Search Console / Analytics credentials
+- OpenAI API key for Content Engine 3.0 jobs
 
 ---
 

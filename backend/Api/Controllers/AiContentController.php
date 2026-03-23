@@ -15,28 +15,30 @@ final class AiContentController
 {
     public static function registerRoutes(): void
     {
-        register_rest_route('poradnik/v1', '/ai/content/generate', [
-            'methods'             => 'POST',
-            'callback'            => [self::class, 'generate'],
-            'permission_callback' => [self::class, 'canAccess'],
-            'args'                => [
-                'tool' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'enum'     => ContentGenerator::tools(),
+        foreach (['poradnik/v1', 'peartree/v1'] as $namespace) {
+            register_rest_route($namespace, '/ai/content/generate', [
+                'methods'             => 'POST',
+                'callback'            => [self::class, 'generate'],
+                'permission_callback' => [self::class, 'canAccess'],
+                'args'                => [
+                    'tool' => [
+                        'required' => true,
+                        'type'     => 'string',
+                        'enum'     => ContentGenerator::tools(),
+                    ],
+                    'input' => [
+                        'required'          => true,
+                        'type'              => 'string',
+                        'minLength'         => 1,
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                    ],
+                    'items' => [
+                        'type'    => 'array',
+                        'default' => [],
+                    ],
                 ],
-                'input' => [
-                    'required'          => true,
-                    'type'              => 'string',
-                    'minLength'         => 1,
-                    'sanitize_callback' => 'sanitize_textarea_field',
-                ],
-                'items' => [
-                    'type'    => 'array',
-                    'default' => [],
-                ],
-            ],
-        ]);
+            ]);
+        }
     }
 
     public static function canAccess(): bool

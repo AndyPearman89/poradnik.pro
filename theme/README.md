@@ -4,12 +4,14 @@
 
 Przewodnik agentów multi-repo: `../.github/agents/README.md`.
 
-WordPress child theme dla **poradnik.pro**  platforma poradnikowa oparta na PearTree Core.
+WordPress child theme dla **poradnik.pro** jako niezaleznej platformy zorientowanej na Content Engine 3.0, Q&A, marketplace specjalistow, afiliacje i lead generation.
+
+Zakres referencyjny produktu: `../../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md`
 
 ## Stack
 
 - **Parent theme**: [GeneratePress](https://generatepress.com/) (wymagany)
-- **Platform**: PearTree Core (`peartree/v1` REST API)
+- **Platform**: standalone WordPress + REST API `poradnik/v1`
 - **PHP**: 8.1+
 - **WordPress**: 6.4+
 
@@ -27,13 +29,13 @@ generatepress-child-poradnik/
     listing/      # karty specjalistów
     schema/       # JSON-LD schema.org
     ui/           # komponenty (card, button, modal, badge, alert)
- functions.php     # rejestracja CPT, taksonomii, enqueue
+ functions.php     # setup motywu, enqueue, integracja z REST i render komponentow platformy
  front-page.php    # strona główna (12 sekcji)
  header.php / footer.php
  style.css         # deklaracja motywu podrzędnego
 ```
 
-## CPT (Custom Post Types)
+## Core Content Types (platforma 3.0)
 
 | CPT | Slug |
 |-----|------|
@@ -41,13 +43,26 @@ generatepress-child-poradnik/
 | Ranking | `ranking` |
 | Recenzja | `recenzja` |
 | Porównanie | `porownanie` |
-| Produkt | `produkt` |
 | Specjalista | `specjalista` |
 | Pytanie | `pytanie` |
+| Odpowiedź | `odpowiedz` |
+
+## Auxiliary Entities
+
+| Encja | Slug |
+|-----|------|
+| Produkt | `produkt` |
 
 ## Taksonomie
 
 - `kategoria`, `tag`, `usluga`, `miasto`
+
+## Zakres UI
+
+- landing pages dla poradnikow, recenzji, porownan i rankingow
+- komponenty Q&A i sekcje przejsc do specjalistow
+- sticky CTA dla leadow i afiliacji
+- responsive comparison tables i boksy eksperckie
 
 ## Instalacja na serwerze
 
