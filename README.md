@@ -132,6 +132,7 @@ Each module can be toggled without code changes.
 ## Documentation
 
 - [Cloud Deployment Guide](docs/cloud-deployment.md)
+- [CI/CD Secrets](docs/CI_CD_SECRETS.md)
 - [Platform Blueprint](PORADNIK-PRO-PLATFORM-BLUEPRINT.md)
 - [Master Prompt Content Engine 3.0](../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md)
 - [Sprint 1 Tasks](PORADNIK-PRO-SPRINT-1-TASKS.md)

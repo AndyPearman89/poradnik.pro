@@ -1,0 +1,130 @@
+name: CI/CD Deploy
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+concurrency:
+  group: poradnik-pro-main
+  cancel-in-progress: false
+
+jobs:
+  build-test:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies (if composer.json exists)
+        run: |
+          if [ -f composer.json ]; then
+            composer install --no-interaction --prefer-dist --no-progress
+          else
+            echo "No composer.json found, skipping composer install"
+          fi
+
+      - name: Lint PHP backend
+        run: |
+          find backend -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Validate e2e structure test script
+        run: php tests/e2e/validate-structure.php
+
+      - name: Upload deploy-relevant artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: poradnik-build-artifact
+          path: |
+            backend/
+            theme/
+            tools/
+            deploy.sh
+            poradnik-platform-loader.php
+
+  deploy-production:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure SSH key
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          PORT="${SSH_PORT:-22}"
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "$PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Sync repository to server
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          DEPLOY_SOURCE_DIR: ${{ secrets.DEPLOY_SOURCE_DIR }}
+        run: |
+          PORT="${SSH_PORT:-22}"
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -p $PORT" \
+            ./ "$SSH_USER@$SSH_HOST:$DEPLOY_SOURCE_DIR"
+
+      - name: Run remote deploy script
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          DEPLOY_SOURCE_DIR: ${{ secrets.DEPLOY_SOURCE_DIR }}
+          WP_CONTENT_DIR: ${{ secrets.WP_CONTENT_DIR }}
+          MU_PLUGIN_DIR: ${{ secrets.MU_PLUGIN_DIR }}
+          MU_LOADER_FILE: ${{ secrets.MU_LOADER_FILE }}
+          THEME_DIR: ${{ secrets.THEME_DIR }}
+          WP_BIN: ${{ secrets.WP_BIN }}
+          RUN_MIGRATIONS: ${{ secrets.RUN_MIGRATIONS }}
+          FLUSH_CACHE: ${{ secrets.FLUSH_CACHE }}
+        run: |
+          PORT="${SSH_PORT:-22}"
+          ssh -i ~/.ssh/id_ed25519 -p "$PORT" "$SSH_USER@$SSH_HOST" \
+            "cd '$DEPLOY_SOURCE_DIR' && chmod +x deploy.sh && \
+             DEPLOY_SOURCE_DIR='$DEPLOY_SOURCE_DIR' \
+             WP_CONTENT_DIR='$WP_CONTENT_DIR' \
+             MU_PLUGIN_DIR='$MU_PLUGIN_DIR' \
+             MU_LOADER_FILE='$MU_LOADER_FILE' \
+             THEME_DIR='$THEME_DIR' \
+             WP_BIN='$WP_BIN' \
+             RUN_MIGRATIONS='$RUN_MIGRATIONS' \
+             FLUSH_CACHE='$FLUSH_CACHE' \
+             ./deploy.sh"
+
+      - name: Validate production gate
+        env:
+          PROD_BASE_URL: ${{ secrets.PROD_BASE_URL }}
+        run: |
+          test -n "$PROD_BASE_URL"
+          curl -fsSL "$PROD_BASE_URL/wp-json/" >/tmp/wpjson.json
+          grep -q '"/poradnik/v1/ai/content/generate"\|"/peartree/v1/ai/content/generate"' /tmp/wpjson.json
+          grep -q '"/poradnik/v1/ai/image/generate"\|"/peartree/v1/ai/image/generate"' /tmp/wpjson.json
+          grep -q '"/poradnik/v1/seo/programmatic/build"\|"/peartree/v1/seo/programmatic/build"' /tmp/wpjson.json
