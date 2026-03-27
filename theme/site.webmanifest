@@ -1,0 +1,19 @@
+{
+  "name": "Poradnik.pro",
+  "short_name": "Poradnik",
+  "description": "Znajdź odpowiedź. Porównaj. Wybierz najlepszego specjalistę.",
+  "icons": [
+    {
+      "src": "/wp-content/themes/generatepress-child-poradnik/assets/branding/logo-app.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#0b0f1a",
+  "background_color": "#0b0f1a",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "pl"
+}

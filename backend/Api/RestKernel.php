@@ -14,6 +14,7 @@ use Poradnik\Platform\Api\Controllers\PearTreeController;
 use Poradnik\Platform\Api\Controllers\ProgrammaticBuildController;
 use Poradnik\Platform\Api\Controllers\RankingController;
 use Poradnik\Platform\Api\Controllers\ReviewController;
+use Poradnik\Platform\Api\Controllers\SearchController;
 use Poradnik\Platform\Api\Controllers\SponsoredOrderController;
 use Poradnik\Platform\Api\Controllers\StripeCheckoutController;
 use Poradnik\Platform\Api\Controllers\StripeWebhookController;
@@ -53,6 +54,7 @@ final class RestKernel
         ProgrammaticBuildController::registerRoutes();
         RankingController::registerRoutes();
         ReviewController::registerRoutes();
+        SearchController::registerRoutes();
         TimelineController::registerRoutes();
         StripeWebhookController::registerRoutes();
         StripeCheckoutController::registerRoutes();

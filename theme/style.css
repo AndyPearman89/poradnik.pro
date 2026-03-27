@@ -3,18 +3,42 @@ Theme Name: GeneratePress Child Poradnik
 Theme URI: https://poradnik.pro
 Description: Child theme dla Poradnik.pro na platformie PearTree Core.
 Author: PearTree Team
-Version: 1.0.0
+Version: 2.0.0
 Template: generatepress
 Text Domain: generatepress-child-poradnik
 */
 
+/* =====================================================
+   PORADNIK.PRO — PRO DESIGN SYSTEM (Locked Spec v1)
+   Ref: docs/specs/THEME-LOCKED-SPEC-v1.md
+   ===================================================== */
+
 :root {
-  --primary: #1a73e8;
-  --accent: #22c55e;
-  --bg: #f9fafb;
-  --text: #111827;
-  --muted: #6b7280;
-  --radius-card: 12px;
-  --radius-btn: 8px;
-  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.08);
+  /* Brand colors */
+  --bg:             #0b0f1a;
+  --bg-section:     #111827;
+  --primary:        #7c3aed;
+  --secondary:      #ec4899;
+  --text:           #f3f4f6;
+  --text-muted:     #9ca3af;
+
+  /* Legacy aliases for backward compatibility */
+  --accent:         #ec4899;
+  --muted:          #9ca3af;
+
+  /* Gradient brand */
+  --gradient-brand: linear-gradient(135deg, #7c3aed, #ec4899);
+
+  /* Radii */
+  --radius-card: 14px;
+  --radius-btn:  12px;
+
+  /* Shadows / glows */
+  --shadow-soft:    0 8px 24px rgba(0, 0, 0, 0.4);
+  --glow-primary:   0 0 20px rgba(124, 58, 237, 0.35);
+  --glow-hover:     0 0 28px rgba(124, 58, 237, 0.55);
+
+  /* Glass */
+  --glass-bg:       rgba(255, 255, 255, 0.04);
+  --glass-border:   rgba(255, 255, 255, 0.08);
 }
