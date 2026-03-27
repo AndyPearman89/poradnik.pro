@@ -124,7 +124,4 @@ jobs:
           PROD_BASE_URL: ${{ secrets.PROD_BASE_URL }}
         run: |
           test -n "$PROD_BASE_URL"
-          curl -fsSL "$PROD_BASE_URL/wp-json/" >/tmp/wpjson.json
-          grep -q '"/poradnik/v1/ai/content/generate"\|"/peartree/v1/ai/content/generate"' /tmp/wpjson.json
-          grep -q '"/poradnik/v1/ai/image/generate"\|"/peartree/v1/ai/image/generate"' /tmp/wpjson.json
-          grep -q '"/poradnik/v1/seo/programmatic/build"\|"/peartree/v1/seo/programmatic/build"' /tmp/wpjson.json
+          bash tools/production-gate.sh --base-url "$PROD_BASE_URL" --require-ai-routes

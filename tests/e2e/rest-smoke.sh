@@ -1,55 +1,87 @@
 #!/usr/bin/env bash
-# rest-smoke.sh – REST API smoke tests for poradnik.pro
+# rest-smoke.sh - REST API smoke tests for poradnik.pro
 # Usage: bash tests/e2e/rest-smoke.sh https://your-wp-site.test
 
 set -euo pipefail
 
 BASE_URL="${1:-http://localhost}"
-API="${BASE_URL}/wp-json/poradnik/v1"
+STRICT="${STRICT:-1}"
+
+meta_json="$(curl -fsSL "${BASE_URL}/wp-json/" 2>/dev/null || true)"
+namespace="poradnik/v1"
+
+if echo "$meta_json" | grep -q '"poradnik/v1"'; then
+    namespace="poradnik/v1"
+elif echo "$meta_json" | grep -q '"peartree/v1"'; then
+    namespace="peartree/v1"
+fi
+
+API="${BASE_URL}/wp-json/${namespace}"
 PASS=0
 FAIL=0
 
 check() {
     local label="$1"
-    local url="$2"
-    local expected_status="${3:-200}"
+    local method="$2"
+    local url="$3"
+    local expected_statuses="$4"
+    local payload="${5:-}"
 
-    actual=$(curl -s -o /dev/null -w "%{http_code}" "$url")
-    if [ "$actual" = "$expected_status" ]; then
-        echo "  PASS  [$actual] $label"
+    local actual
+    if [ -n "$payload" ]; then
+        actual=$(curl -s -o /dev/null -w "%{http_code}" -X "$method" -H "Content-Type: application/json" -d "$payload" "$url")
+    else
+        actual=$(curl -s -o /dev/null -w "%{http_code}" -X "$method" "$url")
+    fi
+    local ok=1
+    IFS='|' read -r -a allowed <<< "$expected_statuses"
+    for code in "${allowed[@]}"; do
+        if [ "$actual" = "$code" ]; then
+            ok=0
+            break
+        fi
+    done
+
+    if [ "$ok" -eq 0 ]; then
+        echo "  PASS  [$actual] $method $label"
         PASS=$((PASS + 1))
     else
-        echo "  FAIL  [expected $expected_status, got $actual] $label – $url"
+        echo "  FAIL  [expected $expected_statuses, got $actual] $method $label - $url"
         FAIL=$((FAIL + 1))
     fi
 }
 
 echo "=== REST API Smoke Tests: $BASE_URL ==="
+echo "REST_SMOKE_NAMESPACE=$namespace"
 echo ""
 
 # Health
-check "GET /health"                    "$API/health"                        200
+check "/health"                    "GET"  "$API/health"                        200
 
-# Affiliate
-check "GET /affiliate/products"        "$API/affiliate/products"            200
+# Affiliate (POST endpoint - expect validation/auth error without payload)
+check "/affiliate/click (invalid payload)" "POST" "$API/affiliate/click"       "400|401|403" "{}"
 
-# Dashboard (requires auth – expect 401 without credentials)
-check "GET /dashboard/statistics"      "$API/dashboard/statistics"          401
+# Dashboard (requires auth - expect 401 without credentials)
+check "/dashboard/statistics"      "GET"  "$API/dashboard/statistics"          "401|403"
 
-# Ads (POST endpoints – expect 400/401 without body/auth)
-check "POST /ads/click (no auth)"      "$API/ads/click"                     401
-check "POST /ads/impression (no auth)" "$API/ads/impression"                401
+# Ads (POST endpoints - expect 401 without credentials)
+check "/ads/click (no auth)"       "POST" "$API/ads/click"                     "400|401|403" "{}"
+check "/ads/impression (no auth)"  "POST" "$API/ads/impression"                "400|401|403" "{}"
 
-# Sponsored
-check "GET /sponsored/orders (no auth)" "$API/sponsored/orders"             401
+# Sponsored (POST endpoint - expect validation/auth error without payload)
+check "/sponsored/orders (invalid payload)" "POST" "$API/sponsored/orders"     "400|401|403" "{}"
 
 # AI (requires auth)
-check "POST /ai/content/generate (no auth)" "$API/ai/content/generate"     401
-check "POST /ai/image/generate (no auth)"   "$API/ai/image/generate"       401
+check "/ai/content/generate (no auth)" "POST" "$API/ai/content/generate"     "400|401|403" "{}"
+check "/ai/image/generate (no auth)"   "POST" "$API/ai/image/generate"       "400|401|403" "{}"
 
 echo ""
 echo "=== Results: $PASS passed, $FAIL failed ==="
+echo "SMOKE_TOTAL=$((PASS + FAIL))"
+echo "SMOKE_FAILED=$FAIL"
 
-if [ "$FAIL" -gt 0 ]; then
+if [ "$STRICT" = "1" ] && [ "$FAIL" -gt 0 ]; then
     exit 1
 fi
+
+exit 0

@@ -382,3 +382,64 @@ W praktyce:
 - checklisty pozostaja zrodlem statusu,
 - ten dokument jest nadrzednym planem wykonawczym FULL FLOW.
 
+## 13. E2E Production Protocol (krok po kroku)
+
+Cel:
+- wykonac powtarzalny gate produkcyjny end-to-end i miec jednoznaczny wynik PASS/FAIL.
+
+Krok 1: Build lokalny/CI
+- uruchom:
+	- `find backend -type f -name '*.php' -print0 | xargs -0 -n1 php -l`
+	- `php tests/e2e/validate-structure.php`
+- warunek przejscia:
+	- brak bledow lint,
+	- validate-structure PASS.
+
+Krok 2: REST smoke (kontrakty)
+- uruchom:
+	- `bash tests/e2e/rest-smoke.sh https://poradnik.pro`
+- warunek przejscia:
+	- `SMOKE_FAILED=0`.
+
+Krok 3: AI/SEO smoke
+- uruchom:
+	- `bash tools/p1-ai-content-engine-smoke.sh --base-url https://poradnik.pro --strict`
+- warunek przejscia:
+	- `AI_SMOKE_FAILED=0`,
+	- brak krytycznych skipow tras przy polityce require.
+
+Krok 4: Production gate (agregat)
+- uruchom:
+	- `bash tools/production-gate.sh --base-url https://poradnik.pro --require-ai-routes`
+- warunek przejscia:
+	- `PRODUCTION_GATE=PASS`.
+
+Krok 5: Deploy gate w CI/CD
+- workflow:
+	- `.github/workflows/deploy.yml`
+- walidacja po deployu:
+	- `bash tools/production-gate.sh --base-url "$PROD_BASE_URL" --require-ai-routes`
+
+Krok 6: Evidence i log
+- zapisuj:
+	- run ID z GitHub Actions,
+	- markery: `SMOKE_FAILED`, `AI_SMOKE_FAILED`, `PRODUCTION_GATE`,
+	- timestamp wykonania.
+
+## 14. Status wykonania na dzis (2026-03-27)
+
+Zrealizowane:
+- [x] Bash production gate uruchamiany lokalnie (`tools/production-gate.sh`).
+- [x] Bash AI/SEO smoke uruchamiany lokalnie (`tools/p1-ai-content-engine-smoke.sh`).
+- [x] REST smoke dopasowany do aktualnych kontraktow endpointow (`tests/e2e/rest-smoke.sh`).
+- [x] End-to-end local against production: `PRODUCTION_GATE=PASS`.
+
+Otwarte:
+- [ ] Deploy Production w GitHub Actions nadal blokowany przez brak sekretow SSH w repo settings.
+
+Ostatni wynik gate (lokalnie, produkcja):
+- `SMOKE_FAILED=0`
+- `AI_SMOKE_FAILED=0`
+- `GATE_AI_SKIPPED_ROUTES=0`
+- `PRODUCTION_GATE=PASS`
+
