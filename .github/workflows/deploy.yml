@@ -68,7 +68,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify deploy secrets
+        id: verify
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          if [ -z "$SSH_KEY" ] || [ -z "$SSH_HOST" ]; then
+            echo "::warning::Deployment secrets (SSH_KEY, SSH_HOST) are not configured. Skipping deploy steps."
+            echo "secrets_ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "secrets_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Configure SSH key
+        if: steps.verify.outputs.secrets_ok == 'true'
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
@@ -81,6 +95,7 @@ jobs:
           ssh-keyscan -p "$PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
 
       - name: Sync repository to server
+        if: steps.verify.outputs.secrets_ok == 'true'
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
@@ -93,6 +108,7 @@ jobs:
             ./ "$SSH_USER@$SSH_HOST:$DEPLOY_SOURCE_DIR"
 
       - name: Run remote deploy script
+        if: steps.verify.outputs.secrets_ok == 'true'
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
@@ -120,6 +136,7 @@ jobs:
              ./deploy.sh"
 
       - name: Validate production gate
+        if: steps.verify.outputs.secrets_ok == 'true'
         env:
           PROD_BASE_URL: ${{ secrets.PROD_BASE_URL }}
         run: |
