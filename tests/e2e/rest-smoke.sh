@@ -17,10 +17,10 @@ check() {
     actual=$(curl -s -o /dev/null -w "%{http_code}" "$url")
     if [ "$actual" = "$expected_status" ]; then
         echo "  PASS  [$actual] $label"
-        ((PASS++))
+        PASS=$((PASS + 1))
     else
         echo "  FAIL  [expected $expected_status, got $actual] $label – $url"
-        ((FAIL++))
+        FAIL=$((FAIL + 1))
     fi
 }
 

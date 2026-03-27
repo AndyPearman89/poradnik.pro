@@ -1,17 +1,11 @@
 ﻿# generatepress-child-poradnik
 
-## Agenty Copilot (workspace)
-
-Przewodnik agentów multi-repo: `../.github/agents/README.md`.
-
 WordPress child theme dla **poradnik.pro** jako niezaleznej platformy zorientowanej na Content Engine 3.0, Q&A, marketplace specjalistow, afiliacje i lead generation.
-
-Zakres referencyjny produktu: `../../PORADNIK_PRO_MASTER_PROMPT_CONTENT_ENGINE_3_0.md`
 
 ## Stack
 
 - **Parent theme**: [GeneratePress](https://generatepress.com/) (wymagany)
-- **Platform**: standalone WordPress + REST API `poradnik/v1`
+- **Platform**: standalone WordPress + REST API `poradnik/v1` oraz `peartree/v1`
 - **PHP**: 8.1+
 - **WordPress**: 6.4+
 
@@ -83,8 +77,18 @@ wp cache flush --allow-root
 ## Wymagania runtime
 
 - Plugin: `peartree-core` (aktywny)
-- REST API: `peartree/v1` dostępne na `/wp-json/peartree/v1/`
+- REST API: endpointy dostępne pod `/wp-json/poradnik/v1/` i `/wp-json/peartree/v1/`
 - Permalinks: ustawione na `/%postname%/`
+
+## Lokalna walidacja (build)
+
+W tym repo build jest realizowany jako zestaw walidacji (zgodnie z CI):
+
+```bash
+# lint PHP backendu + walidacja struktury repo
+find backend -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+php tests/e2e/validate-structure.php
+```
 
 ## Wersjonowanie
 
@@ -92,11 +96,11 @@ Format: `MAJOR.MINOR.PATCH` w `style.css`  pole `Version:`
 
 | Tag | Opis |
 |-----|------|
-| v1.0.0 | Init  full theme scaffold, 137 plików |
+| v2.0.0 | Aktualna wersja motywu (zgodna z `theme/style.css`) |
 
 ## Produkcja
 
 - **URL**: https://poradnik.pro
 - **Server**: `164.92.229.60`
 - **WP path**: `/var/www/html`
-- **Deploy script**: [`scripts/release/deploy-generatepress-child-poradnik.ps1`](https://github.com/AndyPearman89/PearTree_core) w PearTree_core repo
+- **Deploy script (repo)**: `deploy.sh`
