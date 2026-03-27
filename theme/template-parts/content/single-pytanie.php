@@ -25,7 +25,7 @@ $cat_label    = ! empty( $category ) && ! is_wp_error( $category ) ? esc_html( $
             <?php the_title( '<h1 class="qa-title" itemprop="name">', '</h1>' ); ?>
             <div class="qa-meta">
                 <?php if ( $answer_count ) : ?>
-                    <span><?php printf( esc_html( _n( '%d odpowiedź', '%d odpowiedzi', $answer_count, 'generatepress-child-poradnik' ) ), $answer_count ); ?></span>
+                    <span><?php printf( _n( '%d odpowiedź', '%d odpowiedzi', $answer_count, 'generatepress-child-poradnik' ), absint( $answer_count ) ); ?></span>
                     <span aria-hidden="true">&middot;</span>
                 <?php endif; ?>
                 <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>

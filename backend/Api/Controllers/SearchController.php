@@ -35,7 +35,7 @@ final class SearchController
                     'required'          => true,
                     'sanitize_callback' => 'sanitize_text_field',
                     'validate_callback' => static function (string $value): bool {
-                        return strlen(trim($value)) >= 2;
+                        return mb_strlen(trim($value), 'UTF-8') >= 2;
                     },
                 ],
             ],

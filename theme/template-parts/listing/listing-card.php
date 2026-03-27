@@ -34,7 +34,11 @@ $badge = isset( $badge_map[ $plan ] ) ? $badge_map[ $plan ] : null;
         <p class="listing-rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
             <meta itemprop="ratingValue" content="<?php echo esc_attr( $rating ); ?>">
             <meta itemprop="reviewCount" content="<?php echo esc_attr( $review_cnt ); ?>">
-            <?php echo str_repeat( '⭐', min( 5, (int) round( $rating ) ) ); ?>
+            <?php
+            $star_count = min( 5, (int) round( $rating ) );
+            echo '<span aria-hidden="true">' . str_repeat( '⭐', $star_count ) . '</span>';
+            ?>
+            <span class="sr-only"><?php printf( esc_html__( 'Ocena %s na 5', 'generatepress-child-poradnik' ), esc_html( number_format( $rating, 1 ) ) ); ?></span>
             <?php echo esc_html( number_format( $rating, 1 ) ); ?>
             <?php if ( $review_cnt ) : ?>
                 <span>(<?php echo esc_html( $review_cnt ); ?> <?php esc_html_e( 'opinii', 'generatepress-child-poradnik' ); ?>)</span>

@@ -25,17 +25,32 @@
     };
   }
 
+  var ALLOWED_BADGE_CLASSES = {
+    'premium_plus': 'badge-premium-plus',
+    'premium':      'badge-premium',
+    'verified':     'badge-verified',
+    'ai':           'badge-ai',
+    'expert':       'badge-expert',
+    'user':         'badge-user',
+  };
+
   /**
-   * Escape HTML entities
-   * @param {string} str
-   * @returns {string}
+   * Validate URL — allow only http/https/relative paths.
+   * @param {string} url
+   * @returns {string} Safe URL or '#' if invalid.
    */
-  function esc(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+  function safeUrl(url) {
+    if (!url) return '#';
+    try {
+      var parsed = new URL(url, window.location.origin);
+      if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+        return parsed.href;
+      }
+      return '#';
+    } catch (e) {
+      // Relative path — allow if it starts with /
+      return (typeof url === 'string' && /^\/[^/]/.test(url)) ? url : '#';
+    }
   }
 
   /**
@@ -46,11 +61,27 @@
   function buildItem(item) {
     var a = document.createElement('a');
     a.className  = 'search-result-item';
-    a.href       = esc(item.url || '#');
-    a.innerHTML  =
-      '<span class="search-result-title">' + esc(item.title) + '</span>' +
-      (item.badge ? ' <span class="badge badge-' + esc(item.badge) + '">' + esc(item.badge) + '</span>' : '') +
-      (item.meta  ? '<span class="search-result-meta">' + esc(item.meta) + '</span>'  : '');
+    a.href       = safeUrl(item.url);
+
+    var titleSpan = document.createElement('span');
+    titleSpan.className   = 'search-result-title';
+    titleSpan.textContent = item.title || '';
+    a.appendChild(titleSpan);
+
+    if (item.badge && Object.prototype.hasOwnProperty.call(ALLOWED_BADGE_CLASSES, item.badge)) {
+      var badgeSpan = document.createElement('span');
+      badgeSpan.className   = 'badge ' + ALLOWED_BADGE_CLASSES[item.badge];
+      badgeSpan.textContent = item.badge;
+      a.appendChild(badgeSpan);
+    }
+
+    if (item.meta) {
+      var metaSpan = document.createElement('span');
+      metaSpan.className   = 'search-result-meta';
+      metaSpan.textContent = item.meta;
+      a.appendChild(metaSpan);
+    }
+
     return a;
   }
 
