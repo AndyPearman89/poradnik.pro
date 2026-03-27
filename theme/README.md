@@ -76,17 +76,19 @@ wp cache flush --allow-root
 
 ## Wymagania runtime
 
-- Plugin: `peartree-core` (aktywny)
+- MU Plugin: `platform-core` (backend) zaladowany przez `poradnik-platform-loader.php`
 - REST API: endpointy dostępne pod `/wp-json/poradnik/v1/` i `/wp-json/peartree/v1/`
 - Permalinks: ustawione na `/%postname%/`
 
 ## Lokalna walidacja (build)
 
-W tym repo build jest realizowany jako zestaw walidacji (zgodnie z CI):
+Walidacja zgodna z pipeline CI (`.github/workflows/deploy.yml`):
 
 ```bash
-# lint PHP backendu + walidacja struktury repo
+# Lint PHP backendu (wszystkie pliki *.php)
 find backend -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+
+# Walidacja struktury repo (required files/dirs)
 php tests/e2e/validate-structure.php
 ```
 
