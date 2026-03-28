@@ -3,6 +3,19 @@
 Data: 2026-03-13  
 Owner: DevOps / Platform Team
 
+## Status operacyjny (aktualizacja: 2026-03-18)
+- Decyzja produkcyjna: **PENDING (NO-GO do czasu zamknięcia blokerów operacyjnych).**
+- Blokery operacyjne:
+  - [ ] Potwierdzenie backup + test restore wykonane na środowisku produkcyjnym (nie tylko local).
+  - [ ] Formalne domknięcie raportów P1-01..P1-06 ze statusem końcowym `DONE`.
+  - [ ] Uzupełnienie D+1 baseline wolumenów (`affiliate_click`, `ad_click`, `ad_impression`, CTR).
+- Potwierdzone dowody techniczne (na dziś):
+  - [x] `P1-03` sponsored smoke — PASS.
+  - [x] `P1-04` REST auth — PASS.
+  - [x] `P1-05` payload validation — PASS.
+  - [x] `P1-06` E2E (sponsored/ad campaign/affiliate tracking) — PASS.
+  - [x] Smoke gate komenda produkcyjna zdefiniowana (`tools/rest-smoke.ps1`, `SMOKE_FAILED=0`).
+
 ## Artefakty powiązane
 - [Runbook + Rollback](PORADNIK-PRO-P1-RUNBOOK-ROLLBACK-2026-03-13.md)
 - [Matryca ryzyk go-live](PORADNIK-PRO-GOLIVE-RISK-MATRIX-2026-03.md) — progi alertów, sondy, eskalacja
@@ -11,7 +24,7 @@ Owner: DevOps / Platform Team
 ## A. Przed wdrożeniem
 - [ ] Backup DB wykonany i zweryfikowany (snapshot + test restore metadata).
 - [ ] Backup plików aplikacji wykonany (`mu-plugins`, `themes`, konfiguracje).
-- [ ] Potwierdzone PASS dla P1-01..P1-06.
+- [ ] Potwierdzone PASS dla P1-01..P1-06 oraz status raportów ustawiony na `DONE`.
 - [ ] Uruchomiony smoke gate pre-deploy:
   - [ ] `PowerShell -ExecutionPolicy Bypass -File .\tools\rest-smoke.ps1 -BaseUrl https://poradnik.pro -Strict`
   - [ ] Wynik: `SMOKE_FAILED=0`
@@ -37,7 +50,7 @@ Owner: DevOps / Platform Team
 - [ ] Monitoring 5xx/4xx i błędów PHP aktywny.
 - [ ] Monitoring eventów monetyzacyjnych aktywny (`affiliate_click`, `ad_click`, `ad_impression`).
 - [ ] Brak anomalii krytycznych revenue/CTR.
-- [ ] Raport D+1 przygotowany i zatwierdzony.
+- [ ] Raport D+1 przygotowany i zatwierdzony (w tym baseline godzinowy i CTR).
 
 ## D. Stabilizacja (7 dni)
 - [ ] Raporty D+2..D+7 dostępne.

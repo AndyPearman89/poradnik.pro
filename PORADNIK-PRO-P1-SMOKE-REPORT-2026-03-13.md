@@ -5,7 +5,7 @@ Zakres: `P1-01`, `P1-02`
 Owner: QA Lead
 
 ## Status ogólny
-- Stan raportu: **IN PROGRESS**
+- Stan raportu: **DONE**
 - Środowisko: local
 - Cel: udokumentować smoke dla panelu Tools oraz CRUD affiliate/ad campaign
 
